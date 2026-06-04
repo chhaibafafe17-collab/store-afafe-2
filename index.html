@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H&A — Lingerie de Luxe au Maroc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <div class="announce-slider">
+      <span data-fr="🚚 Livraison partout au Maroc" data-en="🚚 Delivery across Morocco">🚚 Livraison partout au Maroc</span>
+      <span data-fr="Retours acceptés sous 7 jours" data-en="Returns accepted within 7 days">Retours acceptés sous 7 jours</span>
+      <span data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</span>
+      <span data-fr="-10% sur votre 1ère commande · code BIENVENUE" data-en="-10% on your 1st order · code WELCOME">-10% sur votre 1ère commande · code BIENVENUE</span>
+      <span data-fr="🚚 Livraison partout au Maroc" data-en="🚚 Delivery across Morocco">🚚 Livraison partout au Maroc</span>
+      <span data-fr="Retours acceptés sous 7 jours" data-en="Returns accepted within 7 days">Retours acceptés sous 7 jours</span>
+      <span data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</span>
+      <span data-fr="-10% sur votre 1ère commande · code BIENVENUE" data-en="-10% on your 1st order · code WELCOME">-10% sur votre 1ère commande · code BIENVENUE</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-top">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <a href="index.html" class="logo logo-center">
+H<span>&amp;</span>A
+      </a>
+
+      <div class="header-icons">
+        <div class="lang-toggle">
+          <span id="langFr" class="lang-active">FR</span>
+          <span id="langEn">EN</span>
+        </div>
+        <button class="icon-btn" id="searchToggle" aria-label="Rechercher">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" id="favToggle" aria-label="Favoris" style="position:relative">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count" id="wishlistCount" style="display:none">0</span>
+        </button>
+        <button class="icon-btn cart-btn" id="cartBtn" aria-label="Panier">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar" id="searchBar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;color:#999"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Rechercher : soutien-gorge, body, mariée, dentelle…" id="searchInput" autocomplete="off" data-fr-ph="Rechercher : soutien-gorge, body, mariée, dentelle…" data-en-ph="Search: bra, bodysuit, bridal, lace…" />
+      <button class="icon-btn" id="searchClose">✕</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </header>
+
+  <!-- COLLECTIONS NAV -->
+  <nav class="collections-nav" id="collectionsNav">
+    <ul class="collections-list">
+      <li><a href="category?cat=nouveaux-arrivages" class="c-link c-new" data-fr="✦ Nouveautés" data-en="✦ New In">✦ Nouveautés</a></li>
+      <li><a href="category?cat=sets" class="c-link" data-fr="Sets &amp; Parures" data-en="Sets &amp; Bras">Sets &amp; Parures</a></li>
+      <li><a href="category?cat=soutiens-gorge" class="c-link" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a></li>
+      <li><a href="category?cat=culottes" class="c-link" data-fr="Culottes" data-en="Underwear">Culottes</a></li>
+      <li><a href="category?cat=bodies" class="c-link" data-fr="Bodies" data-en="Bodysuits">Bodies</a></li>
+      <li><a href="category?cat=robes" class="c-link" data-fr="Robes" data-en="Robes">Robes</a></li>
+      <li><a href="category?cat=nuit" class="c-link" data-fr="Nuit &amp; Lounge" data-en="Nightwear">Nuit &amp; Lounge</a></li>
+      <li><a href="category?cat=bridal" class="c-link c-bridal" data-fr="Mariée" data-en="Bridal">Mariée</a></li>
+      <li><a href="category?cat=maillots" class="c-link" data-fr="Maillots" data-en="Swimwear">Maillots</a></li>
+      <li><a href="category?cat=menstruelle" class="c-link" data-fr="Menstruelle" data-en="Period Care">Menstruelle</a></li>
+      <li><a href="category?cat=mamans" class="c-link" data-fr="Mamans" data-en="Nursing">Mamans</a></li>
+      <li><a href="category?cat=accessoires" class="c-link" data-fr="Accessoires" data-en="Accessories">Accessoires</a></li>
+      <li><a href="category?cat=soldes" class="c-link c-sale" data-fr="Soldes" data-en="Sale">Soldes</a></li>
+    </ul>
+  </nav>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="logo">
+H<span>&amp;</span>A
+      </a>
+      <button class="icon-btn" id="mobileMenuClose">✕</button>
+    </div>
+    <nav class="mobile-nav">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;font-weight:500" data-fr="🏠 Accueil" data-en="🏠 Home">🏠 Accueil</a>
+      <a href="category?cat=nouveaux-arrivages" class="mn-new" data-fr="✦ Nouveaux Arrivages" data-en="✦ New In">✦ Nouveaux Arrivages</a>
+      <div class="mn-sep" data-fr="Lingerie" data-en="Lingerie">Lingerie</div>
+      <a href="category?cat=sets" data-fr="Sets &amp; Parures" data-en="Sets &amp; Bras">Sets &amp; Parures</a>
+      <a href="category?cat=soutiens-gorge" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a>
+      <a href="category?cat=culottes" data-fr="Culottes &amp; Shorties" data-en="Underwear">Culottes &amp; Shorties</a>
+      <a href="category?cat=bodies" data-fr="Bodies" data-en="Bodysuits">Bodies</a>
+      <a href="category?cat=robes" data-fr="Robes Lingerie" data-en="Robes">Robes Lingerie</a>
+      <div class="mn-sep" data-fr="Collections" data-en="Collections">Collections</div>
+      <a href="category?cat=nuit" data-fr="Nuit &amp; Loungewear" data-en="Nightwear">Nuit &amp; Loungewear</a>
+      <a href="category?cat=bridal" data-fr="Mariée &amp; Bridal" data-en="Bridal">Mariée &amp; Bridal</a>
+      <a href="category?cat=maillots" data-fr="Maillots de Bain" data-en="Swimwear">Maillots de Bain</a>
+      <a href="category?cat=menstruelle" data-fr="Lingerie Menstruelle" data-en="Period Care">Lingerie Menstruelle</a>
+      <a href="category?cat=mamans" data-fr="Espace Mamans" data-en="Nursing &amp; Maternity">Espace Mamans</a>
+      <a href="category?cat=accessoires" data-fr="Accessoires" data-en="Accessories">Accessoires</a>
+      <a href="category?cat=soldes" class="mn-sale" data-fr="Soldes" data-en="Sale">Soldes</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <p data-fr="📦 Livraison partout au Maroc" data-en="📦 Delivery across Morocco">📦 Livraison partout au Maroc</p>
+      <p>📞 <span data-phone>+212 6 00 00 00 00</span></p>
+      <p>✉️ <span data-email>contact@ha-lingerie.ma</span></p>
+    </div>
+  </div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- DELIVERY STRIP -->
+  <div class="delivery-strip" data-fr="📦 Livraison gratuite partout au Maroc · Délai 2–4 jours · Retours sous 7 jours" data-en="📦 Free delivery across Morocco · 2–4 days · Returns within 7 days">
+    📦 Livraison gratuite partout au Maroc · Délai 2–4 jours · Retours sous 7 jours
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video autoplay muted playsinline loop class="hero-video" id="heroVideo">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <img id="heroImg" src="" alt="Hero H&A Lingerie"
+      style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">H&amp;A Lingerie</span>
+      <h1 class="hero-title" data-fr="Lingerie&#10;100% Marocaine" data-en="100% Moroccan&#10;Lingerie">Lingerie<br/>100% Marocaine</h1>
+      <div class="delivery-badge" data-fr="📦 Livraison partout au Maroc" data-en="📦 Delivery across Morocco">📦 Livraison partout au Maroc</div>
+      <br/><br/>
+      <a href="category?cat=nouveaux-arrivages" class="btn btn-light" data-fr="Découvrir" data-en="Discover">Découvrir</a>
+    </div>
+  </section>
+
+
+  <!-- NEW ARRIVALS -->
+  <section class="section" id="arrivals">
+    <div class="section-header">
+      <h2 class="section-title" data-fr="Nouveaux Arrivages" data-en="New Arrivals">Nouveaux Arrivages</h2>
+      <a href="category?cat=nouveaux-arrivages" class="section-link" data-fr="Tout voir →" data-en="View all →">Tout voir →</a>
+    </div>
+    <div class="product-grid" id="arrivalsGrid">
+
+      <div class="product-card" data-id="1" data-name="Soutien-gorge Dentelle Éclat" data-price="349" data-category="Soutiens-gorge">
+        <a href="product?id=1" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=600&q=80" alt="Soutien-gorge Éclat" loading="lazy" />
+          <span class="product-badge">New</span>
+          <button class="fav-btn" data-id="1" data-name="Soutien-gorge Dentelle Éclat" data-price="349" data-img="photo-1571513722275-4b41940f54b8" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</p>
+          <h3><a href="product?id=1" data-fr="Soutien-gorge Dentelle Éclat" data-en="Lace Éclat Bra">Soutien-gorge Dentelle Éclat</a></h3>
+          <div class="product-bottom">
+            <p class="product-price">349 MAD</p>
+            <button class="quick-add" data-id="1" data-name="Soutien-gorge Dentelle Éclat" data-price="349" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="2" data-name="Culotte Soie Noire" data-price="199" data-category="Culottes">
+        <a href="product?id=2" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600&q=80" alt="Culotte Soie Noire" loading="lazy" />
+          <button class="fav-btn" data-id="2" data-name="Culotte Soie Noire" data-price="199" data-img="photo-1554568218-0f1715e72254" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Culottes" data-en="Underwear">Culottes</p>
+          <h3><a href="product?id=2" data-fr="Culotte Soie Noire" data-en="Black Silk Panty">Culotte Soie Noire</a></h3>
+          <div class="product-bottom">
+            <p class="product-price">199 MAD</p>
+            <button class="quick-add" data-id="2" data-name="Culotte Soie Noire" data-price="199" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="3" data-name="Body Dentelle Ivoire" data-price="520" data-category="Bodies">
+        <a href="product?id=3" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=600&q=80" alt="Body Dentelle" loading="lazy" />
+          <span class="product-badge badge-sale">-15%</span>
+          <button class="fav-btn" data-id="3" data-name="Body Dentelle Ivoire" data-price="520" data-img="photo-1485230895905-ec40ba36b9bc" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Bodies" data-en="Bodysuits">Bodies</p>
+          <h3><a href="product?id=3" data-fr="Body Dentelle Ivoire" data-en="Ivory Lace Bodysuit">Body Dentelle Ivoire</a></h3>
+          <div class="product-bottom">
+            <p class="product-price">520 MAD <s style="color:#bbb;font-size:12px">612 MAD</s></p>
+            <button class="quick-add" data-id="3" data-name="Body Dentelle Ivoire" data-price="520" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="4" data-name="Set Bridal Rose Poudré" data-price="680" data-category="Mariée">
+        <a href="product?id=4" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=600&q=80" alt="Set Bridal" loading="lazy" />
+          <span class="product-badge badge-bridal">Bridal</span>
+          <button class="fav-btn" data-id="4" data-name="Set Bridal Rose Poudré" data-price="680" data-img="photo-1585487000160-6ebcfceb0d03" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Mariée" data-en="Bridal">Mariée</p>
+          <h3><a href="product?id=4" data-fr="Set Bridal Rose Poudré" data-en="Dusty Rose Bridal Set">Set Bridal Rose Poudré</a></h3>
+          <div class="product-bottom">
+            <p class="product-price">680 MAD</p>
+            <button class="quick-add" data-id="4" data-name="Set Bridal Rose Poudré" data-price="680" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDITORIAL CATEGORIES -->
+  <section class="editorial">
+    <div class="editorial-grid">
+      <div class="editorial-item">
+        <img id="haImgEditorial" src="01.jpeg" alt="Lingerie" />
+        <div class="editorial-caption">
+          <h3>Lingerie</h3>
+          <p>Dentelles, soies &amp; satin</p>
+          <a href="category?cat=lingerie" class="btn btn-dark" data-fr="Voir la collection" data-en="View collection">Voir la collection</a>
+        </div>
+      </div>
+      <div class="editorial-col">
+        <div class="editorial-item editorial-sm">
+          <img src="marieJPG.JPG" alt="Mariée" style="object-fit:cover;width:100%;height:100%" />
+          <div class="editorial-caption">
+            <h3 data-fr="Mariée" data-en="Bridal">Mariée</h3>
+            <a href="category?cat=bridal" class="btn btn-dark" data-fr="Découvrir" data-en="Discover">Découvrir</a>
+          </div>
+        </div>
+        <div class="editorial-item editorial-sm">
+          <img src="night%20lounge%20wear.JPG" alt="Nuit & Loungewear" style="object-fit:cover;width:100%;height:100%" />
+          <div class="editorial-caption">
+            <h3 data-fr="Nuit &amp; Loungewear" data-en="Night &amp; Loungewear">Nuit &amp; Loungewear</h3>
+            <a href="category?cat=nuit" class="btn btn-dark" data-fr="Découvrir" data-en="Discover">Découvrir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SWIMWEAR BANNER -->
+  <section class="full-banner">
+    <img id="haImgSwimwear" src="IMG_5036.JPG" alt="Maillots de bain" />
+    <div class="full-banner-overlay"></div>
+    <div class="full-banner-content">
+      <span class="hero-eyebrow">H&amp;A Maillots</span>
+      <h2 data-fr="Maillots de Bain" data-en="Swimwear">Maillots de Bain</h2>
+      <p data-fr="Découvrez notre collection · Livraison partout au Maroc" data-en="Discover our collection · Delivery across Morocco">Découvrez notre collection · Livraison partout au Maroc</p>
+      <a href="category?cat=maillots" class="btn btn-light" data-fr="Découvrir" data-en="Discover">Découvrir</a>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title" data-fr="Best-Sellers" data-en="Best Sellers">Best-Sellers</h2>
+      <a href="category?cat=lingerie" class="section-link" data-fr="Tout voir →" data-en="View all →">Tout voir →</a>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card" data-id="5" data-name="Soutien-gorge Push-Up Noir" data-price="420">
+        <a href="product?id=5" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=600&q=80" alt="Push-Up" loading="lazy" />
+          <button class="fav-btn" data-id="5" data-name="Soutien-gorge Push-Up Noir" data-price="420" data-img="photo-1525507119028-ed4c629a60a3" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</p>
+          <h3><a href="product?id=5" data-fr="Soutien-gorge Push-Up Noir" data-en="Black Push-Up Bra">Soutien-gorge Push-Up Noir</a></h3>
+          <div class="stars-small">★★★★★ <span>(48)</span></div>
+          <div class="product-bottom">
+            <p class="product-price">420 MAD</p>
+            <button class="quick-add" data-id="5" data-name="Soutien-gorge Push-Up Noir" data-price="420" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="6" data-name="Kimono Satin Doré" data-price="780">
+        <a href="product?id=6" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=600&q=80" alt="Kimono Satin" loading="lazy" />
+          <button class="fav-btn" data-id="6" data-name="Kimono Satin Doré" data-price="780" data-img="photo-1512353087810-25dfcd100962" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Nuit" data-en="Nightwear">Nuit</p>
+          <h3><a href="product?id=6" data-fr="Kimono Satin Doré" data-en="Golden Satin Kimono">Kimono Satin Doré</a></h3>
+          <div class="stars-small">★★★★★ <span>(32)</span></div>
+          <div class="product-bottom">
+            <p class="product-price">780 MAD</p>
+            <button class="quick-add" data-id="6" data-name="Kimono Satin Doré" data-price="780" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="7" data-name="Shorty Dentelle Nude" data-price="240">
+        <a href="product?id=7" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80" alt="Shorty Dentelle" loading="lazy" />
+          <button class="fav-btn" data-id="7" data-name="Shorty Dentelle Nude" data-price="240" data-img="photo-1490481651871-ab68de25d43d" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Culottes" data-en="Underwear">Culottes</p>
+          <h3><a href="product?id=7" data-fr="Shorty Dentelle Nude" data-en="Nude Lace Shorty">Shorty Dentelle Nude</a></h3>
+          <div class="stars-small">★★★★☆ <span>(21)</span></div>
+          <div class="product-bottom">
+            <p class="product-price">240 MAD</p>
+            <button class="quick-add" data-id="7" data-name="Shorty Dentelle Nude" data-price="240" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="8" data-name="Bikini Dos Nu Bohème" data-price="580">
+        <a href="product?id=8" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1570152264771-4cd73e33c52b?w=600&q=80" alt="Bikini" loading="lazy" />
+          <button class="fav-btn" data-id="8" data-name="Bikini Dos Nu Bohème" data-price="580" data-img="photo-1570152264771-4cd73e33c52b" aria-label="Favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat" data-fr="Maillots de Bain" data-en="Swimwear">Maillots de Bain</p>
+          <h3><a href="product?id=8" data-fr="Bikini Dos Nu Bohème" data-en="Bohème Open-Back Bikini">Bikini Dos Nu Bohème</a></h3>
+          <div class="stars-small">★★★★★ <span>(57)</span></div>
+          <div class="product-bottom">
+            <p class="product-price">580 MAD</p>
+            <button class="quick-add" data-id="8" data-name="Bikini Dos Nu Bohème" data-price="580" data-fr="+ Panier" data-en="+ Cart">+ Panier</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BRAND STORY -->
+  <section class="brand-story">
+    <div class="brand-story-img">
+      <img id="haImgBrand" src="femme%20cout.JPG" alt="Notre histoire" style="object-fit:cover;width:100%;height:100%" />
+    </div>
+    <div class="brand-story-text">
+      <span class="eyebrow" data-fr="Notre Histoire" data-en="Our Story">Notre Histoire</span>
+      <h2 data-fr="H&amp;A, née à Agadir" data-en="H&amp;A, born in Agadir">H&amp;A, née à Agadir</h2>
+      <p data-fr="H&amp;A est née d'une passion pour la féminité et l'élégance. Fondée à Agadir, notre marque célèbre chaque femme dans toute sa beauté — à travers des pièces de lingerie soigneusement confectionnées, alliant dentelles raffinées, soies douces et coupes sculptantes." data-en="H&amp;A was born from a passion for femininity and elegance. Founded in Agadir, our brand celebrates every woman in all her beauty — through carefully crafted lingerie pieces combining refined lace, soft silk and sculpting cuts.">
+        H&amp;A est née d'une passion pour la féminité et l'élégance. Fondée à Agadir, notre marque célèbre chaque femme dans toute sa beauté — à travers des pièces de lingerie soigneusement confectionnées, alliant dentelles raffinées, soies douces et coupes sculptantes.
+      </p>
+      <p data-fr="Chaque collection est une ode à la femme marocaine moderne : libre, élégante, et épanouie." data-en="Each collection is an ode to the modern Moroccan woman: free, elegant, and fulfilled.">
+        Chaque collection est une ode à la femme marocaine moderne : libre, élégante, et épanouie.
+      </p>
+      <div class="story-stats">
+        <div><strong>+2 000</strong><span data-fr="Clientes satisfaites" data-en="Happy customers">Clientes satisfaites</span></div>
+        <div><strong>12</strong><span data-fr="Collections" data-en="Collections">Collections</span></div>
+        <div><strong>100%</strong><span data-fr="Qualité garantie" data-en="Quality guaranteed">Qualité garantie</span></div>
+      </div>
+      <p class="delivery-all-maroc" data-fr="📦 Livraison gratuite partout au Maroc dès 500 MAD" data-en="📦 Free delivery across Morocco from 500 MAD">📦 Livraison gratuite partout au Maroc dès 500 MAD</p>
+      <a href="category?cat=collections" class="btn btn-outline" style="margin-top:16px" data-fr="Voir nos collections" data-en="View our collections">Voir nos collections</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <h2 class="section-title centered" data-fr="Ce qu'elles en disent" data-en="What they say">Ce qu'elles en disent</h2>
+    <div class="reviews-summary">
+      <div class="rating-big">4.9</div>
+      <div class="rating-stars-big">★★★★★</div>
+      <p class="fr-only">Basé sur <strong>247</strong> avis vérifiés · Livraison dans toutes les villes du Maroc</p>
+      <p class="en-only">Based on <strong>247</strong> verified reviews · Delivery to all cities in Morocco</p>
+    </div>
+    <div class="testimonials-wrap">
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">NB</div>
+            <div><strong>Nadia B.</strong><span>Casablanca</span></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"La qualité est exceptionnelle. La dentelle est délicate et le maintien est parfait. Je commande depuis Casablanca et la livraison arrive en 2 jours — impeccable !"</p>
+          <span class="t-date">Mai 2026</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">SR</div>
+            <div><strong>Salma R.</strong><span>Marrakech</span></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"J'ai acheté le set bridal pour mon mariage et tout le monde était sous le charme. L'emballage cadeau est magnifique, on se sent vraiment chouchoutée."</p>
+          <span class="t-date">Avril 2026</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">FZ</div>
+            <div><strong>Fatima Z.</strong><span>Rabat</span></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"Enfin une marque marocaine qui comprend vraiment la femme moderne. Des coupes flatteuses, des matières nobles. H&amp;A c'est ma nouvelle addiction !"</p>
+          <span class="t-date">Avril 2026</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">IM</div>
+            <div><strong>Ines M.</strong><span>Agadir</span></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"Le kimono en satin est divin. Je l'ai porté lors de ma lune de miel et je me suis sentie une vraie déesse. La matière est douce comme un nuage, merci H&amp;A !"</p>
+          <span class="t-date">Mars 2026</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">HA</div>
+            <div><strong>Houria A.</strong><span>Fès</span></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"Le soutien-gorge push-up est incroyable ! Un maintien parfait toute la journée sans aucune gêne. J'en ai commandé 3 en différentes couleurs tellement j'adore."</p>
+          <span class="t-date">Mars 2026</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">LO</div>
+            <div><strong>Loubna O.</strong><span>Tanger</span></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"Le service client est exceptionnel ! J'avais une question sur la taille et on m'a répondu sur WhatsApp en quelques minutes avec des conseils personnalisés."</p>
+          <span class="t-date">Février 2026</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">MK</div>
+            <div><strong>Maryam K.</strong><span>Oujda</span></div>
+            <div class="stars">★★★★☆</div>
+          </div>
+          <p>"Très bonne qualité pour le prix. Les dentelles sont fines et résistantes, même après plusieurs lavages. J'aurais aimé plus de choix de couleurs mais je reviendrai !"</p>
+          <span class="t-date">Février 2026</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="t-header">
+            <div class="t-avatar">RB</div>
+            <div><strong>Rim B.</strong><span>Agadir</span></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"Le body dentelle est à tomber ! Il me met en valeur parfaitement. L'emballage est soigné, on voit vraiment qu'il y a de l'amour dans chaque pièce. Bravo H&amp;A !"</p>
+          <span class="t-date">Janvier 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFTS BANNER -->
+  <section class="gift-banner">
+    <div class="gift-banner-inner">
+      <img src="boxe%20cadeau.JPG" alt="Boxe Cadeau H&A" style="object-fit:cover;width:100%;height:100%" />
+      <div class="gift-banner-content">
+        <span class="eyebrow" data-fr="Pour elle" data-en="For her">Pour elle</span>
+        <h2 data-fr="L'Idée Cadeau Parfaite" data-en="The Perfect Gift Idea">L'Idée Cadeau Parfaite</h2>
+        <p data-fr="Coffrets cadeaux, bons cadeaux &amp; ✨ Coffret Mystère — nous choisissons les pièces pour vous. Emballage luxe, livraison partout au Maroc." data-en="Gift sets, gift vouchers &amp; ✨ Mystery Box — we pick the pieces for you. Luxury packaging, delivery across Morocco.">Coffrets cadeaux, bons cadeaux &amp; ✨ Coffret Mystère — nous choisissons les pièces pour vous. Emballage luxe, livraison partout au Maroc.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+          <a href="https://wa.me/212600000000?text=Bonjour+H%26A+!+Je+voudrais+commander+un+Coffret+Myst%C3%A8re+%F0%9F%8E%B2" class="btn btn-light" target="_blank" data-fr="🎲 Coffret Mystère" data-en="🎲 Mystery Box">🎲 Coffret Mystère</a>
+          <a href="javascript:void(0)" data-modal="cadeau" class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.4)" data-fr="Voir tous les coffrets" data-en="View all gift sets">Voir tous les coffrets</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="section journal-section">
+    <div class="section-header">
+      <h2 class="section-title" data-fr="Le Journal H&amp;A" data-en="H&amp;A Journal">Le Journal H&amp;A</h2>
+      <a href="javascript:void(0)" data-modal="journal-ha" class="section-link" data-fr="Tous les articles →" data-en="All articles →">Tous les articles →</a>
+    </div>
+    <div class="journal-grid">
+      <article class="journal-card">
+        <a href="javascript:void(0)" data-modal="guide-tailles">
+          <div class="journal-img"><img src="bratota.JPG" alt="Guide taille soutien-gorge" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center center" /></div>
+          <div class="journal-info">
+            <span class="journal-tag" data-fr="Guide des tailles" data-en="Size Guide">Guide des tailles</span>
+            <h3 data-fr="Comment choisir la bonne taille de soutien-gorge ?" data-en="How to choose the right bra size?">Comment choisir la bonne taille de soutien-gorge ?</h3>
+            <p data-fr="Notre guide complet pour trouver votre taille parfaite et éviter les erreurs courantes..." data-en="Our complete guide to finding your perfect size and avoiding common mistakes...">Notre guide complet pour trouver votre taille parfaite et éviter les erreurs courantes...</p>
+          </div>
+        </a>
+      </article>
+      <article class="journal-card">
+        <a href="javascript:void(0)" data-modal="tendances">
+          <div class="journal-img"><img src="tendance%2022.JPG" alt="Tendances H&A" loading="lazy" style="object-fit:cover;width:100%;height:100%" /></div>
+          <div class="journal-info">
+            <span class="journal-tag" data-fr="Tendances" data-en="Trends">Tendances</span>
+            <h3 data-fr="Les tendances lingerie de la saison à adopter" data-en="This season's must-have lingerie trends">Les tendances lingerie de la saison à adopter</h3>
+            <p data-fr="Dentelle, satin, broderies… découvrez ce qui sera incontournable cette saison..." data-en="Lace, satin, embroidery… discover what will be unmissable this season...">Dentelle, satin, broderies… découvrez ce qui sera incontournable cette saison...</p>
+          </div>
+        </a>
+      </article>
+      <article class="journal-card">
+        <a href="javascript:void(0)" data-modal="mariee">
+          <div class="journal-img"><img src="marieJPG.JPG" alt="Lingerie de mariée" loading="lazy" style="object-fit:cover;width:100%;height:100%" /></div>
+          <div class="journal-info">
+            <span class="journal-tag" data-fr="Mariée" data-en="Bridal">Mariée</span>
+            <h3 data-fr="Lingerie de mariée — le guide ultime pour le grand jour" data-en="Bridal lingerie — the ultimate guide for your big day">Lingerie de mariée — le guide ultime pour le grand jour</h3>
+            <p data-fr="Tout ce que vous devez savoir pour choisir votre trousseau nuptial avec élégance..." data-en="Everything you need to know to choose your bridal trousseau with elegance...">Tout ce que vous devez savoir pour choisir votre trousseau nuptial avec élégance...</p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="newsletter-inner">
+      <span class="eyebrow" data-fr="Rejoignez la communauté" data-en="Join the community">Rejoignez la communauté</span>
+      <h2 data-fr="10% de réduction sur votre 1ère commande" data-en="10% off your first order">10% de réduction sur votre 1ère commande</h2>
+      <p data-fr="Inscrivez-vous et soyez la première à découvrir les nouvelles collections H&amp;A. Livraison partout au Maroc." data-en="Sign up and be the first to discover H&amp;A's new collections. Delivery across Morocco.">Inscrivez-vous et soyez la première à découvrir les nouvelles collections H&amp;A. Livraison partout au Maroc.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" data-fr-ph="Votre adresse email" data-en-ph="Your email address" placeholder="Votre adresse email" required />
+        <button type="submit" class="btn btn-dark" data-fr="S'inscrire" data-en="Subscribe">S'inscrire</button>
+      </form>
+      <p class="newsletter-note" data-fr="Pas de spam. Désinscription possible à tout moment." data-en="No spam. Unsubscribe at any time.">Pas de spam. Désinscription possible à tout moment.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <div class="contact-block">
+        <h3 data-fr="Contactez-nous" data-en="Contact us">Contactez-nous</h3>
+        <ul class="contact-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.56 3.59 2 2 0 0 1 3.53 1.4h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg><span data-phone>+212 6 00 00 00 00</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-email>contact@ha-lingerie.ma</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-fr="Agadir, Maroc" data-en="Agadir, Morocco">Agadir, Maroc</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-fr="Lun – Sam : 9h – 19h" data-en="Mon – Sat: 9am – 7pm">Lun – Sam : 9h – 19h</span></li>
+        </ul>
+      </div>
+      <div class="contact-block">
+        <h3 data-fr="Commander via WhatsApp" data-en="Order via WhatsApp">Commander via WhatsApp</h3>
+        <p data-fr="Un service personnalisé, des conseils sur mesure et une réponse rapide — directement sur WhatsApp. Nous livrons partout au Maroc." data-en="Personalized service, tailored advice and a quick response — directly on WhatsApp. We deliver across Morocco.">Un service personnalisé, des conseils sur mesure et une réponse rapide — directement sur WhatsApp. Nous livrons partout au Maroc.</p>
+        <a href="https://wa.me/212600000000?text=Bonjour+H%26A+!+Je+voudrais+commander." class="btn btn-whatsapp" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          <span data-fr="Écrire sur WhatsApp" data-en="Message on WhatsApp">Écrire sur WhatsApp</span>
+        </a>
+        <div class="contact-features">
+          <div data-fr="✓ Réponse en moins de 2h" data-en="✓ Reply within 2h">✓ Réponse en moins de 2h</div>
+          <div data-fr="✓ Conseils personnalisés" data-en="✓ Personalized advice">✓ Conseils personnalisés</div>
+          <div data-fr="✓ Livraison partout au Maroc" data-en="✓ Delivery across Morocco">✓ Livraison partout au Maroc</div>
+        </div>
+      </div>
+      <div class="contact-block">
+        <h3 data-fr="Livraison &amp; Retour" data-en="Delivery &amp; Return">Livraison &amp; Retour</h3>
+        <div class="delivery-info">
+          <div class="delivery-row">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <div><strong data-fr="Livraison partout au Maroc" data-en="Delivery across Morocco">Livraison partout au Maroc</strong><span data-fr="2–4 jours ouvrables" data-en="2–4 business days">2–4 jours ouvrables</span></div>
+          </div>
+          <div class="delivery-row">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 1 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="m7.5 4.27 9 5.15"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/><circle cx="18.5" cy="15.5" r="2.5"/><path d="M20.27 17.27 22 19"/></svg>
+            <div><strong data-fr="Retours acceptés" data-en="Returns accepted">Retours acceptés</strong><span data-fr="Sous 7 jours" data-en="Within 7 days">Sous 7 jours</span></div>
+          </div>
+          <div class="delivery-row">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div><strong data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <div class="footer-logo logo">
+  H<span>&amp;</span>A
+        </div>
+        <p class="fr-only">Lingerie de luxe — conçue avec passion à Agadir, Maroc.<br/><strong style="color:rgba(255,255,255,0.55)">📦 Livraison partout au Maroc</strong></p>
+        <p class="en-only">Luxury lingerie — crafted with passion in Agadir, Morocco.<br/><strong style="color:rgba(255,255,255,0.55)">📦 Delivery across Morocco</strong></p>
+        <div class="social-links">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.27 8.27 0 0 0 4.84 1.56V6.78a4.86 4.86 0 0 1-1.07-.09z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://wa.me/212600000000" target="_blank" aria-label="WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Catégories" data-en="Categories">Catégories</h4>
+        <ul>
+          <li><a href="category?cat=nouveaux-arrivages" data-fr="Nouveaux Arrivages" data-en="New Arrivals">Nouveaux Arrivages</a></li>
+          <li><a href="category?cat=soutiens-gorge" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a></li>
+          <li><a href="category?cat=culottes" data-fr="Culottes &amp; Shorties" data-en="Underwear">Culottes &amp; Shorties</a></li>
+          <li><a href="category?cat=bodies" data-fr="Bodies" data-en="Bodysuits">Bodies</a></li>
+          <li><a href="category?cat=sets" data-fr="Sets &amp; Parures" data-en="Sets &amp; Bras">Sets &amp; Parures</a></li>
+          <li><a href="category?cat=robes" data-fr="Robes Lingerie" data-en="Robes">Robes Lingerie</a></li>
+          <li><a href="category?cat=nuit" data-fr="Nuit &amp; Loungewear" data-en="Nightwear">Nuit &amp; Loungewear</a></li>
+          <li><a href="category?cat=bridal" data-fr="Mariée &amp; Bridal" data-en="Bridal">Mariée &amp; Bridal</a></li>
+          <li><a href="category?cat=maillots" data-fr="Maillots de Bain" data-en="Swimwear">Maillots de Bain</a></li>
+          <li><a href="category?cat=soldes" style="color:#b8935a" data-fr="Soldes" data-en="Sale">Soldes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Informations" data-en="Information">Informations</h4>
+        <ul>
+          <li><button data-modal="histoire" data-fr="Notre histoire" data-en="Our Story">Notre histoire</button></li>
+          <li><button data-modal="guide-tailles" data-fr="Guide des tailles" data-en="Size Guide">Guide des tailles</button></li>
+          <li><button data-modal="entretien" data-fr="Entretien des pièces" data-en="Care Guide">Entretien des pièces</button></li>
+          <li><button data-modal="fidelite" data-fr="Programme fidélité" data-en="Loyalty Program">Programme fidélité</button></li>
+          <li><button data-modal="cadeau" data-fr="Coffrets &amp; Bons cadeaux" data-en="Gift Sets &amp; Vouchers">Coffrets &amp; Bons cadeaux</button></li>
+          <li><button data-modal="journal-ha" data-fr="Le Journal H&amp;A" data-en="H&amp;A Journal">Le Journal H&amp;A</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Service Client" data-en="Customer Service">Service Client</h4>
+        <ul>
+          <li><button data-modal="livraison" data-fr="Livraison &amp; Retour" data-en="Delivery &amp; Return">Livraison &amp; Retour</button></li>
+          <li><button data-modal="politique-retour" data-fr="Politique d'échange" data-en="Exchange Policy">Politique d'échange</button></li>
+          <li><button data-modal="suivi" data-fr="Suivi de commande" data-en="Order Tracking">Suivi de commande</button></li>
+          <li><button data-modal="faq" data-fr="FAQ" data-en="FAQ">FAQ</button></li>
+          <li><button data-modal="contact" data-fr="Nous contacter" data-en="Contact us">Nous contacter</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SOCIAL PILLS (TikTok + Facebook prominently) -->
+    <div class="footer-social-row">
+      <p data-fr="Rejoignez-nous :" data-en="Follow us:">Rejoignez-nous :</p>
+      <a href="https://tiktok.com" target="_blank" class="social-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.27 8.27 0 0 0 4.84 1.56V6.78a4.86 4.86 0 0 1-1.07-.09z"/></svg>
+        TikTok @halingerie
+      </a>
+      <a href="https://facebook.com" target="_blank" class="social-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        Facebook H&amp;A Lingerie
+      </a>
+      <a href="https://instagram.com" target="_blank" class="social-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        Instagram @ha.lingerie
+      </a>
+      <a href="https://wa.me/212600000000" target="_blank" class="social-pill" style="border-color:#25D366;color:#25D366">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp Commande
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <p data-fr="© 2026 H&amp;A Lingerie · Agadir, Maroc · Livraison partout au Maroc" data-en="© 2026 H&amp;A Lingerie · Agadir, Morocco · Delivery across Morocco">© 2026 H&amp;A Lingerie · Agadir, Maroc · Livraison partout au Maroc</p>
+      <div class="payment-icons">
+        <span class="payment-icon">💵 CASH</span>
+        <span class="payment-icon fr-only">📦 À LA LIVRAISON</span>
+        <span class="payment-icon en-only">📦 CASH ON DELIVERY</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAVORITES DRAWER -->
+  <div class="fav-drawer" id="favDrawer">
+    <div class="fav-drawer-header">
+      <h3><span data-fr="Mes Favoris" data-en="My Favourites">Mes Favoris</span> (<span id="favItemCount">0</span>)</h3>
+      <button class="icon-btn" id="favClose">✕</button>
+    </div>
+    <div class="fav-items" id="favItems">
+      <div class="fav-empty">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <p data-fr="Aucun favori pour le moment" data-en="No favourites yet">Aucun favori pour le moment</p>
+        <a href="category?cat=nouveaux-arrivages" class="btn btn-dark" style="margin-top:12px" data-fr="Découvrir nos pièces" data-en="Discover our pieces">Découvrir nos pièces</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3><span data-fr="Mon Panier" data-en="My Cart">Mon Panier</span> (<span id="cartItemCount">0</span>)</h3>
+      <button class="icon-btn" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <p data-fr="Votre panier est vide" data-en="Your cart is empty">Votre panier est vide</p>
+        <a href="category?cat=nouveaux-arrivages" class="btn btn-dark" style="margin-top:12px" data-fr="Commencer les achats" data-en="Start shopping">Commencer les achats</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span data-fr="Sous-total" data-en="Subtotal">Sous-total</span>
+        <span id="cartTotal">0 MAD</span>
+      </div>
+      <button class="btn btn-dark" id="checkoutBtn" style="width:100%;justify-content:center">
+        ✅ <span data-fr="Confirmer ma commande" data-en="Confirm my order">Confirmer ma commande</span>
+      </button>
+      <button class="btn btn-outline" id="clearCart" data-fr="Vider le panier" data-en="Clear cart">Vider le panier</button>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/siteconfig.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

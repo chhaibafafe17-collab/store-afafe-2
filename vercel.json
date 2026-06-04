@@ -1,0 +1,18 @@
+{
+  "rewrites": [
+    { "source": "/api/index.php", "destination": "/api/server" },
+    { "source": "/category",      "destination": "/category.html" },
+    { "source": "/product",       "destination": "/product.html"  },
+    { "source": "/dashboard",     "destination": "/dashboard.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin",  "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, X-Auth-Key" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+/* Product page specific styles */
+.gallery-zoom {
+  position: absolute; bottom: 12px; right: 12px;
+  background: rgba(255,255,255,0.9); border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity var(--tr);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.gallery-main:hover .gallery-zoom { opacity: 1; }
+.gallery-main { cursor: zoom-in; }
+
+.trust-badges {
+  display: flex; flex-direction: column; gap: 12px;
+  margin: 20px 0;
+  padding: 20px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+}
+.trust-badge {
+  display: flex; align-items: center; gap: 12px;
+}
+.trust-badge svg { color: var(--gold); flex-shrink: 0; }
+.trust-badge strong { display: block; font-size: 12px; font-weight: 500; }
+.trust-badge span { font-size: 11px; color: var(--muted); }
+
+/* Reviews section */
+.reviews-header {
+  display: flex; align-items: flex-start; gap: 40px;
+  margin-bottom: 36px; padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.reviews-overall {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+}
+.rating-big { font-family: var(--serif); font-size: 56px; font-weight: 300; line-height: 1; }
+.rating-stars-big { font-size: 20px; color: var(--gold); letter-spacing: 3px; margin-bottom: 4px; }
+.rating-bars { display: flex; flex-direction: column; gap: 4px; }
+.rating-bar-row { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+.rating-bar-row span:first-child { width: 16px; text-align: right; }
+.rating-bar-row span:last-child { width: 20px; }
+.rbar { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; width: 120px; }
+.rbar-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+
+/* Size guide modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 500; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity var(--tr);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--white); max-width: 560px; width: 90%; padding: 32px;
+  transform: translateY(20px); transition: transform var(--tr);
+  max-height: 80vh; overflow-y: auto;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.modal-header h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; }
+.size-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.size-table th { background: var(--cream); padding: 10px; text-align: center; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); }
+.size-table td { padding: 10px; text-align: center; border: 1px solid var(--border); }
+.size-table tr:nth-child(even) td { background: var(--cream); }

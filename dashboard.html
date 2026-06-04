@@ -1,0 +1,3165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H&A — Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+:root{
+  --gold:#b8935a;--gold2:#d4aa78;--gp:#f5ede0;
+  --black:#0d0d0d;--charcoal:#1c1c1c;--sb:#121010;
+  --cream:#faf8f5;--white:#fff;
+  --border:#e6e0d8;--muted:#7a7169;
+  --ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--inf:#6366f1;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+  --r:10px;--sh:0 2px 14px rgba(0,0,0,0.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:var(--sans);background:var(--cream);color:var(--charcoal);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:var(--sans)}
+input,select{font-family:var(--sans)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* LOGIN */
+.lw{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:var(--sb);background-image:radial-gradient(circle at 20% 50%,rgba(184,147,90,0.07) 0%,transparent 50%)}
+.lc{background:var(--white);border-radius:18px;padding:52px 46px;width:400px;
+  box-shadow:0 32px 80px rgba(0,0,0,0.35)}
+.l-logo{font-family:var(--serif);font-size:38px;font-weight:300;text-align:center;
+  letter-spacing:0.1em;margin-bottom:4px}
+.l-logo span{color:var(--gold)}
+.l-sub{text-align:center;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:38px}
+.lf{margin-bottom:16px}
+.lf label{display:block;font-size:10px;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.lf input{width:100%;border:1px solid var(--border);border-radius:8px;
+  padding:12px 15px;font-size:14px;outline:none;background:var(--cream);
+  transition:border-color .2s,box-shadow .2s}
+.lf input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,147,90,0.12)}
+.l-btn{width:100%;background:var(--gold);color:#fff;padding:14px;border-radius:8px;
+  font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  margin-top:6px;transition:background .2s,transform .1s}
+.l-btn:hover{background:#9e7a48}
+.l-btn:active{transform:scale(0.98)}
+.l-err{color:var(--err);font-size:12px;text-align:center;margin-top:12px;display:none}
+.l-hint{text-align:center;font-size:11px;color:#ccc;margin-top:22px}
+
+/* APP */
+.app{display:none;min-height:100vh}
+.app.show{display:flex}
+
+/* SIDEBAR */
+.sidebar{width:224px;flex-shrink:0;background:var(--sb);color:var(--white);
+  display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:60;overflow-y:auto}
+.sb-logo{padding:30px 24px 22px;font-family:var(--serif);font-size:28px;font-weight:300;
+  letter-spacing:0.1em;border-bottom:1px solid rgba(255,255,255,0.07)}
+.sb-logo span{color:var(--gold)}
+.sb-logo small{display:block;font-family:var(--sans);font-size:9px;font-weight:400;
+  letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:3px}
+.sb-nav{flex:1;padding:18px 0}
+.nl{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  color:rgba(255,255,255,0.22);padding:16px 24px 6px}
+.ni{display:flex;align-items:center;gap:11px;padding:11px 24px;font-size:13px;
+  color:rgba(255,255,255,0.52);cursor:pointer;transition:all .2s;
+  border-left:2px solid transparent;user-select:none}
+.ni:hover{color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.04)}
+.ni.active{color:var(--gold);border-left-color:var(--gold);background:rgba(184,147,90,0.09);font-weight:500}
+.ni .ic{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.sb-bot{padding:20px 24px;border-top:1px solid rgba(255,255,255,0.07)}
+.sb-user{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.av{width:36px;height:36px;background:var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.u-name{font-size:13px;color:var(--white);font-weight:500}
+.u-role{font-size:10px;color:rgba(255,255,255,0.32)}
+.lo-btn{display:flex;align-items:center;gap:8px;font-size:12px;
+  color:rgba(255,255,255,0.32);transition:color .2s;width:100%}
+.lo-btn:hover{color:var(--err)}
+
+/* MAIN */
+.main{margin-left:224px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;
+  height:62px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:40}
+.tb-title{font-family:var(--serif);font-size:22px;font-weight:400;letter-spacing:0.02em}
+.tb-r{display:flex;align-items:center;gap:14px}
+.tb-date{font-size:11px;color:var(--muted)}
+.nb{position:relative;display:flex}
+.nb button{padding:7px;color:var(--muted);font-size:17px;transition:color .2s}
+.nb button:hover{color:var(--gold)}
+.ndot{position:absolute;top:4px;right:4px;background:var(--err);color:#fff;
+  width:15px;height:15px;border-radius:50%;font-size:8px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.sl{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  padding:8px 14px;border:1px solid var(--border);border-radius:5px;
+  color:var(--muted);transition:all .2s}
+.sl:hover{border-color:var(--gold);color:var(--gold)}
+
+/* RESPONSIVE DASHBOARD */
+@media(max-width:900px){
+  .sidebar{
+    position:fixed;top:0;left:0;bottom:0;z-index:200;
+    transform:translateX(-100%);transition:transform .3s ease;
+    width:260px;
+  }
+  .sidebar.mob-open{transform:translateX(0)}
+  ._sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:199}
+  ._sb-overlay.mob-open{display:block}
+  .main{margin-left:0}
+  ._mob-topbar{display:flex!important}
+  .topbar{padding:0 16px}
+  .tb-date{display:none}
+  .page{padding:18px 14px}
+  .c4,.m4{grid-template-columns:repeat(2,1fr)!important}
+  .ch2,.ch2e{grid-template-columns:1fr!important}
+  .f2{grid-template-columns:1fr!important}
+  table{font-size:12px}
+  .tc{overflow-x:auto}
+  .tf{flex-wrap:wrap}
+}
+@media(max-width:480px){
+  .c4,.m4,.c3{grid-template-columns:1fr 1fr!important}
+  .sb2{padding:14px}
+}
+
+/* PAGES */
+.page{display:none;padding:28px 32px}
+.page.active{display:block}
+.ph{margin-bottom:22px}
+.ph h2{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:0.02em}
+.ph p{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* BANNER */
+.banner{background:linear-gradient(135deg,#181410 0%,#2a1f0e 50%,#181410 100%);
+  border-radius:var(--r);padding:30px 34px;margin-bottom:22px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;overflow:hidden}
+.banner::before{content:'';position:absolute;right:-40px;top:-40px;
+  width:200px;height:200px;border-radius:50%;background:rgba(184,147,90,0.1)}
+.bn-l h3{font-family:var(--serif);font-size:11px;font-weight:300;
+  color:rgba(255,255,255,0.45);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.bn-num{font-family:var(--serif);font-size:48px;font-weight:300;color:var(--white);line-height:1}
+.bn-sub{font-size:12px;color:rgba(255,255,255,0.38);margin-top:6px}
+.bn-pills{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.bp{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  color:rgba(255,255,255,0.72);padding:5px 13px;border-radius:20px;font-size:11px;font-weight:500}
+.bp.g{background:rgba(184,147,90,0.2);border-color:rgba(184,147,90,0.35);color:var(--gold2)}
+.bn-r{text-align:center;position:relative;z-index:1;flex-shrink:0}
+.gs{font-size:12px;color:rgba(255,255,255,0.5);margin-top:10px;line-height:1.65}
+.gs strong{color:var(--white)}
+
+/* KPI CARDS */
+.c4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+.card{background:var(--white);border-radius:var(--r);padding:20px;
+  box-shadow:var(--sh);border:1px solid var(--border)}
+.ci{width:42px;height:42px;border-radius:10px;display:flex;
+  align-items:center;justify-content:center;font-size:19px;margin-bottom:14px}
+.g0{background:var(--gp)} .g1{background:#dcfce7} .g2{background:#eff6ff} .g3{background:#fdf2f8} .g4{background:#f3e8ff}
+.cl{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.cv{font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:0.02em}
+.cm{font-size:11px;color:var(--muted);margin-top:5px}
+.up{color:var(--ok);font-weight:600} .dn{color:var(--err);font-weight:600}
+
+/* CHART CARDS */
+.ch2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:22px}
+.ch2e{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+.cc{background:var(--white);border-radius:var(--r);padding:22px;box-shadow:var(--sh);border:1px solid var(--border)}
+.cc h4{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:3px}
+.cc .sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+.cw{position:relative}
+
+/* LEGEND */
+.leg{margin-top:14px}
+.lr{display:flex;align-items:center;justify-content:space-between;
+  padding:7px 0;border-bottom:1px solid var(--border);font-size:12px}
+.lr:last-child{border:none}
+.ln{display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.lv{font-weight:600} .lp{color:var(--muted);margin-left:6px;font-size:11px}
+
+/* TABLES */
+.tc{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);
+  border:1px solid var(--border);margin-bottom:22px;overflow:hidden}
+.tc-h{display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px;border-bottom:1px solid var(--border)}
+.tc-h h4{font-family:var(--serif);font-size:19px;font-weight:400}
+.tc-h .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.tf{padding:12px 22px;border-bottom:1px solid var(--border);
+  display:flex;gap:10px;background:#fcfaf8}
+.fi{border:1px solid var(--border);border-radius:6px;padding:8px 12px;
+  font-size:12px;outline:none;background:var(--white);transition:border-color .2s}
+.fi:focus{border-color:var(--gold)}
+.fi.fw{flex:1}
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);padding:10px 22px;text-align:left;
+  border-bottom:1px solid var(--border);background:#f9f7f4}
+td{padding:13px 22px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border:none}
+tr:hover td{background:#fdf9f5}
+.pn{display:flex;align-items:center;gap:10px}
+.pt{width:34px;height:34px;border-radius:7px;background:var(--gp);
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.rev{color:var(--gold);font-weight:600}
+.va{display:inline-flex;align-items:center;padding:3px 10px;
+  border-radius:20px;font-size:10px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
+.v-ok{background:#dcfce7;color:#166534}
+.v-low{background:#fef9c3;color:#854d0e}
+.v-out{background:#fee2e2;color:#991b1b}
+.v-new{background:#eff6ff;color:#1e40af}
+.v-proc{background:#fef3c7;color:#92400e}
+.v-ship{background:#d1fae5;color:#065f46}
+.v-done{background:#dcfce7;color:#166534}
+
+/* ACTIVITY */
+.ai{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.ai:last-child{border:none}
+.aico{width:34px;height:34px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ao{background:#dcfce7} .aw{background:var(--gp)} .aa{background:#fee2e2} .av{background:#eff6ff}
+.ab{flex:1}
+.ab strong{font-size:13px;display:block;margin-bottom:1px}
+.ab span{font-size:11px;color:var(--muted)}
+.at{font-size:10px;color:var(--muted);white-space:nowrap;padding-top:2px}
+
+/* MINI CARDS */
+.m4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.mc{background:var(--white);border-radius:9px;padding:18px;border:1px solid var(--border);box-shadow:var(--sh)}
+.mc .mi{font-size:22px;margin-bottom:10px}
+.mc .mn{font-family:var(--serif);font-size:30px;font-weight:400}
+.mc .ml{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:3px}
+
+/* FUNNEL */
+.fn{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.fs{background:var(--cream);border-radius:8px;padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border)}
+.fs.hi{background:var(--gp);border-color:rgba(184,147,90,0.3)}
+.fl{font-size:12px;font-weight:500}
+.fr{font-size:11px;color:var(--muted)}
+.fnum{font-family:var(--serif);font-size:22px;color:var(--gold)}
+.fs.hi .fnum{font-size:28px;font-weight:500}
+.fa{text-align:center;font-size:11px;color:var(--muted);padding:2px 0}
+
+/* INSIGHT */
+.ii{display:flex;align-items:center;justify-content:space-between;
+  padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}
+.ii:last-child{border:none}
+.il{display:flex;align-items:center;gap:8px}
+.ir{display:flex;align-items:center;gap:8px}
+.ir strong{font-size:13px;font-weight:600}
+.irk{width:22px;height:22px;border-radius:5px;background:var(--gp);color:var(--gold);
+  font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;padding:2px 9px;border-radius:4px;
+  font-size:10px;font-weight:600}
+.tg{background:var(--gp);color:var(--gold)}
+.tt{background:#f0e6ff;color:#7c3aed}
+.tf2{background:#dbeafe;color:#1d4ed8}
+.tw{background:#dcfce7;color:#166534}
+.tr{background:#fee2e2;color:#991b1b}
+
+/* REC BOXES */
+.rec{background:linear-gradient(135deg,var(--gp) 0%,var(--white) 100%);
+  border:1px solid rgba(184,147,90,0.25);border-radius:9px;padding:16px 18px;margin-bottom:12px}
+.rec h6{font-size:13px;font-weight:600;color:var(--gold);margin-bottom:5px}
+.rec p{font-size:12px;color:var(--charcoal);line-height:1.65}
+.rg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px}
+
+/* HOURS */
+.hg{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px}
+.hc{text-align:center}
+.ho{height:90px;background:var(--border);border-radius:5px;
+  display:flex;align-items:flex-end;overflow:hidden;margin-bottom:5px}
+.hf{width:100%;background:var(--gold);border-radius:5px 5px 0 0}
+.hp{font-size:11px;font-weight:600;color:var(--gold);margin-bottom:4px}
+.hl{font-size:9px;color:var(--muted)}
+
+/* SETTINGS */
+.sb2{background:var(--white);border-radius:var(--r);border:1px solid var(--border);
+  padding:26px;margin-bottom:18px}
+.sb2 h5{font-size:15px;font-weight:600;padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--border)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg label{display:block;font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--muted);margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;border:1px solid var(--border);border-radius:7px;
+  padding:10px 13px;font-size:13px;outline:none;background:var(--cream);transition:border-color .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold)}
+.fg textarea{resize:vertical;min-height:70px}
+.sv{background:var(--gold);color:#fff;padding:10px 26px;border-radius:7px;
+  font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;transition:background .2s}
+.sv:hover{background:#9e7a48}
+/* Toast global — visible en haut de l'écran, bien vert */
+#_dashToast{
+  display:none;
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);
+  z-index:9999;
+  padding:13px 24px;border-radius:12px;
+  font-size:14px;font-weight:600;
+  box-shadow:0 8px 28px rgba(0,0,0,.18);
+  min-width:240px;text-align:center;
+  transition:opacity .3s;
+}
+#_dashToast.ok  {background:#16a34a;color:#fff;border:none}
+#_dashToast.err {background:#dc2626;color:#fff;border:none}
+#_dashToast.info{background:#b45309;color:#fff;border:none}
+.toast{display:none}
+
+/* SOCIAL MEDIA STATS */
+.soc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+.soc-card{border-radius:var(--r);padding:22px;color:#fff;position:relative;overflow:hidden}
+.soc-card::before{content:'';position:absolute;right:-20px;bottom:-20px;
+  width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.07)}
+.soc-tt{background:linear-gradient(135deg,#010101 0%,#2d2d2d 100%);border:1px solid #333}
+.soc-fb{background:linear-gradient(135deg,#1877f2 0%,#0d5fc4 100%)}
+.soc-ig{background:linear-gradient(135deg,#833ab4 0%,#fd1d1d 50%,#fcb045 100%)}
+.soc-icon{font-size:28px;margin-bottom:12px;display:block}
+.soc-net{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;opacity:.55;margin-bottom:6px}
+.soc-num{font-family:var(--serif);font-size:36px;font-weight:300;line-height:1}
+.soc-lbl{font-size:11px;opacity:.6;margin-top:4px}
+.soc-delta{display:inline-flex;align-items:center;gap:4px;margin-top:12px;
+  background:rgba(255,255,255,0.13);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+
+/* VIDEO PERF TABLE */
+.vp-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:4px}
+.vp-fill{height:100%;background:var(--gold);border-radius:3px}
+
+/* CLIENT RANK */
+.rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0}
+.rk1{background:#fef9c3;color:#854d0e}
+.rk2{background:#f1f5f9;color:#475569}
+.rk3{background:#fdf2f8;color:#9d174d}
+.rkn{background:var(--cream);color:var(--muted)}
+
+/* PROMO */
+.promo-active{background:linear-gradient(90deg,var(--gp),var(--white));
+  border:1px solid rgba(184,147,90,0.3);border-radius:9px;padding:14px 18px;
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.promo-code{font-family:'Courier New',monospace;font-size:15px;font-weight:700;
+  letter-spacing:0.15em;color:var(--gold);background:#fff;padding:4px 12px;
+  border-radius:5px;border:1px dashed var(--gold)}
+.promo-info{flex:1;padding:0 18px}
+.promo-info strong{display:block;font-size:13px;margin-bottom:2px}
+.promo-info span{font-size:11px;color:var(--muted)}
+.promo-stat{text-align:right}
+.promo-stat .pn2{font-family:var(--serif);font-size:22px;color:var(--gold)}
+.promo-stat small{font-size:10px;color:var(--muted);display:block}
+.pbtn{padding:6px 14px;border-radius:6px;font-size:11px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;transition:all .2s;cursor:pointer;border:none}
+.pbtn-del{background:#fee2e2;color:#991b1b}.pbtn-del:hover{background:#fca5a5}
+.pbtn-edit{background:var(--gp);color:var(--gold)}.pbtn-edit:hover{background:#eadcc8}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);
+  z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-bg.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:560px;max-width:95vw;
+  max-height:88vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,0.25)}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:22px 26px;border-bottom:1px solid var(--border)}
+.modal-hd h4{font-family:var(--serif);font-size:22px;font-weight:400}
+.modal-cl{width:32px;height:32px;border-radius:50%;background:var(--cream);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  cursor:pointer;transition:background .2s}
+.modal-cl:hover{background:var(--border)}
+.modal-body{padding:24px 26px}
+.modal-footer{padding:16px 26px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.btn-cancel{padding:9px 22px;border-radius:7px;font-size:12px;font-weight:500;
+  color:var(--muted);border:1px solid var(--border);background:var(--white);cursor:pointer;transition:all .2s}
+.btn-cancel:hover{border-color:var(--charcoal);color:var(--charcoal)}
+
+/* STATUS PILL SELECT */
+.status-sel{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;
+  border:none;cursor:pointer;outline:none;letter-spacing:0.04em}
+
+/* PLATFORM CAMPAIGN TABLE */
+.camp-platform{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.cp-dot{width:8px;height:8px;border-radius:50%}
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="lw" id="lw">
+  <div class="lc">
+    <div class="l-logo">H<span>&amp;</span>A</div>
+    <p class="l-sub">Espace Administrateur</p>
+    <div class="lf"><label>Nom d'utilisateur</label><input type="text" id="lu" placeholder="admin" autocomplete="username" /></div>
+    <div class="lf"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" /></div>
+    <button class="l-btn" onclick="doLogin()">Connexion</button>
+    <div class="l-err" id="le">❌ Identifiants incorrects. Réessayez.</div>
+    <p class="l-hint">Contactez l'administrateur pour vos identifiants</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-logo">H<span>&amp;</span>A<small>Admin Dashboard</small></div>
+    <nav class="sb-nav">
+      <div class="nl">Principal</div>
+      <div class="ni active" onclick="go('dashboard',this)"><span class="ic">📊</span>Vue d'ensemble</div>
+      <div class="ni" onclick="go('produits',this)"><span class="ic">🛍️</span>Produits</div>
+      <div class="ni" onclick="go('commandes',this)"><span class="ic">📦</span>Commandes</div>
+      <div class="ni" onclick="go('clients',this)"><span class="ic">👤</span>Clients</div>
+      <div class="ni" onclick="go('promotions',this)"><span class="ic">🎁</span>Promotions</div>
+      <div class="nl">Analytics</div>
+      <div class="ni" onclick="go('visiteurs',this)"><span class="ic">👥</span>Visiteurs & Trafic</div>
+      <div class="ni" onclick="go('pub',this)"><span class="ic">📢</span>Pub & Conversions</div>
+      <div class="ni" onclick="go('social',this)"><span class="ic">📱</span>Réseaux Sociaux</div>
+      <div class="nl">Système</div>
+      <div class="ni" onclick="go('parametres',this)"><span class="ic">⚙️</span>Paramètres</div>
+    </nav>
+    <div class="sb-bot">
+      <div class="sb-user"><div class="av" id="sbAv">AD</div><div><div class="u-name" id="sbN">Admin</div><div class="u-role">Administrateur</div></div></div>
+      <button class="lo-btn" onclick="doLogout()"><span>🚪</span> Déconnexion</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- Overlay sidebar mobile -->
+    <div class="_sb-overlay" id="sbOverlay" onclick="closeMobSidebar()"></div>
+
+    <!-- Bandeau permission notifications -->
+    <div id="_notifBanner" style="display:none;background:#fff8ed;border-bottom:1px solid #fbbf24;padding:10px 24px;font-size:12.5px;align-items:center;gap:12px">
+      <span>🔔 Activez les notifications navigateur pour être alerté des nouvelles commandes en temps réel.</span>
+      <button onclick="Notification.requestPermission().then(p=>{document.getElementById('_notifBanner').style.display='none';})" style="padding:5px 14px;background:#f59e0b;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;white-space:nowrap;margin-left:8px">Activer</button>
+      <button onclick="document.getElementById('_notifBanner').style.display='none'" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:0 4px;margin-left:4px">✕</button>
+    </div>
+
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button id="_mobMenuBtn" onclick="toggleMobSidebar()" style="display:none;background:none;border:none;cursor:pointer;font-size:20px;color:var(--charcoal);padding:4px;line-height:1">☰</button>
+        <div class="tb-title" id="tbt">Vue d'ensemble</div>
+      </div>
+      <div class="tb-r">
+        <span class="tb-date" id="tbd"></span>
+        <div class="nb" style="position:relative">
+          <button id="notifBtn" onclick="toggleNotifPanel()" title="Notifications" style="position:relative">🔔<span class="ndot" id="notifCount">0</span></button>
+          <div id="notifPanel" style="display:none;position:absolute;right:0;top:44px;width:340px;background:#fff;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.18);z-index:999;max-height:420px;overflow-y:auto">
+            <div style="padding:14px 18px 10px;border-bottom:1px solid #f0ebe4;display:flex;align-items:center;justify-content:space-between">
+              <strong style="font-size:13.5px">Notifications</strong>
+              <button onclick="clearNotifs()" style="font-size:11px;color:var(--gold);background:none;border:none;cursor:pointer">Tout effacer</button>
+            </div>
+            <div id="notifList" style="padding:8px 0"></div>
+          </div>
+        </div>
+        <a href="index.html" target="_blank" class="sl">Voir le site →</a>
+      </div>
+    </div>
+
+    <!-- == PAGE: DASHBOARD == -->
+    <div class="page active" id="page-dashboard">
+      <div class="ph"><h2>Tableau de bord</h2><p id="dashSubtitle">Chargement des données réelles…</p></div>
+
+      <div class="banner">
+        <div class="bn-l">
+          <h3 id="bannerTitle">Revenu total</h3>
+          <div class="bn-num" id="statRevTotal">— MAD</div>
+          <div class="bn-sub" id="statGoalSub">Objectif mensuel : — MAD</div>
+          <div class="bn-pills">
+            <span class="bp g" id="statRevTrend">— commandes</span>
+            <span class="bp" id="statOrdPill">— commandes</span>
+            <span class="bp" id="statBasketPill">— MAD panier moy.</span>
+          </div>
+        </div>
+        <div class="bn-r">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="46" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
+            <circle id="goalCircle" cx="55" cy="55" r="46" fill="none" stroke="#b8935a" stroke-width="10"
+              stroke-dasharray="289" stroke-dashoffset="289"
+              stroke-linecap="round" transform="rotate(-90 55 55)"/>
+            <text x="55" y="50" text-anchor="middle" fill="#b8935a"
+              font-family="Cormorant Garamond,serif" font-size="22" font-weight="400" id="statRevPct">0%</text>
+            <text x="55" y="65" text-anchor="middle" fill="rgba(255,255,255,0.4)"
+              font-family="Jost,sans-serif" font-size="9">de l'objectif</text>
+          </svg>
+          <div class="gs"><strong id="statGoalAmt">— MAD</strong> objectif<br><span id="statGoalRemain">— MAD restants</span></div>
+        </div>
+      </div>
+
+      <div class="c4">
+        <div class="card"><div class="ci g0">💰</div><div class="cl">Revenu total</div><div class="cv" id="statCardRev">— MAD</div><div class="cm" id="statCardRevSub">depuis les commandes</div></div>
+        <div class="card"><div class="ci g1">📦</div><div class="cl">Commandes</div><div class="cv" id="statCardOrd">—</div><div class="cm" id="statCardOrdSub">toutes commandes</div></div>
+        <div class="card"><div class="ci g2">👁️</div><div class="cl">Clients uniques</div><div class="cv" id="statCardCli">—</div><div class="cm">numéros uniques</div></div>
+        <div class="card"><div class="ci g3">🛒</div><div class="cl">Panier moyen</div><div class="cv" id="statCardAvg">— MAD</div><div class="cm">par commande</div></div>
+      </div>
+
+      <div class="ch2">
+        <div class="cc">
+          <h4>Évolution du revenu</h4><p class="sub">12 mois — MAD</p>
+          <div class="cw" style="height:220px"><canvas id="cRev"></canvas></div>
+        </div>
+        <div class="cc">
+          <h4>Ventes par catégorie</h4><p class="sub">Répartition du CA</p>
+          <div class="cw" style="height:160px"><canvas id="cCat"></canvas></div>
+          <div class="leg">
+            <div class="lr"><span class="ln"><span class="dot" style="background:#b8935a"></span>Soutiens-gorge</span><span><span class="lv">35%</span><span class="lp">4 358 MAD</span></span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#d4aa78"></span>Mariée</span><span><span class="lv">22%</span><span class="lp">2 739 MAD</span></span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#1c1c1c"></span>Bodies</span><span><span class="lv">18%</span><span class="lp">2 241 MAD</span></span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#7a7169"></span>Maillots</span><span><span class="lv">15%</span><span class="lp">1 868 MAD</span></span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#e6e0d8"></span>Autres</span><span><span class="lv">10%</span><span class="lp">1 245 MAD</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ch2e">
+        <div class="tc" style="margin-bottom:0">
+          <div class="tc-h"><div><h4>Top Produits commandés</h4><p class="sub" id="topProdSub">depuis les commandes réelles</p></div></div>
+          <table>
+            <thead><tr><th>Produit</th><th>Qté</th><th>Revenu</th><th>Stock</th></tr></thead>
+            <tbody id="topProdsBody">
+              <tr><td colspan="4" style="text-align:center;padding:20px;color:var(--muted)">Chargement…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cc" style="margin-bottom:0">
+          <h4>Activité récente</h4><p class="sub">Dernières commandes</p>
+          <div id="recentActivity">
+            <div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Chargement…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- == PAGE: PRODUITS == -->
+    <div class="page" id="page-produits">
+      <div class="ph"><h2>Produits</h2><p>Gestion du catalogue et des stocks</p></div>
+      <div class="m4">
+        <div class="mc"><div class="mi">🗂️</div><div class="mn" id="statProdTotal">—</div><div class="ml">Total produits</div></div>
+        <div class="mc"><div class="mi">✅</div><div class="mn" id="statProdActif">—</div><div class="ml">En stock</div></div>
+        <div class="mc"><div class="mi">⚠️</div><div class="mn" style="color:var(--warn)" id="statProdBas">—</div><div class="ml">Stock bas (≤5)</div></div>
+        <div class="mc"><div class="mi">🚫</div><div class="mn" style="color:var(--err)" id="statProdEpuise">—</div><div class="ml">Épuisés</div></div>
+      </div>
+      <div class="tc">
+        <div class="tc-h"><div><h4>Catalogue produits</h4><p class="sub" id="prodPageSub">Chargement…</p></div><button class="sv" onclick="openProdModal(null)">+ Ajouter un produit</button></div>
+        <div class="tf">
+          <input id="prodPageSearch" class="fi fw" placeholder="🔍  Rechercher un produit…" oninput="renderProdPage()"/>
+          <select id="prodPageCat" class="fi" onchange="renderProdPage()">
+            <option value="">Toutes catégories</option>
+            <option>Soutiens-gorge</option><option>Culottes</option><option>Bodies</option>
+            <option>Mariée</option><option>Maillots de Bain</option><option>Nuit</option>
+            <option>Sets &amp; Parures</option><option>Robes</option><option>Lingerie Menstruelle</option><option>Mamans</option>
+          </select>
+          <select id="prodPageStatus" class="fi" onchange="renderProdPage()">
+            <option value="">Tous statuts</option>
+            <option value="ok">✅ Actif</option>
+            <option value="low">⚠️ Stock bas</option>
+            <option value="out">❌ Épuisé</option>
+          </select>
+        </div>
+        <div style="overflow:auto"><table id="prodPageTable">
+          <thead><tr><th>Photo</th><th>Produit</th><th>Catégorie</th><th>Prix</th><th>Couleurs</th><th>Stock</th><th style="text-align:center">Modifier tout</th></tr></thead>
+          <tbody id="prodPageBody"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Chargement…</td></tr></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- == PAGE: COMMANDES == -->
+    <div class="page" id="page-commandes">
+      <div class="ph"><h2>Commandes</h2><p>Suivi des commandes reçues via WhatsApp</p></div>
+      <div class="m4">
+        <div class="mc"><div class="mi">🆕</div><div class="mn" style="color:var(--inf)">12</div><div class="ml">En attente</div></div>
+        <div class="mc"><div class="mi">⚙️</div><div class="mn" style="color:var(--warn)">8</div><div class="ml">En cours</div></div>
+        <div class="mc"><div class="mi">🚚</div><div class="mn" style="color:var(--gold)">34</div><div class="ml">Expédiées</div></div>
+        <div class="mc"><div class="mi">✅</div><div class="mn" style="color:var(--ok)">33</div><div class="ml">Livrées</div></div>
+      </div>
+      <!-- ── Alertes stock faible ── -->
+      <div id="stockAlerts" style="margin-bottom:18px"></div>
+
+      <!-- ── Templates WhatsApp ── -->
+      <div class="tc" style="margin-bottom:18px">
+        <div class="tc-h">
+          <div><h4>💬 Modèles de réponse WhatsApp</h4><p class="sub">Cliquez sur Copier puis collez dans WhatsApp</p></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px">
+          <div id="waTemplates"></div>
+          <div id="waTemplates2"></div>
+        </div>
+      </div>
+
+      <div class="tc">
+        <div class="tc-h"><div><h4>Commandes récentes</h4><p class="sub" id="ordersSubtitle">Chargement…</p></div>
+          <button class="sv" onclick="exportOrdersCSV()">⬇️ Exporter CSV</button>
+        </div>
+        <div class="tf">
+          <input id="orderSearch" class="fi fw" placeholder="🔍  Réf, client, ville…" oninput="filterOrders()"/>
+          <select id="orderStatusFilter" class="fi" onchange="filterOrders()">
+            <option value="">Tous statuts</option>
+            <option>Nouveau</option><option>En cours</option><option>Expédiée</option><option>Livrée</option><option>Annulée</option>
+          </select>
+          <select id="orderCityFilter" class="fi" onchange="filterOrders()">
+            <option value="">Toutes villes</option>
+            <option>Agadir</option><option>Casablanca</option><option>Rabat</option><option>Marrakech</option>
+            <option>Fès</option><option>Tanger</option><option>Meknès</option><option>Oujda</option>
+          </select>
+          <input id="orderDateFrom" class="fi" type="date" title="Date de début" onchange="filterOrders()" style="color:var(--muted)"/>
+          <input id="orderDateTo"   class="fi" type="date" title="Date de fin"   onchange="filterOrders()" style="color:var(--muted)"/>
+          <button onclick="clearOrderFilters()" class="fi" style="background:var(--cream);border:1px solid var(--border);cursor:pointer;font-size:12px">✕ Reset</button>
+        </div>
+
+        <!-- ── Suivi rapide commande ── -->
+        <div style="background:#f8f6f3;border-radius:10px;padding:12px 16px;margin:12px 0;display:flex;align-items:center;gap:10px">
+          <span style="font-size:14px">🔎</span>
+          <input id="trackingSearch" class="fi" style="flex:1;margin:0" placeholder="Entrez la référence ou le nom du client pour suivre une commande…" oninput="trackOrder()"/>
+        </div>
+        <div id="trackingResult" style="margin-bottom:12px"></div>
+        <table>
+          <thead><tr><th>#</th><th>Client</th><th>Ville</th><th>Produit(s)</th><th>Montant</th><th>Canal</th><th>Date</th><th>Statut</th></tr></thead>
+          <tbody>
+            <tr style="cursor:pointer" onclick="openOrder('#087','Fatima Z.','Agadir','Set Bridal Rose Poudré','680 MAD','02/06/2026','new')"><td style="font-weight:700">#087</td><td>Fatima Z.</td><td>Agadir</td><td>Set Bridal Poudré</td><td class="rev">680 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>02/06/26</td><td><span class="va v-new">En attente</span></td></tr>
+            <tr style="cursor:pointer" onclick="openOrder('#086','Nadia B.','Casablanca','Dentelle Éclat + Culotte','548 MAD','02/06/2026','ship')"><td style="font-weight:700">#086</td><td>Nadia B.</td><td>Casablanca</td><td>Dentelle Éclat + Culotte</td><td class="rev">548 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>02/06/26</td><td><span class="va v-ship">Expédiée</span></td></tr>
+            <tr style="cursor:pointer" onclick="openOrder('#085','Salma R.','Marrakech','Bikini Dos Nu Bohème','580 MAD','01/06/2026','done')"><td style="font-weight:700">#085</td><td>Salma R.</td><td>Marrakech</td><td>Bikini Dos Nu</td><td class="rev">580 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>01/06/26</td><td><span class="va v-done">Livrée</span></td></tr>
+            <tr style="cursor:pointer" onclick="openOrder('#084','Houria M.','Rabat','Body Dentelle Ivoire','520 MAD','01/06/2026','proc')"><td style="font-weight:700">#084</td><td>Houria M.</td><td>Rabat</td><td>Body Dentelle Ivoire</td><td class="rev">520 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>01/06/26</td><td><span class="va v-proc">En cours</span></td></tr>
+            <tr style="cursor:pointer" onclick="openOrder('#083','Amina K.','Agadir','Push-Up Noir','420 MAD','31/05/2026','done')"><td style="font-weight:700">#083</td><td>Amina K.</td><td>Agadir</td><td>Push-Up Noir</td><td class="rev">420 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>31/05/26</td><td><span class="va v-done">Livrée</span></td></tr>
+            <tr style="cursor:pointer" onclick="openOrder('#082','Sara L.','Fès','Kimono Satin Doré','780 MAD','31/05/2026','done')"><td style="font-weight:700">#082</td><td>Sara L.</td><td>Fès</td><td>Kimono Satin Doré</td><td class="rev">780 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>31/05/26</td><td><span class="va v-done">Livrée</span></td></tr>
+            <tr style="cursor:pointer" onclick="openOrder('#081','Imane B.','Agadir','Set Parure Émeraude','790 MAD','30/05/2026','done')"><td style="font-weight:700">#081</td><td>Imane B.</td><td>Agadir</td><td>Set Parure Émeraude</td><td class="rev">790 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>30/05/26</td><td><span class="va v-done">Livrée</span></td></tr>
+            <tr style="cursor:pointer" onclick="openOrder('#080','Yasmine A.','Casablanca','Shorty Dentelle × 2','480 MAD','30/05/2026','done')"><td style="font-weight:700">#080</td><td>Yasmine A.</td><td>Casablanca</td><td>Shorty Dentelle × 2</td><td class="rev">480 MAD</td><td><span class="tag tw">WhatsApp</span></td><td>30/05/26</td><td><span class="va v-done">Livrée</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- == PAGE: VISITEURS == -->
+    <div class="page" id="page-visiteurs">
+      <div class="ph"><h2>Visiteurs & Trafic</h2><p>Comportement de vos visiteuses → données pour cibler vos pubs</p></div>
+      <div class="c4">
+        <div class="card"><div class="ci g2">👁️</div><div class="cl">Visiteurs / mois</div><div class="cv">3 240</div><div class="cm"><span class="up">↑ +8.2%</span> vs mai</div></div>
+        <div class="card"><div class="ci g0">⏱️</div><div class="cl">Durée moyenne</div><div class="cv">3m 42s</div><div class="cm">par session</div></div>
+        <div class="card"><div class="ci g1">📱</div><div class="cl">Taux mobile</div><div class="cv">72%</div><div class="cm">→ créas pub verticales</div></div>
+        <div class="card"><div class="ci g3">↩️</div><div class="cl">Taux rebond</div><div class="cv">38%</div><div class="cm"><span class="up">↓ amélioration</span></div></div>
+      </div>
+      <div class="ch2">
+        <div class="cc">
+          <h4>Visiteurs quotidiens</h4><p class="sub">30 derniers jours</p>
+          <div class="cw" style="height:200px"><canvas id="cVis"></canvas></div>
+        </div>
+        <div class="cc">
+          <h4>Appareil utilisé</h4><p class="sub">72% mobile → format vertical</p>
+          <div class="cw" style="height:155px"><canvas id="cDev"></canvas></div>
+          <div class="leg" style="margin-top:10px">
+            <div class="lr"><span class="ln"><span class="dot" style="background:#b8935a"></span>📱 Mobile</span><span class="lv">72%</span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#1c1c1c"></span>🖥️ Desktop</span><span class="lv">20%</span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#d4aa78"></span>📟 Tablette</span><span class="lv">8%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ch2e">
+        <div class="cc">
+          <h4>Répartition géographique</h4><p class="sub">Villes marocaines — ciblez où ça convertit</p>
+          <div class="cw" style="height:230px"><canvas id="cGeo"></canvas></div>
+        </div>
+        <div class="cc">
+          <h4>⏰ Heures de pointe</h4><p class="sub">Publiez vos réels & stories à ces horaires</p>
+          <div class="hg">
+            <div class="hc"><div class="hp">8%</div><div class="ho"><div class="hf" style="height:23%"></div></div><div class="hl">8h–10h</div></div>
+            <div class="hc"><div class="hp">12%</div><div class="ho"><div class="hf" style="height:34%"></div></div><div class="hl">10h–12h</div></div>
+            <div class="hc"><div class="hp">18%</div><div class="ho"><div class="hf" style="height:51%"></div></div><div class="hl">14h–16h</div></div>
+            <div class="hc"><div class="hp">24%</div><div class="ho"><div class="hf" style="height:69%"></div></div><div class="hl">18h–20h</div></div>
+            <div class="hc"><div class="hp" style="color:var(--charcoal);font-weight:700">35%</div><div class="ho"><div class="hf" style="height:100%"></div></div><div class="hl" style="font-weight:700">20h–22h ★</div></div>
+            <div class="hc"><div class="hp">3%</div><div class="ho"><div class="hf" style="height:9%"></div></div><div class="hl">22h+</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tc" style="margin-bottom:0">
+        <div class="tc-h"><div><h4>🔍 Recherches fréquentes</h4><p class="sub">Exploitez ces mots pour vos hashtags, titres de vidéo TikTok et mots-clés Facebook</p></div></div>
+        <table>
+          <thead><tr><th>#</th><th>Terme recherché</th><th>Recherches</th><th>Conversions</th><th>Taux conv.</th><th>Action suggérée</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700;color:var(--gold)">1</td><td>"soutien-gorge noir"</td><td>234</td><td>18</td><td>7.7%</td><td><span class="tag tt">TikTok hashtag</span></td></tr>
+            <tr><td style="font-weight:700">2</td><td>"body dentelle"</td><td>187</td><td>12</td><td>6.4%</td><td><span class="tag tf2">Facebook Ad</span></td></tr>
+            <tr><td style="font-weight:700">3</td><td>"set mariage lingerie"</td><td>142</td><td>24</td><td><span style="color:var(--ok);font-weight:700">16.9%</span></td><td><span class="tag tt">TikTok vidéo</span></td></tr>
+            <tr><td style="font-weight:700">4</td><td>"push-up"</td><td>128</td><td>9</td><td>7.0%</td><td><span class="tag tr">⚠️ Restock urgent</span></td></tr>
+            <tr><td style="font-weight:700">5</td><td>"bikini maroc"</td><td>98</td><td>7</td><td>7.1%</td><td><span class="tag tf2">Facebook Ad</span></td></tr>
+            <tr><td style="font-weight:700">6</td><td>"livraison agadir"</td><td>87</td><td>15</td><td><span style="color:var(--ok);font-weight:700">17.2%</span></td><td><span class="tag tw">WhatsApp message</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- == PAGE: PUB & CONVERSIONS == -->
+    <div class="page" id="page-pub">
+      <div class="ph"><h2>Pub & Conversions</h2><p>Data pour maximiser vos campagnes TikTok · Facebook · WhatsApp</p></div>
+
+      <div class="ch2e">
+        <div class="cc">
+          <h4>🟢 Entonnoir WhatsApp</h4><p class="sub">De la visite à la commande confirmée</p>
+          <div class="fn">
+            <div class="fs"><div><div class="fl">👁️ Visiteurs uniques</div><div class="fr">base 100%</div></div><div class="fnum">3 240</div></div>
+            <div class="fa">↓ 28% cliquent sur un produit</div>
+            <div class="fs"><div><div class="fl">🛍️ Vues produit</div><div class="fr">28% des visiteurs</div></div><div class="fnum">907</div></div>
+            <div class="fa">↓ 26% cliquent WhatsApp</div>
+            <div class="fs"><div><div class="fl">💬 Clics WhatsApp</div><div class="fr">26% des vues</div></div><div class="fnum">234</div></div>
+            <div class="fa">↓ 37% passent commande</div>
+            <div class="fs hi"><div><div class="fl">✅ Commandes confirmées</div><div class="fr">closing : 37%</div></div><div class="fnum">87</div></div>
+          </div>
+        </div>
+        <div class="cc">
+          <h4>💰 Panier moyen (AOV)</h4><p class="sub">Valeur moyenne des commandes</p>
+          <div style="text-align:center;padding:22px 0 12px">
+            <div style="font-family:var(--serif);font-size:56px;color:var(--gold);font-weight:300">143 MAD</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px">Panier moyen</div>
+          </div>
+          <div class="leg">
+            <div class="lr"><span>Commandes 1 article</span><span class="lv">68%</span></div>
+            <div class="lr"><span>Commandes 2+ articles</span><span class="lv">32%</span></div>
+            <div class="lr"><span>Commande max</span><span class="lv">1 460 MAD</span></div>
+            <div class="lr"><span>Panier abandonné moy.</span><span class="lv">490 MAD</span></div>
+          </div>
+          <div class="rec" style="margin-top:14px"><h6>💡 Opportunité upsell</h6><p>Proposez des bundles soutien-gorge + culotte assortie → passer l'AOV à <strong>220+ MAD</strong> (+54%).</p></div>
+        </div>
+      </div>
+
+      <div class="ch2e">
+        <div class="cc">
+          <h5 style="font-size:15px;font-weight:600;margin-bottom:4px">🛒 Paniers abandonnés — Retargeting</h5>
+          <p class="sub">Ajoutés mais non commandés → relancez par WhatsApp avec promo</p>
+          <div class="ii"><div class="il"><span class="irk">1</span>Set Bridal Rose Poudré</div><div class="ir"><strong>23</strong><span class="tag tf2">FB Ad</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">2</span>Body Dentelle Ivoire</div><div class="ir"><strong>17</strong><span class="tag tt">TikTok</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">3</span>Kimono Satin Doré</div><div class="ir"><strong>14</strong><span class="tag tw">WA relance</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">4</span>Push-Up Noir</div><div class="ir"><strong>11</strong><span class="tag tr">Restock d'abord</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">5</span>Set Parure Émeraude</div><div class="ir"><strong>9</strong><span class="tag tf2">FB Ad</span></div></div>
+          <div class="rec" style="margin-top:14px"><h6>💡 Action recommandée</h6><p>Relancez par WhatsApp avec <strong>-10% code BIENVENUE</strong> les paniers abandonnés depuis +24h → récupérer <strong>+15 commandes/mois</strong>.</p></div>
+        </div>
+        <div class="cc">
+          <h5 style="font-size:15px;font-weight:600;margin-bottom:4px">❤️ Wishlist — Audiences TikTok/FB</h5>
+          <p class="sub">Produits les plus désirés mais non achetés = audience publicitaire parfaite</p>
+          <div class="ii"><div class="il"><span class="irk">1</span>Set Bridal Rose Poudré</div><div class="ir"><strong>67</strong><span class="tag tt">TikTok</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">2</span>Dentelle Éclat</div><div class="ir"><strong>54</strong><span class="tag tf2">FB Ad</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">3</span>Body Dentelle Ivoire</div><div class="ir"><strong>41</strong><span class="tag tt">TikTok</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">4</span>Bikini Dos Nu</div><div class="ir"><strong>38</strong><span class="tag tf2">FB Story</span></div></div>
+          <div class="ii"><div class="il"><span class="irk">5</span>Kimono Satin Doré</div><div class="ir"><strong>29</strong><span class="tag tg">Story IG</span></div></div>
+          <div class="rec" style="margin-top:14px"><h6>💡 Audience personnalisée</h6><p>Le <strong>Set Bridal</strong> (67 favoris, peu d'achats) est votre meilleure créa TikTok/FB. Filmez un unboxing ou un essayage.</p></div>
+        </div>
+      </div>
+
+      <div class="cc">
+        <h4>🚀 Plan d'action pub — Recommandations personnalisées</h4>
+        <p class="sub">Basées sur vos données visiteurs, wishlist, commandes et géographie</p>
+        <div class="rg">
+          <div class="rec"><h6>📱 TikTok — Heure optimale</h6><p>Publiez entre <strong>20h–22h</strong> (35% du trafic). Créas verticales 9:16 avec Set Bridal et Body Ivoire.</p></div>
+          <div class="rec"><h6>📘 Facebook Ads — Audience</h6><p>Ciblez <strong>femmes 22–38 ans, Agadir + Casablanca</strong>, intérêts "lingerie", "mariage", "mode femme". Budget : <strong>200 MAD/jour</strong>.</p></div>
+          <div class="rec"><h6>💬 WhatsApp — Relance panier</h6><p>Relancez les <strong>23 paniers Bridal abandonnés</strong> : <em>"Votre set vous attend 💕 -10% code BIENVENUE"</em>.</p></div>
+          <div class="rec"><h6>🔥 Produit star</h6><p><strong>Set Bridal Rose Poudré</strong> : 32 ventes · 67 favoris · 23 abandons. Meilleure créa pub potentielle du catalogue.</p></div>
+          <div class="rec"><h6>📦 Restock urgent</h6><p><strong>Push-Up Noir</strong> épuisé avec 11 paniers bloqués. Vous perdez ~4 600 MAD/mois estimé. À restocke en priorité.</p></div>
+          <div class="rec"><h6>🌍 Géo-ciblage prioritaire</h6><p><strong>Agadir (45%) + Casablanca (25%)</strong> = 70% de vos ventes. Concentrez les budgets ads sur ces 2 villes.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- == PAGE: PARAMÈTRES == -->
+    <div class="page" id="page-parametres">
+      <div class="ph"><h2>Paramètres</h2><p>Contrôle total sur le site — toutes les modifications s'appliquent en temps réel</p></div>
+
+      <!-- LIVE PREVIEW LINK -->
+      <div style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#181410,#2a1f0e);border-radius:var(--r);padding:18px 24px;margin-bottom:22px">
+        <div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px">Aperçu en direct</div>
+          <div style="font-family:var(--serif);font-size:20px;color:var(--white)">Toutes les modifications s'appliquent immédiatement sur le site</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:4px">LocalStorage partagé entre dashboard et site · même domaine</div>
+        </div>
+        <a href="index.html" target="_blank" class="sv" style="white-space:nowrap;text-decoration:none">🌐 Voir le site →</a>
+      </div>
+
+      <!-- TOAST GLOBAL -->
+      <div class="toast" id="toast" style="margin-bottom:16px">✅ Modifications enregistrées et appliquées sur le site !</div>
+
+      <!-- ── 1. WHATSAPP & CONTACT ── -->
+      <div class="sb2" id="s-wa">
+        <h5>📱 WhatsApp & Contact</h5>
+        <div class="f2">
+          <div class="fg">
+            <label>Numéro WhatsApp (sans espaces, sans +)</label>
+            <input type="text" id="cfgWa" placeholder="212600000000" />
+          </div>
+          <div class="fg">
+            <label>Message d'accueil WhatsApp (template)</label>
+            <input type="text" id="cfgWaMsg" placeholder="Bonjour H&A ! Je voudrais commander…" />
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:14px">
+          <label>Email contact</label>
+          <input type="text" id="cfgEmail" placeholder="contact@ha-lingerie.ma" />
+        </div>
+        <button class="sv" onclick="saveCfg('wa')">💾 Appliquer sur le site</button>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">→ Met à jour tous les liens WhatsApp sur le site automatiquement</div>
+      </div>
+
+      <!-- ── 1B. PAIEMENT & RIB BANCAIRE ── -->
+      <div class="sb2" id="s-payment">
+        <h5>💳 Paiement & RIB Bancaire</h5>
+        <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px">
+          Vos informations bancaires s'affichent dans le formulaire de commande quand le client choisit <strong>Virement bancaire</strong>.
+        </p>
+        <div class="f2">
+          <div class="fg">
+            <label>Banque</label>
+            <input type="text" id="cfgBank" placeholder="Attijariwafa Bank, CIH, BCP…" />
+          </div>
+          <div class="fg">
+            <label>Bénéficiaire (nom du compte)</label>
+            <input type="text" id="cfgBankName" placeholder="Ex: AFAF LINGERIE SARL" />
+          </div>
+          <div class="fg">
+            <label>Numéro de compte / RIB</label>
+            <input type="text" id="cfgRib" placeholder="007 123 456789012345678901 89" />
+          </div>
+          <div class="fg">
+            <label>IBAN (si disponible)</label>
+            <input type="text" id="cfgIban" placeholder="MA64 007 123 456789012345678901 89" />
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:14px">
+          <label>Instructions de paiement (affiché au client)</label>
+          <textarea id="cfgPaymentNote" style="height:70px" placeholder="Effectuez votre virement puis envoyez la preuve de paiement sur notre WhatsApp. Votre commande sera traitée dès réception de la confirmation."></textarea>
+        </div>
+        <div class="f2" style="margin-bottom:14px">
+          <div class="fg">
+            <label>Cash à la livraison</label>
+            <select id="cfgPayCash">
+              <option value="1">✅ Activé</option>
+              <option value="0">❌ Désactivé</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Virement bancaire en ligne</label>
+            <select id="cfgPayVirement">
+              <option value="1">✅ Activé</option>
+              <option value="0">❌ Désactivé</option>
+            </select>
+          </div>
+        </div>
+        <button class="sv" onclick="saveCfg('payment')">💾 Sauvegarder les infos de paiement</button>
+      </div>
+
+      <!-- ── 2. BANDEAU ANNONCE ── -->
+      <div class="sb2" id="s-announce">
+        <h5>📢 Bandeau d'annonce (barre en haut du site)</h5>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px">Ces messages défilent en boucle sur toutes les pages du site. Cliquez <strong>+</strong> pour en ajouter.</p>
+        <div id="announceFields"></div>
+        <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">
+          <button class="sv" onclick="addAnnounceField()" style="background:var(--charcoal);padding:8px 18px">➕ Ajouter un message</button>
+          <button class="sv" onclick="saveCfg('announce')">💾 Appliquer sur le site</button>
+        </div>
+      </div>
+
+      <!-- ── 3. CODE PROMO ── -->
+      <div class="sb2" id="s-promo">
+        <h5>🎁 Code promo actif (affiché dans le bandeau & chatbot)</h5>
+        <div class="f2">
+          <div class="fg">
+            <label>Code promo</label>
+            <input type="text" id="cfgPromoCode" placeholder="BIENVENUE" style="text-transform:uppercase;font-weight:700;letter-spacing:.1em" />
+          </div>
+          <div class="fg">
+            <label>Texte affiché (FR)</label>
+            <input type="text" id="cfgPromoTxtFr" placeholder="-10% sur votre 1ère commande · code BIENVENUE" />
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:14px">
+          <label>Texte affiché (EN)</label>
+          <input type="text" id="cfgPromoTxtEn" placeholder="-10% on your 1st order · code WELCOME" />
+        </div>
+        <button class="sv" onclick="saveCfg('promo')">💾 Appliquer</button>
+      </div>
+
+      <!-- ── 4. HERO ── -->
+      <div class="sb2" id="s-hero">
+        <h5>🎬 Section Hero (page d'accueil)</h5>
+        <div class="f2">
+          <div class="fg">
+            <label>Titre principal (FR)</label>
+            <input type="text" id="cfgHeroTitleFr" placeholder="Nouvelle Collection" />
+          </div>
+          <div class="fg">
+            <label>Titre principal (EN)</label>
+            <input type="text" id="cfgHeroTitleEn" placeholder="New Collection" />
+          </div>
+        </div>
+        <div class="f2">
+          <div class="fg">
+            <label>Texte bouton (FR)</label>
+            <input type="text" id="cfgHeroBtnFr" placeholder="Découvrir" />
+          </div>
+          <div class="fg">
+            <label>Texte bouton (EN)</label>
+            <input type="text" id="cfgHeroBtnEn" placeholder="Discover" />
+          </div>
+        </div>
+        <!-- Choix du type de média -->
+        <div class="fg" style="margin-bottom:14px">
+          <label>Type de média hero</label>
+          <div style="display:flex;gap:10px;margin-top:6px">
+            <label style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;flex:1;transition:border-color .2s" id="_mLabel_video">
+              <input type="radio" name="heroMediaType" id="cfgHeroTypeVideo" value="video" checked onchange="toggleHeroMedia()" style="accent-color:var(--gold)"/>
+              🎬 Vidéo
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;flex:1;transition:border-color .2s" id="_mLabel_photo">
+              <input type="radio" name="heroMediaType" id="cfgHeroTypePhoto" value="photo" onchange="toggleHeroMedia()" style="accent-color:var(--gold)"/>
+              🖼️ Photo
+            </label>
+          </div>
+        </div>
+
+        <!-- Section vidéo -->
+        <div id="heroVideoSection" class="fg" style="margin-bottom:14px">
+          <label>Nom du fichier vidéo (dans le dossier store, ex: video.mp4)</label>
+          <input type="text" id="cfgHeroVideo" placeholder="video.mp4" />
+          <p style="font-size:11px;color:var(--muted);margin-top:4px">Uploadez la vidéo dans le dossier du site, puis entrez son nom ici.</p>
+        </div>
+
+        <!-- Section photo -->
+        <div id="heroPhotoSection" class="fg" style="margin-bottom:14px;display:none">
+          <label>Nom du fichier photo ou URL complète</label>
+          <input type="text" id="cfgHeroPhoto" placeholder="hero-photo.jpg ou https://…" oninput="previewHeroPhoto(this.value)"/>
+          <div id="heroPhotoPreview" style="margin-top:10px;display:none">
+            <img id="_heroPreviewImg" style="width:100%;max-height:180px;object-fit:cover;border-radius:10px;border:1px solid var(--border)" />
+          </div>
+          <p style="font-size:11px;color:var(--muted);margin-top:4px">Uploadez la photo dans le dossier du site, puis entrez son nom ici — ou collez une URL directe.</p>
+        </div>
+
+        <button class="sv" onclick="saveCfg('hero')">💾 Appliquer sur le site</button>
+      </div>
+
+      <!-- ── 5. IMAGES ── -->
+      <div class="sb2" id="s-images">
+        <h5>🖼️ Images du site</h5>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px">Entrez le nom du fichier (si déjà dans le dossier store) ou une URL complète</p>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:14px">
+          <div class="fg">
+            <label>Image éditoriale principale (section lingerie)</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="text" id="cfgImg1" placeholder="01.jpeg ou https://..." style="flex:1" />
+              <div id="img1Preview" style="width:60px;height:60px;border-radius:8px;background:var(--border);background-size:cover;background-position:center;flex-shrink:0"></div>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Image bannière plein-écran (maillots de bain)</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="text" id="cfgImg2" placeholder="IMG_5036.JPG ou https://..." style="flex:1" />
+              <div id="img2Preview" style="width:60px;height:60px;border-radius:8px;background:var(--border);background-size:cover;background-position:center;flex-shrink:0"></div>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Image section "Notre Histoire"</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="text" id="cfgImg3" placeholder="02.jpeg ou https://..." style="flex:1" />
+              <div id="img3Preview" style="width:60px;height:60px;border-radius:8px;background:var(--border);background-size:cover;background-position:center;flex-shrink:0"></div>
+            </div>
+          </div>
+        </div>
+        <button class="sv" onclick="saveCfg('images')">💾 Appliquer sur le site</button>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">→ Placez vos fichiers dans le dossier <code style="background:var(--cream);padding:2px 6px;border-radius:4px;font-size:11px">/afaf websites/store/</code> puis entrez leur nom ici</div>
+      </div>
+
+      <!-- ── 6. PRODUITS ── -->
+      <div class="sb2" id="s-products">
+        <h5>🛍️ Gestionnaire de produits</h5>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px">Modifiez le catalogue complet — les changements s'appliquent au site immédiatement</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px">
+          <input class="fi" style="flex:1" id="prodSearch" placeholder="🔍 Rechercher…" oninput="renderProdMgr()" />
+          <select class="fi" id="prodCatFilter" onchange="renderProdMgr()">
+            <option value="">Toutes catégories</option>
+            <option>Soutiens-gorge</option><option>Culottes</option><option>Bodies</option>
+            <option>Mariée</option><option>Sets & Parures</option><option>Robes</option>
+            <option>Nuit</option><option>Maillots de Bain</option>
+            <option>Lingerie Menstruelle</option><option>Mamans</option>
+          </select>
+          <button class="sv" onclick="openProdModal(null)">+ Ajouter un produit</button>
+        </div>
+        <div id="prodMgrTable"></div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="sv" onclick="resetProducts()">↺ Réinitialiser au catalogue de base</button>
+        </div>
+      </div>
+
+      <!-- ── 7. CHATBOT ── -->
+      <div class="sb2" id="s-chatbot">
+        <h5>🤖 Chatbot</h5>
+        <div class="f2">
+          <div class="fg">
+            <label>Chatbot activé</label>
+            <select id="cfgChatbotOn">
+              <option value="1">✅ Activé</option>
+              <option value="0">❌ Désactivé</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Numéro WhatsApp du chatbot</label>
+            <input type="text" id="cfgChatbotWa" placeholder="212600000000" />
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:14px">
+          <label>Message d'accueil du chatbot</label>
+          <textarea id="cfgChatbotMsg" placeholder="Bonjour ! 👋 Bienvenue chez H&A Lingerie. Comment puis-je vous aider ?" style="height:80px"></textarea>
+        </div>
+        <button class="sv" onclick="saveCfg('chatbot')">💾 Enregistrer (rechargez le site pour voir)</button>
+      </div>
+
+      <!-- ── 8B. RÉDUCTION PREMIÈRE COMMANDE ── -->
+      <div class="sb2" id="s-firstorder">
+        <h5>🎁 Réduction Première Commande</h5>
+        <p style="font-size:12.5px;color:var(--muted);margin-bottom:14px">
+          Activez une réduction automatique pour les nouvelles clientes qui commandent pour la première fois.
+        </p>
+        <div class="f2">
+          <div class="fg">
+            <label>Réduction première commande</label>
+            <select id="cfgFirstOrderOn">
+              <option value="1">✅ Activée</option>
+              <option value="0">❌ Désactivée</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Pourcentage de réduction (%)</label>
+            <input type="number" id="cfgFirstOrderPct" placeholder="10" min="1" max="50" />
+          </div>
+          <div class="fg">
+            <label>Code promo associé</label>
+            <input type="text" id="cfgFirstOrderCode" placeholder="BIENVENUE" style="text-transform:uppercase"/>
+          </div>
+          <div class="fg">
+            <label>Message affiché à la cliente</label>
+            <input type="text" id="cfgFirstOrderMsg" placeholder="-10% sur votre 1ère commande avec le code BIENVENUE"/>
+          </div>
+        </div>
+        <button class="sv" onclick="saveCfg('firstorder')">💾 Enregistrer</button>
+      </div>
+
+      <!-- ── 8C. DIFFUSION WHATSAPP ── -->
+      <div class="sb2" id="s-broadcast">
+        <h5>📣 Diffusion WhatsApp — Informer les clients</h5>
+        <p style="font-size:12.5px;color:var(--muted);margin-bottom:14px">
+          Composez un message et envoyez-le à toutes les clientes ayant passé une commande. Chaque lien WhatsApp s'ouvre pré-rempli avec leur nom.
+        </p>
+        <div class="fg" style="margin-bottom:12px">
+          <label>Objet / Titre de la campagne</label>
+          <input type="text" id="bcTitle" placeholder="Nouvelle Collection Été 2026 🌸" />
+        </div>
+        <div class="fg" style="margin-bottom:12px">
+          <label>Message (utilisez {prénom} pour personnaliser)</label>
+          <textarea id="bcMsg" style="height:100px" placeholder="Bonjour {prénom} ! 🌸 La nouvelle collection H&A est arrivée. Découvrez nos nouveautés et profitez de -15% avec le code ETE2026. Valable ce weekend uniquement ! 👉 ha-lingerie.ma"></textarea>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
+          <button class="sv" onclick="prepareBroadcast()">📋 Préparer les liens</button>
+          <span style="font-size:12px;color:var(--muted)" id="bcCount"></span>
+        </div>
+        <div id="bcLinks" style="display:flex;flex-direction:column;gap:8px;max-height:250px;overflow-y:auto"></div>
+      </div>
+
+      <!-- ── 8. OBJECTIFS ── -->
+      <div class="sb2" id="s-goals">
+        <h5>📊 Objectifs & Seuils d'alerte</h5>
+        <div class="f2">
+          <div class="fg"><label>Objectif mensuel (MAD)</label><input type="number" id="cfgGoalRev" value="20000" /></div>
+          <div class="fg"><label>Objectif taux conversion (%)</label><input type="number" id="cfgGoalCvr" value="3" /></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label>Seuil alerte stock bas (unités)</label><input type="number" id="cfgGoalStock" value="5" /></div>
+          <div class="fg"><label>Budget pub mensuel (MAD)</label><input type="number" id="cfgGoalAds" value="2000" /></div>
+        </div>
+        <button class="sv" onclick="saveCfg('goals')">💾 Enregistrer</button>
+      </div>
+
+      <!-- ── 9. ACCÈS ADMIN ── -->
+      <div class="sb2" id="s-admin">
+        <h5>🔐 Identifiants administrateur</h5>
+        <div class="f2">
+          <div class="fg"><label>Nom d'utilisateur</label><input type="text" id="sU" value="admin" /></div>
+          <div class="fg"><label>Nouveau mot de passe</label><input type="password" id="sP" placeholder="Laisser vide pour ne pas modifier" /></div>
+        </div>
+        <button class="sv" onclick="saveSet()">🔒 Mettre à jour les identifiants</button>
+      </div>
+
+    </div>
+
+    <!-- == PAGE: CLIENTS == -->
+    <div class="page" id="page-clients">
+      <div class="ph"><h2>Clients</h2><p>Base clients WhatsApp — fidélité & géographie</p></div>
+      <div class="c4">
+        <div class="card"><div class="ci g2">👤</div><div class="cl">Total clients</div><div class="cv">342</div><div class="cm"><span class="up">↑ +23</span> ce mois</div></div>
+        <div class="card"><div class="ci g0">🔁</div><div class="cl">Clients fidèles</div><div class="cv">89</div><div class="cm">2+ commandes · <span class="up">26%</span></div></div>
+        <div class="card"><div class="ci g1">💰</div><div class="cl">Panier moyen</div><div class="cv">143 MAD</div><div class="cm">Fidèles : <span class="up">218 MAD</span></div></div>
+        <div class="card"><div class="ci g3">⭐</div><div class="cl">LTV estimée</div><div class="cv">389 MAD</div><div class="cm">sur 12 mois</div></div>
+      </div>
+
+      <div class="ch2">
+        <div class="cc">
+          <h4>Nouveaux clients / mois</h4><p class="sub">Acquisition — 6 derniers mois</p>
+          <div class="cw" style="height:200px"><canvas id="cCli"></canvas></div>
+        </div>
+        <div class="cc">
+          <h4>Répartition géographique</h4><p class="sub">Ville d'origine (WhatsApp)</p>
+          <div class="cw" style="height:160px"><canvas id="cCliGeo"></canvas></div>
+          <div class="leg" style="margin-top:10px">
+            <div class="lr"><span class="ln"><span class="dot" style="background:#b8935a"></span>Agadir</span><span class="lv">45%</span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#d4aa78"></span>Casablanca</span><span class="lv">25%</span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#1c1c1c"></span>Marrakech</span><span class="lv">12%</span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#7a7169"></span>Autres</span><span class="lv">18%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tc">
+        <div class="tc-h">
+          <div><h4>Top Clients</h4><p class="sub">Par chiffre d'affaires généré</p></div>
+          <input id="clientSearch" class="fi" style="width:220px" placeholder="🔍 Rechercher un client…" oninput="filterClients(this.value)"/>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>Client</th><th>Ville</th><th>Commandes</th><th>Total dépensé</th><th>Dernière commande</th><th>Segment</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;justify-content:center"><div class="rank rk1">1</div></div></td>
+              <td><div class="pn"><div class="pt">👰</div><div><strong>Fatima Z.</strong><div style="font-size:11px;color:var(--muted)">+212 6XX XXX 001</div></div></div></td>
+              <td>Agadir</td><td style="font-weight:700">8</td><td class="rev">2 640 MAD</td><td>02/06/26</td>
+              <td><span class="va v-ok">VIP</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;justify-content:center"><div class="rank rk2">2</div></div></td>
+              <td><div class="pn"><div class="pt">💍</div><div><strong>Nadia B.</strong><div style="font-size:11px;color:var(--muted)">+212 6XX XXX 002</div></div></div></td>
+              <td>Casablanca</td><td style="font-weight:700">6</td><td class="rev">1 980 MAD</td><td>02/06/26</td>
+              <td><span class="va v-ok">VIP</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;justify-content:center"><div class="rank rk3">3</div></div></td>
+              <td><div class="pn"><div class="pt">🌸</div><div><strong>Salma R.</strong><div style="font-size:11px;color:var(--muted)">+212 6XX XXX 003</div></div></div></td>
+              <td>Marrakech</td><td style="font-weight:700">5</td><td class="rev">1 540 MAD</td><td>01/06/26</td>
+              <td><span class="va v-ship">Fidèle</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;justify-content:center"><div class="rank rkn">4</div></div></td>
+              <td><div class="pn"><div class="pt">✨</div><div><strong>Houria M.</strong><div style="font-size:11px;color:var(--muted)">+212 6XX XXX 004</div></div></div></td>
+              <td>Rabat</td><td style="font-weight:700">4</td><td class="rev">1 320 MAD</td><td>01/06/26</td>
+              <td><span class="va v-ship">Fidèle</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;justify-content:center"><div class="rank rkn">5</div></div></td>
+              <td><div class="pn"><div class="pt">🤍</div><div><strong>Amina K.</strong><div style="font-size:11px;color:var(--muted)">+212 6XX XXX 005</div></div></div></td>
+              <td>Agadir</td><td style="font-weight:700">3</td><td class="rev">960 MAD</td><td>31/05/26</td>
+              <td><span class="va v-proc">Régulière</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;justify-content:center"><div class="rank rkn">6</div></div></td>
+              <td><div class="pn"><div class="pt">💜</div><div><strong>Sara L.</strong><div style="font-size:11px;color:var(--muted)">+212 6XX XXX 006</div></div></div></td>
+              <td>Fès</td><td style="font-weight:700">3</td><td class="rev">930 MAD</td><td>31/05/26</td>
+              <td><span class="va v-proc">Régulière</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;justify-content:center"><div class="rank rkn">7</div></div></td>
+              <td><div class="pn"><div class="pt">🌟</div><div><strong>Imane B.</strong><div style="font-size:11px;color:var(--muted)">+212 6XX XXX 007</div></div></div></td>
+              <td>Agadir</td><td style="font-weight:700">2</td><td class="rev">870 MAD</td><td>30/05/26</td>
+              <td><span class="va v-new">Nouveau</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cc" style="margin-top:0">
+        <h4>💡 Stratégie fidélisation</h4><p class="sub">Basée sur votre base clients</p>
+        <div class="rg">
+          <div class="rec"><h6>🏆 Programme VIP</h6><p>Vos <strong>89 clientes fidèles</strong> génèrent 68% du CA. Créez un groupe WhatsApp VIP avec accès prioritaire aux nouveautés.</p></div>
+          <div class="rec"><h6>🔁 Relance 30 jours</h6><p>253 clientes sans commande depuis +30j. Envoyez un message WhatsApp : <em>"On vous a réservé une surprise 💕"</em> avec photo de nouveauté.</p></div>
+          <div class="rec"><h6>🎁 Offre anniversaire</h6><p>Collectez les dates d'anniversaire et envoyez un <strong>-15% code perso</strong>. Taux d'achat estimé : <strong>+40%</strong> sur cette audience.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- == PAGE: PROMOTIONS == -->
+    <div class="page" id="page-promotions">
+      <div class="ph"><h2>Promotions</h2><p>Gestion des codes promo et offres spéciales</p></div>
+
+      <div class="c4">
+        <div class="card"><div class="ci g0">🎁</div><div class="cl">Codes actifs</div><div class="cv">4</div><div class="cm">2 expirent cette semaine</div></div>
+        <div class="card"><div class="ci g1">✅</div><div class="cl">Utilisations</div><div class="cv">138</div><div class="cm">ce mois</div></div>
+        <div class="card"><div class="ci g2">💰</div><div class="cl">CA généré</div><div class="cv">8 940 MAD</div><div class="cm">via codes promo</div></div>
+        <div class="card"><div class="ci g3">📉</div><div class="cl">Remise totale</div><div class="cv">1 340 MAD</div><div class="cm">accordée ce mois</div></div>
+      </div>
+
+      <div class="ch2e">
+        <div class="cc">
+          <h4>Codes actifs</h4><p class="sub">Performance par code</p>
+
+          <div class="promo-active">
+            <div class="promo-code">BIENVENUE</div>
+            <div class="promo-info"><strong>-10% première commande</strong><span>Expire : 30/06/26 · Toutes catégories</span></div>
+            <div class="promo-stat"><div class="pn2">67</div><small>utilisations</small></div>
+            <div style="display:flex;gap:8px;margin-left:14px">
+              <button class="pbtn pbtn-edit">✏️</button>
+              <button class="pbtn pbtn-del">🗑️</button>
+            </div>
+          </div>
+
+          <div class="promo-active">
+            <div class="promo-code">MARIEE2026</div>
+            <div class="promo-info"><strong>-15% collection Mariée</strong><span>Expire : 15/06/26 · Catégorie Mariée</span></div>
+            <div class="promo-stat"><div class="pn2">34</div><small>utilisations</small></div>
+            <div style="display:flex;gap:8px;margin-left:14px">
+              <button class="pbtn pbtn-edit">✏️</button>
+              <button class="pbtn pbtn-del">🗑️</button>
+            </div>
+          </div>
+
+          <div class="promo-active">
+            <div class="promo-code">ETE25</div>
+            <div class="promo-info"><strong>-25% maillots de bain</strong><span>Expire : 31/08/26 · Catégorie Maillots</span></div>
+            <div class="promo-stat"><div class="pn2">22</div><small>utilisations</small></div>
+            <div style="display:flex;gap:8px;margin-left:14px">
+              <button class="pbtn pbtn-edit">✏️</button>
+              <button class="pbtn pbtn-del">🗑️</button>
+            </div>
+          </div>
+
+          <div class="promo-active">
+            <div class="promo-code">VIP10</div>
+            <div class="promo-info"><strong>-10% clients fidèles</strong><span>Permanent · Toutes catégories</span></div>
+            <div class="promo-stat"><div class="pn2">15</div><small>utilisations</small></div>
+            <div style="display:flex;gap:8px;margin-left:14px">
+              <button class="pbtn pbtn-edit">✏️</button>
+              <button class="pbtn pbtn-del">🗑️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <h4>Créer un code promo</h4><p class="sub">Nouveau code à partager sur WhatsApp / stories</p>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+            <div class="fg"><label>Code promo</label><input type="text" placeholder="ex: RAMADAN30" style="text-transform:uppercase;letter-spacing:0.1em;font-weight:600" /></div>
+            <div class="fg"><label>Type de remise</label>
+              <select>
+                <option>% Pourcentage</option>
+                <option>MAD Montant fixe</option>
+                <option>Livraison gratuite</option>
+              </select>
+            </div>
+            <div class="fg"><label>Valeur remise</label><input type="number" placeholder="10" min="0" max="100" /></div>
+            <div class="fg"><label>Catégorie applicable</label>
+              <select>
+                <option>Toutes catégories</option>
+                <option>Soutiens-gorge</option>
+                <option>Mariée</option>
+                <option>Bodies</option>
+                <option>Maillots</option>
+                <option>Sets</option>
+              </select>
+            </div>
+            <div class="fg"><label>Date d'expiration</label><input type="date" /></div>
+            <button class="sv" style="margin-top:4px" onclick="createPromo()">✨ Créer le code</button>
+            <div class="toast" id="toastPromo">✅ Code créé ! Partagez-le sur WhatsApp.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc">
+        <h4>Performance des promotions</h4><p class="sub">Impact sur le chiffre d'affaires — Juin 2026</p>
+        <div class="cw" style="height:200px"><canvas id="cPromo"></canvas></div>
+      </div>
+    </div>
+
+    <!-- == PAGE: RÉSEAUX SOCIAUX == -->
+    <div class="page" id="page-social">
+      <div class="ph"><h2>Réseaux Sociaux</h2><p>Performance TikTok · Facebook · Instagram — données pub</p></div>
+
+      <div class="soc-grid">
+        <div class="soc-card soc-tt">
+          <span class="soc-icon">🎵</span>
+          <div class="soc-net">TikTok</div>
+          <div class="soc-num">45.2K</div>
+          <div class="soc-lbl">Abonnés</div>
+          <div class="soc-delta">↑ +1 240 ce mois</div>
+        </div>
+        <div class="soc-card soc-fb">
+          <span class="soc-icon">📘</span>
+          <div class="soc-net">Facebook</div>
+          <div class="soc-num">8 340</div>
+          <div class="soc-lbl">Abonnés page</div>
+          <div class="soc-delta">↑ +320 ce mois</div>
+        </div>
+        <div class="soc-card soc-ig">
+          <span class="soc-icon">📸</span>
+          <div class="soc-net">Instagram</div>
+          <div class="soc-num">12.1K</div>
+          <div class="soc-lbl">Abonnés</div>
+          <div class="soc-delta">↑ +680 ce mois</div>
+        </div>
+      </div>
+
+      <div class="ch2">
+        <div class="cc">
+          <h4>Croissance abonnés — 6 mois</h4><p class="sub">TikTok · Facebook · Instagram</p>
+          <div class="cw" style="height:210px"><canvas id="cSocGrowth"></canvas></div>
+        </div>
+        <div class="cc">
+          <h4>Trafic vers le site</h4><p class="sub">Visites générées par plateforme</p>
+          <div class="cw" style="height:160px"><canvas id="cSocTraffic"></canvas></div>
+          <div class="leg" style="margin-top:10px">
+            <div class="lr"><span class="ln"><span class="dot" style="background:#010101"></span>TikTok</span><span><span class="lv">1 458</span><span class="lp">45% du trafic social</span></span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#1877f2"></span>Facebook</span><span><span class="lv">810</span><span class="lp">25%</span></span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#e1306c"></span>Instagram</span><span><span class="lv">486</span><span class="lp">15%</span></span></div>
+            <div class="lr"><span class="ln"><span class="dot" style="background:#e6e0d8"></span>Autres</span><span><span class="lv">486</span><span class="lp">15%</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ch2e">
+        <div class="tc" style="margin-bottom:0">
+          <div class="tc-h"><div><h4>🎵 Top vidéos TikTok</h4><p class="sub">Performances — 30 derniers jours</p></div></div>
+          <table>
+            <thead><tr><th>#</th><th>Vidéo</th><th>Vues</th><th>Engagement</th><th>Clics site</th><th>Performance</th></tr></thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:700;color:var(--gold)">1</td>
+                <td><div style="font-weight:500">Set Bridal unboxing 💍</div><div style="font-size:11px;color:var(--muted)">28/05/26</div></td>
+                <td style="font-weight:700">42 800</td>
+                <td>8.4%<div class="vp-bar"><div class="vp-fill" style="width:84%"></div></div></td>
+                <td style="color:var(--ok);font-weight:600">234</td>
+                <td><span class="va v-ok">Viral</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:700">2</td>
+                <td><div style="font-weight:500">Body Ivoire essayage ✨</div><div style="font-size:11px;color:var(--muted)">22/05/26</div></td>
+                <td style="font-weight:700">28 400</td>
+                <td>6.1%<div class="vp-bar"><div class="vp-fill" style="width:61%"></div></div></td>
+                <td style="color:var(--ok);font-weight:600">187</td>
+                <td><span class="va v-ship">Bon</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:700">3</td>
+                <td><div style="font-weight:500">Dentelle Éclat look 👙</div><div style="font-size:11px;color:var(--muted)">18/05/26</div></td>
+                <td style="font-weight:700">19 200</td>
+                <td>5.2%<div class="vp-bar"><div class="vp-fill" style="width:52%"></div></div></td>
+                <td>142</td>
+                <td><span class="va v-proc">Moyen</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:700">4</td>
+                <td><div style="font-weight:500">Bikini été 2026 ☀️</div><div style="font-size:11px;color:var(--muted)">14/05/26</div></td>
+                <td style="font-weight:700">14 600</td>
+                <td>4.8%<div class="vp-bar"><div class="vp-fill" style="width:48%"></div></div></td>
+                <td>98</td>
+                <td><span class="va v-proc">Moyen</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:700">5</td>
+                <td><div style="font-weight:500">New arrivals mai 🆕</div><div style="font-size:11px;color:var(--muted)">10/05/26</div></td>
+                <td style="font-weight:700">8 900</td>
+                <td>3.1%<div class="vp-bar"><div class="vp-fill" style="width:31%"></div></div></td>
+                <td>54</td>
+                <td><span class="va v-low">Faible</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tc" style="margin-bottom:0">
+          <div class="tc-h"><div><h4>📘 Campagnes Facebook Ads</h4><p class="sub">Résultats — Juin 2026</p></div></div>
+          <table>
+            <thead><tr><th>Campagne</th><th>Budget</th><th>Portée</th><th>Clics</th><th>Commandes</th><th>ROI</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div style="font-weight:500">Set Bridal — Femmes 22-38</div><div style="font-size:11px;color:var(--muted)">Agadir + Casa</div></td>
+                <td>900 MAD</td>
+                <td>14 200</td>
+                <td style="font-weight:600">387</td>
+                <td style="color:var(--ok);font-weight:700">24</td>
+                <td style="color:var(--ok);font-weight:700">×1.8</td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:500">Body Dentelle — Retargeting</div><div style="font-size:11px;color:var(--muted)">Paniers abandonnés</div></td>
+                <td>500 MAD</td>
+                <td>6 800</td>
+                <td style="font-weight:600">214</td>
+                <td style="color:var(--ok);font-weight:700">18</td>
+                <td style="color:var(--ok);font-weight:700">×2.1</td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:500">Nouveautés Juin</div><div style="font-size:11px;color:var(--muted)">Intérêts mode/lingerie</div></td>
+                <td>400 MAD</td>
+                <td>8 900</td>
+                <td style="font-weight:600">156</td>
+                <td style="color:var(--warn);font-weight:700">9</td>
+                <td style="color:var(--warn);font-weight:700">×0.9</td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:500">Maillots Été 2026</div><div style="font-size:11px;color:var(--muted)">Marrakech + Agadir</div></td>
+                <td>200 MAD</td>
+                <td>4 100</td>
+                <td style="font-weight:600">98</td>
+                <td style="color:var(--muted);font-weight:700">5</td>
+                <td style="color:var(--muted);font-weight:700">×1.1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="cc" style="margin-top:22px">
+        <h4>🚀 Recommandations contenu & pub</h4>
+        <p class="sub">Basées sur vos performances réelles</p>
+        <div class="rg">
+          <div class="rec"><h6>🎵 TikTok — Format gagnant</h6><p>Les <strong>unboxing et essayages</strong> ont 3× plus de vues. Publiez entre <strong>20h–22h</strong> avec trending sounds marocains. Ciblez #LingerieMaroc #ModeAgadir.</p></div>
+          <div class="rec"><h6>📘 Facebook — Stoppez Nouveautés</h6><p>La campagne <strong>"Nouveautés Juin"</strong> a un ROI ×0.9 (perte). Réallouez ces <strong>400 MAD</strong> sur la campagne Set Bridal qui fait ×1.8.</p></div>
+          <div class="rec"><h6>📸 Instagram — Stories produit</h6><p>Postez des <strong>polls stories</strong> "Laquelle tu préfères ?" avec 2 produits. Génère de l'engagement et identifie les futures stars pub.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL: Détail commande -->
+<div class="modal-bg" id="modalOrder">
+  <div class="modal">
+    <div class="modal-hd">
+      <h4>Commande <span id="modOrderNum">#087</span></h4>
+      <div class="modal-cl" onclick="closeModal('modalOrder')">✕</div>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px">
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Cliente</div>
+          <div style="font-size:14px;font-weight:600" id="modOrderClient">Fatima Z.</div>
+          <div style="font-size:12px;color:var(--muted)">+212 6XX XXX 001</div>
+          <div style="font-size:12px;color:var(--muted)" id="modOrderCity">📍 Agadir</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Date</div>
+          <div style="font-size:14px;font-weight:600" id="modOrderDate">02/06/2026</div>
+          <div style="font-size:12px;color:var(--muted)">via WhatsApp</div>
+        </div>
+      </div>
+      <div style="background:var(--cream);border-radius:9px;padding:14px;margin-bottom:18px">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Articles commandés</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px"><div class="pt">💍</div><div><strong style="font-size:13px" id="modOrderProd">Set Bridal Rose Poudré</strong><div style="font-size:11px;color:var(--muted)">Taille M · Rose Poudré</div></div></div>
+          <div style="font-weight:700;color:var(--gold)" id="modOrderAmt">680 MAD</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding-top:12px;font-weight:700">
+          <span>Total</span><span style="color:var(--gold)" id="modOrderTotal">680 MAD</span>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Statut de la commande</label>
+        <select class="status-sel" id="modOrderStatus" style="width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:7px;background:var(--cream);font-size:13px">
+          <option value="new">🆕 En attente</option>
+          <option value="proc">⚙️ En cours de préparation</option>
+          <option value="ship">🚚 Expédiée</option>
+          <option value="done">✅ Livrée</option>
+          <option value="cancel">❌ Annulée</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-top:14px">
+        <label>Note interne</label>
+        <textarea placeholder="Note sur cette commande…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('modalOrder')">Annuler</button>
+      <button class="sv" onclick="saveOrder()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Édition produit (CMS) -->
+<div class="modal-bg" id="modalProd">
+  <div class="modal" style="width:640px">
+    <div class="modal-hd">
+      <h4 id="prodModalTitle">Nouveau produit</h4>
+      <div class="modal-cl" onclick="closeModal('modalProd')">✕</div>
+    </div>
+    <div class="modal-body">
+      <div class="f2">
+        <div class="fg"><label>Nom (FR) *</label><input type="text" id="pName" placeholder="Soutien-gorge Dentelle Rose" /></div>
+        <div class="fg"><label>Nom (EN)</label><input type="text" id="pNameEn" placeholder="Pink Lace Bra" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Catégorie *</label>
+          <select id="pCat">
+            <option>Soutiens-gorge</option><option>Culottes</option><option>Bodies</option>
+            <option>Mariée</option><option>Sets & Parures</option><option>Robes</option>
+            <option>Nuit</option><option>Maillots de Bain</option>
+            <option>Lingerie Menstruelle</option><option>Mamans</option>
+          </select>
+        </div>
+        <div class="fg"><label>Prix (MAD) *</label><input type="number" id="pPrice" placeholder="349" min="0" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Ancien prix (barré, optionnel)</label><input type="number" id="pOldPrice" placeholder="450" min="0" /></div>
+        <div class="fg"><label>Stock</label><input type="number" id="pStock" placeholder="20" min="0" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Couleurs (séparées par virgule)</label><input type="text" id="pColors" placeholder="Noir, Rose Poudré, Ivoire" /></div>
+        <div class="fg"><label>Tailles disponibles</label><input type="text" id="pSizes" placeholder="80B, 85B, 90C, 95C" /></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>Badge</label>
+          <select id="pBadge">
+            <option value="">Aucun</option>
+            <option value="✦ Nouveau">✦ Nouveau</option>
+            <option value="🔥 Populaire">🔥 Populaire</option>
+            <option value="⭐ Bestseller">⭐ Bestseller</option>
+            <option value="💍 Mariée">💍 Mariée</option>
+            <option value="🏷️ Solde">🏷️ Solde</option>
+          </select>
+        </div>
+        <div class="fg"><label>Image (Unsplash photo-ID ou URL complète)</label><input type="text" id="pImg" placeholder="photo-1571513722275-4b41940f54b8" /></div>
+      </div>
+      <div class="fg" style="margin-bottom:12px"><label>Tags (séparés par virgule, pour la recherche)</label><input type="text" id="pTags" placeholder="soutien, dentelle, lingerie, rose" /></div>
+      <div class="f2">
+        <div class="fg"><label>Description (FR)</label><textarea id="pDesc" placeholder="Description du produit en français…" style="height:70px"></textarea></div>
+        <div class="fg"><label>Description (EN)</label><textarea id="pDescEn" placeholder="Product description in English…" style="height:70px"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('modalProd')">Annuler</button>
+      <button class="sv" onclick="saveProdCMS()">💾 Enregistrer & appliquer sur le site</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEF={u:'admin',p:'ha2026'};
+let ci={};
+
+/* ================================================================
+   API PHP — Hostinger
+   GET  api/index.php  → charge les données
+   POST api/index.php  → sauvegarde les données (auth requise)
+   ================================================================ */
+const API_URL = 'api/index.php';
+let SITE_DATA = { config:{}, announce:[], products:[] };
+
+async function apiLoad() {
+  try {
+    const res = await fetch(API_URL + '?t=' + Date.now(), { cache:'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const d = await res.json();
+    SITE_DATA = Object.assign({ config:{}, announce:[], products:[], orders:[] }, d);
+    /* Mettre à jour le cache localStorage depuis l'API (pas l'inverse) */
+    try {
+      if (Array.isArray(SITE_DATA.products) && SITE_DATA.products.length) {
+        localStorage.setItem('ha_products_db', JSON.stringify(SITE_DATA.products));
+        dbProducts = [...SITE_DATA.products]; /* synchroniser dbProducts */
+      }
+      if (Array.isArray(SITE_DATA.orders)) {
+        localStorage.setItem('ha_orders', JSON.stringify(SITE_DATA.orders));
+      }
+    } catch(_) {}
+    return true;
+  } catch(e) {
+    console.warn('H&A API indisponible:', e.message);
+    return false;
+  }
+}
+
+async function apiSave(toastMsg) {
+  const pw = localStorage.getItem('ha_p') || DEF.p;
+  SITE_DATA._auth = pw;
+  const btn = event?.target;
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Enregistrement…'; }
+
+  /* Toujours sauvegarder en localStorage (fonctionne local + Hostinger) */
+  try {
+    localStorage.setItem('ha_site_cache', JSON.stringify(SITE_DATA));
+    if (SITE_DATA.products?.length) localStorage.setItem('ha_products_db', JSON.stringify(SITE_DATA.products));
+    if (SITE_DATA.orders)          localStorage.setItem('ha_orders',       JSON.stringify(SITE_DATA.orders));
+  } catch(_) {}
+
+  /* Essayer de sauvegarder sur le serveur PHP (Hostinger uniquement) */
+  let serverOk = false;
+  try {
+    const res = await fetch(API_URL, {
+      method : 'POST',
+      headers: { 'Content-Type':'application/json', 'X-Auth-Key': pw },
+      body   : JSON.stringify(SITE_DATA)
+    });
+    const json = await res.json();
+    if (json.ok) {
+      serverOk = true;
+      showGlobalToast('✅ C\'est fait ! Changements appliqués sur le site.');
+    } else {
+      showGlobalToast('❌ Erreur : ' + (json.error || 'réessayez'), true);
+    }
+  } catch(e) {
+    /* API PHP non disponible = test en local. On sauvegarde en localStorage.
+       Les changements seront visibles sur le site une fois déployé sur Hostinger. */
+    showGlobalToast('💾 Sauvegardé localement. Déployez sur Hostinger pour l\'appliquer sur le site en ligne.', false, true);
+  }
+
+  if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || '💾 Appliquer sur le site'; }
+  return serverOk;
+}
+
+function doLogin(){
+  const u=document.getElementById('lu').value.trim();
+  const p=document.getElementById('lp').value.trim();
+  const su=localStorage.getItem('ha_u')||DEF.u;
+  const sp=localStorage.getItem('ha_p')||DEF.p;
+  if(u===su&&p===sp){
+    document.getElementById('le').style.display='none';
+    localStorage.setItem('ha_a','1');
+    showApp(u);
+  }else{
+    document.getElementById('le').style.display='block';
+    document.getElementById('lp').value='';
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&document.getElementById('lw').style.display!=='none')doLogin();
+});
+function doLogout(){
+  stopNotifPolling(); /* arrêter le polling à la déconnexion */
+  localStorage.removeItem('ha_a');
+  document.getElementById('app').classList.remove('show');
+  document.getElementById('lw').style.display='';
+  document.getElementById('lu').value='';
+  document.getElementById('lp').value='';
+}
+function showApp(name){
+  document.getElementById('lw').style.display='none';
+  document.getElementById('app').classList.add('show');
+  requestNotifPermission();
+  /* Afficher le bandeau si permission pas encore accordée */
+  setTimeout(() => {
+    if ('Notification' in window && Notification.permission !== 'granted') {
+      const banner = document.getElementById('_notifBanner');
+      if (banner) banner.style.display = 'flex';
+    }
+  }, 1500);
+  const n=name||localStorage.getItem('ha_u')||DEF.u;
+  document.getElementById('sbN').textContent=n;
+  document.getElementById('sbAv').textContent=n.substring(0,2).toUpperCase();
+  const now=new Date();
+  document.getElementById('tbd').textContent=now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  initDash();
+
+  /* ── Polling notifications (actif tout le temps pendant la session) ──
+     Vérifie les nouvelles commandes et alertes stock toutes les 60 secondes.
+     S'arrête automatiquement à la déconnexion. */
+  startNotifPolling();
+
+  /* ── Charger SITE_DATA au démarrage ──────────────────────
+     CRITIQUE : sans ça, sauvegarder n'importe quoi (hero, produits, etc.)
+     avant d'aller dans Paramètres écrasait data.json avec un fichier vide.
+     On charge maintenant en arrière-plan dès le login. */
+  apiLoad().catch(() => {});
+
+  /* Restaurer la dernière section visitée avant le refresh */
+  const lastPage = sessionStorage.getItem('ha_dash_page');
+  if (lastPage && lastPage !== 'dashboard') {
+    /* Petit délai pour laisser initDash() se terminer d'abord */
+    setTimeout(() => {
+      const navItem = document.querySelector(`.ni[onclick*="'${lastPage}'"]`);
+      go(lastPage, navItem);
+    }, 50);
+  }
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  if(localStorage.getItem('ha_a')==='1')showApp();
+});
+
+const PT={dashboard:"Vue d'ensemble",produits:'Produits',commandes:'Commandes',
+  clients:'Clients',promotions:'Promotions',
+  visiteurs:'Visiteurs & Trafic',pub:'Pub & Conversions',social:'Réseaux Sociaux',
+  parametres:'Paramètres'};
+function go(page,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page)?.classList.add('active');
+  if(el)el.classList.add('active');
+  /* Mémoriser la page courante pour la restaurer après refresh */
+  sessionStorage.setItem('ha_dash_page', page);
+  /* Fermer la sidebar sur mobile après navigation */
+  closeMobSidebar();
+  document.getElementById('tbt').textContent=PT[page]||page;
+  if(page==='visiteurs'&&!ci.v){initVis();ci.v=true;}
+  if(page==='clients'&&!ci.c){initClients();ci.c=true;}
+  if(page==='social'&&!ci.s){initSocial();ci.s=true;}
+  if(page==='promotions'&&!ci.pr){initPromo();ci.pr=true;}
+  if(page==='parametres'){loadCfgForms();}
+  if(page==='commandes'){loadRealOrders();}
+}
+
+function saveSet(){
+  const u=document.getElementById('sU').value.trim();
+  const p=document.getElementById('sP').value.trim();
+  if(u){localStorage.setItem('ha_u',u);document.getElementById('sbN').textContent=u;document.getElementById('sbAv').textContent=u.substring(0,2).toUpperCase();}
+  if(p){
+    localStorage.setItem('ha_p',p);
+    SITE_DATA._auth = p; /* Met à jour le mot de passe dans l'API aussi */
+    apiSave('✅ Mot de passe mis à jour !');
+    document.getElementById('sP').value='';
+    return;
+  }
+  const t=document.getElementById('toast');
+  t.style.display='block';setTimeout(()=>t.style.display='none',3000);
+}
+
+const G='#b8935a',G2='#d4aa78',BK='#1c1c1c',MT='#7a7169',BD='#e6e0d8';
+const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+
+function initDash(){
+  if(ci.d)return;ci.d=true;
+  /* Init notifications, produits et stats réelles */
+  refreshNotifBadge();
+  setTimeout(() => {
+    renderProdPage();
+    scanStockNotifs();
+    refreshDashboardStats(); /* stats calculées depuis vraies commandes */
+  }, 600);
+  // Revenue
+  new Chart(document.getElementById('cRev'),{
+    type:'line',
+    data:{labels:['Juil','Août','Sep','Oct','Nov','Déc','Jan','Fév','Mar','Avr','Mai','Juin'],
+      datasets:[{data:[4200,5800,6100,7200,8900,11200,7800,6900,8400,9100,10890,12450],
+        borderColor:G,backgroundColor:'rgba(184,147,90,0.08)',borderWidth:2.5,fill:true,
+        tension:0.42,pointBackgroundColor:G,pointRadius:4,pointHoverRadius:6}]},
+    options:{...base,scales:{
+      x:{grid:{display:false},ticks:{font:{size:11},color:MT}},
+      y:{grid:{color:'#f0ece6'},ticks:{font:{size:11},color:MT,callback:v=>v.toLocaleString('fr')+' MAD'}}
+    }}
+  });
+  // Category donut
+  new Chart(document.getElementById('cCat'),{
+    type:'doughnut',
+    data:{labels:['Soutiens-gorge','Mariée','Bodies','Maillots','Autres'],
+      datasets:[{data:[35,22,18,15,10],backgroundColor:[G,G2,BK,MT,BD],borderWidth:0,hoverOffset:5}]},
+    options:{...base,cutout:'68%',plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>' '+c.label+' : '+c.parsed+'%'}}}}
+  });
+}
+
+/* ---- MODALS ---- */
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('modal-bg'))e.target.classList.remove('open');
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')document.querySelectorAll('.modal-bg.open').forEach(m=>m.classList.remove('open'));
+});
+
+function openOrder(num,client,city,prod,amt,date,status){
+  document.getElementById('modOrderNum').textContent=num;
+  document.getElementById('modOrderClient').textContent=client;
+  document.getElementById('modOrderCity').textContent='📍 '+city;
+  document.getElementById('modOrderProd').textContent=prod;
+  document.getElementById('modOrderAmt').textContent=amt;
+  document.getElementById('modOrderTotal').textContent=amt;
+  document.getElementById('modOrderDate').textContent=date;
+  document.getElementById('modOrderStatus').value=status;
+  openModal('modalOrder');
+}
+function saveOrder(){
+  const t=document.getElementById('toast');
+  t.style.display='block';
+  closeModal('modalOrder');
+  setTimeout(()=>t.style.display='none',2500);
+}
+function saveProd(){
+  closeModal('modalProd');
+  const t=document.getElementById('toast');
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',2500);
+}
+function createPromo(){
+  const t=document.getElementById('toastPromo');
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',3000);
+}
+
+/* ---- CLIENTS CHARTS ---- */
+function initClients(){
+  new Chart(document.getElementById('cCli'),{
+    type:'bar',
+    data:{labels:['Jan','Fév','Mar','Avr','Mai','Juin'],
+      datasets:[{label:'Nouveaux clients',data:[38,44,52,49,57,63],
+        backgroundColor:'rgba(184,147,90,0.65)',hoverBackgroundColor:G,borderRadius:4}]},
+    options:{...base,scales:{
+      x:{grid:{display:false},ticks:{font:{size:11},color:MT}},
+      y:{grid:{color:'#f0ece6'},ticks:{font:{size:11},color:MT}}
+    }}
+  });
+  new Chart(document.getElementById('cCliGeo'),{
+    type:'doughnut',
+    data:{labels:['Agadir','Casablanca','Marrakech','Autres'],
+      datasets:[{data:[45,25,12,18],backgroundColor:[G,G2,'#c9a97a',BD],borderWidth:0,hoverOffset:4}]},
+    options:{...base,cutout:'66%'}
+  });
+}
+
+/* ---- SOCIAL CHARTS ---- */
+function initSocial(){
+  const months=['Jan','Fév','Mar','Avr','Mai','Juin'];
+  new Chart(document.getElementById('cSocGrowth'),{
+    type:'line',
+    data:{labels:months,datasets:[
+      {label:'TikTok',data:[28000,31200,34800,38100,42300,45200],borderColor:'#888',backgroundColor:'transparent',borderWidth:2,tension:0.4,pointRadius:3},
+      {label:'Facebook',data:[6200,6800,7100,7600,8000,8340],borderColor:'#1877f2',backgroundColor:'transparent',borderWidth:2,tension:0.4,pointRadius:3},
+      {label:'Instagram',data:[8100,9200,9800,10400,11200,12100],borderColor:'#e1306c',backgroundColor:'transparent',borderWidth:2,tension:0.4,pointRadius:3}
+    ]},
+    options:{...base,plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true,boxWidth:8}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:11},color:MT}},
+        y:{grid:{color:'#f0ece6'},ticks:{font:{size:11},color:MT,callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}}
+      }}
+  });
+  new Chart(document.getElementById('cSocTraffic'),{
+    type:'doughnut',
+    data:{labels:['TikTok','Facebook','Instagram','Autres'],
+      datasets:[{data:[45,25,15,15],backgroundColor:['#1a1a1a','#1877f2','#e1306c',BD],borderWidth:0}]},
+    options:{...base,cutout:'60%'}
+  });
+}
+
+/* ---- PROMO CHART ---- */
+function initPromo(){
+  new Chart(document.getElementById('cPromo'),{
+    type:'bar',
+    data:{labels:['BIENVENUE','MARIEE2026','ETE25','VIP10'],
+      datasets:[
+        {label:'CA généré (MAD)',data:[4690,2380,1540,330],backgroundColor:G,borderRadius:5},
+        {label:'Remise accordée (MAD)',data:[469,357,385,33],backgroundColor:'rgba(239,68,68,0.35)',borderRadius:5}
+      ]},
+    options:{...base,plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true,boxWidth:8}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:11},color:MT}},
+        y:{grid:{color:'#f0ece6'},ticks:{font:{size:11},color:MT,callback:v=>v+' MAD'}}
+      }}
+  });
+}
+
+/* ======================================================
+   CMS — Full site control from dashboard
+   ====================================================== */
+
+/* Default products (mirror of main.js PRODUCTS) */
+const DEFAULT_PRODUCTS=[
+  {id:'1',name:'Soutien-gorge Dentelle Éclat',nameEn:'Lace Éclat Bra',category:'Soutiens-gorge',price:349,img:'photo-1571513722275-4b41940f54b8',url:'product?id=1',tags:['soutien','dentelle','bra','eclat','lingerie']},
+  {id:'2',name:'Culotte Soie Noire',nameEn:'Black Silk Panty',category:'Culottes',price:199,img:'photo-1554568218-0f1715e72254',url:'product?id=2',tags:['culotte','soie','noire','slip','lingerie']},
+  {id:'3',name:'Body Dentelle Ivoire',nameEn:'Ivory Lace Bodysuit',category:'Bodies',price:520,img:'photo-1485230895905-ec40ba36b9bc',url:'product?id=3',tags:['body','dentelle','ivoire','bodysuit','lingerie']},
+  {id:'4',name:'Set Bridal Rose Poudré',nameEn:'Dusty Rose Bridal Set',category:'Mariée',price:680,img:'photo-1585487000160-6ebcfceb0d03',url:'product?id=4',tags:['set','bridal','mariée','rose','poudré','mariage']},
+  {id:'5',name:'Soutien-gorge Push-Up Noir',nameEn:'Black Push-Up Bra',category:'Soutiens-gorge',price:420,img:'photo-1525507119028-ed4c629a60a3',url:'product?id=5',tags:['soutien','push-up','noir','bra','lingerie']},
+  {id:'6',name:'Kimono Satin Doré',nameEn:'Golden Satin Kimono',category:'Nuit',price:780,img:'photo-1512353087810-25dfcd100962',url:'product?id=6',tags:['kimono','satin','doré','nuit','loungewear']},
+  {id:'7',name:'Shorty Dentelle Nude',nameEn:'Nude Lace Shorty',category:'Culottes',price:240,img:'photo-1490481651871-ab68de25d43d',url:'product?id=7',tags:['shorty','dentelle','nude','culotte','lingerie']},
+  {id:'8',name:'Bikini Dos Nu Bohème',nameEn:'Bohème Open-Back Bikini',category:'Maillots de Bain',price:580,img:'photo-1570152264771-4cd73e33c52b',url:'product?id=8',tags:['bikini','dos','nu','bohème','maillot','bain']},
+  {id:'9',name:'Soutien-gorge Balconnet Bordeaux',nameEn:'Burgundy Balconette Bra',category:'Soutiens-gorge',price:390,img:'photo-1571513722275-4b41940f54b8',url:'product?id=9',tags:['soutien','balconnet','bordeaux','bra','lingerie']},
+  {id:'10',name:'Set Dentelle Nuit Étoilée',nameEn:'Starry Night Lace Set',category:'Sets & Parures',price:620,img:'photo-1603217039863-aa0c865404f7',url:'product?id=10',tags:['set','parure','dentelle','nuit','lingerie']},
+  {id:'11',name:'Nuisette Satin Champagne',nameEn:'Champagne Satin Slip',category:'Nuit',price:450,img:'photo-1487222477894-8943e31ef7b2',url:'product?id=11',tags:['nuisette','satin','champagne','nuit','loungewear']},
+  {id:'12',name:'Boxer Dentelle Noire',nameEn:'Black Lace Boxer',category:'Culottes',price:220,img:'photo-1554568218-0f1715e72254',url:'product?id=12',tags:['boxer','dentelle','noire','culottes','lingerie']},
+  {id:'13',name:'Bustier Corset Bordeaux',nameEn:'Burgundy Corset Bustier',category:'Bodies',price:750,img:'photo-1485230895905-ec40ba36b9bc',url:'product?id=13',tags:['bustier','corset','bordeaux','body','lingerie']},
+  {id:'14',name:'Set Mariée Ivoire Bridal',nameEn:'Ivory Bridal Set',category:'Mariée',price:950,img:'photo-1469334031218-e382a71b716b',url:'product?id=14',tags:['set','mariée','ivoire','bridal','mariage']},
+  {id:'15',name:'Maillot Une Pièce Élégant',nameEn:'Elegant One-Piece Swimsuit',category:'Maillots de Bain',price:480,img:'photo-1570152264771-4cd73e33c52b',url:'product?id=15',tags:['maillot','une pièce','élégant','bain','été']},
+  {id:'16',name:'Parure Dentelle Émeraude',nameEn:'Emerald Lace Set',category:'Sets & Parures',price:580,img:'photo-1603217039863-aa0c865404f7',url:'product?id=16',tags:['parure','dentelle','émeraude','set','lingerie']},
+  {id:'17',name:'Robe Lingerie Soie Rosée',nameEn:'Rosy Silk Lingerie Robe',category:'Robes',price:690,img:'photo-1515886657613-9f3515b0c78f',url:'product?id=17',tags:['robe','lingerie','soie','rosée','nuit']},
+  {id:'18',name:'Soutien-gorge Sport Nude',nameEn:'Nude Sports Bra',category:'Soutiens-gorge',price:310,img:'photo-1571513722275-4b41940f54b8',url:'product?id=18',tags:['soutien','sport','nude','bra','confort']},
+  {id:'19',name:'Culotte Taille Haute Beige',nameEn:'Beige High-Waist Panty',category:'Culottes',price:270,img:'photo-1490481651871-ab68de25d43d',url:'product?id=19',tags:['culotte','taille haute','beige','gainante','lingerie']},
+  {id:'20',name:'Kimono Plumes Crème',nameEn:'Cream Feather Kimono',category:'Nuit',price:920,img:'photo-1512353087810-25dfcd100962',url:'product?id=20',tags:['kimono','plumes','crème','nuit','loungewear','luxe']},
+  {id:'21',name:'Bikini Bandeau Imprimé',nameEn:'Printed Bandeau Bikini',category:'Maillots de Bain',price:420,img:'photo-1570152264771-4cd73e33c52b',url:'product?id=21',tags:['bikini','bandeau','imprimé','maillot','bain','été']},
+  {id:'22',name:'Body Résille Noir',nameEn:'Black Mesh Bodysuit',category:'Bodies',price:380,img:'photo-1485230895905-ec40ba36b9bc',url:'product?id=22',tags:['body','résille','noir','bodysuit','lingerie']},
+  {id:'23',name:'Culotte Menstruelle Noire',nameEn:'Black Period Panty',category:'Lingerie Menstruelle',price:180,img:'photo-1554568218-0f1715e72254',url:'product?id=23',tags:['culotte','menstruelle','période','règles','éco','confort']},
+  {id:'24',name:'Shorty Menstruel Beige',nameEn:'Beige Period Shorty',category:'Lingerie Menstruelle',price:190,img:'photo-1490481651871-ab68de25d43d',url:'product?id=24',tags:['shorty','menstruel','beige','période','éco']},
+  {id:'25',name:'Culotte Menstruelle Flux Intense',nameEn:'Heavy Flow Period Panty',category:'Lingerie Menstruelle',price:220,img:'photo-1554568218-0f1715e72254',url:'product?id=25',tags:['culotte','menstruelle','flux','intense','nuit','période']},
+  {id:'26',name:'Boxer Menstruel Confort',nameEn:'Comfort Period Boxer',category:'Lingerie Menstruelle',price:200,img:'photo-1603217039863-aa0c865404f7',url:'product?id=26',tags:['boxer','menstruel','confort','période','éco']},
+  {id:'27',name:'Soutien-gorge Allaitement Blanc',nameEn:'White Nursing Bra',category:'Mamans',price:290,img:'photo-1571513722275-4b41940f54b8',url:'product?id=27',tags:['soutien','allaitement','blanc','maman','nursing','bra']},
+  {id:'28',name:'Soutien-gorge Allaitement Nude',nameEn:'Nude Nursing Bra',category:'Mamans',price:310,img:'photo-1525507119028-ed4c629a60a3',url:'product?id=28',tags:['soutien','allaitement','nude','maman','nursing','bra']},
+  {id:'29',name:'Culotte Maternité Confort',nameEn:'Comfort Maternity Panty',category:'Mamans',price:175,img:'photo-1490481651871-ab68de25d43d',url:'product?id=29',tags:['culotte','maternité','grossesse','maman','confort']},
+  {id:'30',name:'Soutien-gorge Grossesse Dentelle',nameEn:'Lace Maternity Bra',category:'Mamans',price:350,img:'photo-1585487000160-6ebcfceb0d03',url:'product?id=30',tags:['soutien','grossesse','maman','dentelle','allaitement','bra']},
+];
+
+/* Load live product DB */
+let dbProducts = [];
+function loadDbProds() {
+  /* Lecture depuis localStorage (cache de l'API) ou produits par défaut.
+     La vérité vient de l'API — ce cache se met à jour via apiLoad() */
+  try {
+    const raw = localStorage.getItem('ha_products_db');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      dbProducts = Array.isArray(parsed) && parsed.length ? parsed : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+    } else {
+      dbProducts = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+    }
+  } catch(e) {
+    dbProducts = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+  }
+}
+/* ⚡ Chargement immédiat au démarrage du dashboard ⚡
+   CRITIQUE : dbProducts doit être peuplé avant tout appel à saveDbProds,
+   sinon un save enverrait une liste vide à l'API et effacerait les produits. */
+loadDbProds();
+async function saveDbProds() {
+  /* ── SOURCE DE VÉRITÉ : l'API ──
+     S'assurer que SITE_DATA est chargé avant de sauvegarder
+     pour ne pas écraser config/announce avec des valeurs vides */
+  if (!Object.keys(SITE_DATA.config || {}).length) {
+    await apiLoad().catch(() => {});
+  }
+  SITE_DATA.products = dbProducts;
+  /* Sauvegarder sur le SERVEUR — c'est la vraie persistance */
+  await apiSave('✅ Catalogue sauvegardé sur le site — visible partout immédiatement !');
+  /* Cache local pour accès hors-ligne uniquement */
+  try { localStorage.setItem('ha_products_db', JSON.stringify(dbProducts)); } catch(_) {}
+  renderProdPage();
+  scanStockNotifs();
+}
+
+/* ---- Product Manager Table ---- */
+function renderProdMgr() {
+  const q    = (document.getElementById('prodSearch')?.value || '').toLowerCase();
+  const catF = document.getElementById('prodCatFilter')?.value || '';
+  const tbl  = document.getElementById('prodMgrTable');
+  if (!tbl) return;
+  const list = dbProducts.filter(p =>
+    (!q || p.name.toLowerCase().includes(q) || (p.nameEn||'').toLowerCase().includes(q)) &&
+    (!catF || p.category === catF)
+  );
+  if (!list.length) { tbl.innerHTML = '<p style="font-size:13px;color:var(--muted);padding:12px">Aucun produit trouvé.</p>'; return; }
+  tbl.innerHTML = `
+    <div style="overflow:auto">
+    <table style="min-width:700px">
+      <thead><tr><th>Produit</th><th>Catégorie</th><th>Prix</th><th>Ancien prix</th><th>Stock</th><th>Badge</th><th style="text-align:center">Actions</th></tr></thead>
+      <tbody>
+        ${list.map(p => `
+          <tr>
+            <td>
+              <div class="pn">
+                <div class="pt" style="background-image:url(https://images.unsplash.com/${p.img}?w=70&q=60);background-size:cover;background-position:center;background-color:var(--gp)"></div>
+                <div>
+                  <strong style="font-size:13px">${p.name}</strong>
+                  <div style="font-size:11px;color:var(--muted)">${p.nameEn||''}</div>
+                </div>
+              </div>
+            </td>
+            <td style="font-size:12px">${p.category}</td>
+            <td class="rev" style="font-weight:700">${p.price} MAD</td>
+            <td style="font-size:12px;color:var(--muted);text-decoration:line-through">${p.oldPrice ? p.oldPrice+' MAD' : '—'}</td>
+            <td style="font-size:13px;font-weight:${p.stock<=5?'700':'400'};color:${p.stock===0?'var(--err)':p.stock<=5?'var(--warn)':'inherit'}">${p.stock ?? '—'}</td>
+            <td><span class="tag tg" style="font-size:10px">${p.badge||'—'}</span></td>
+            <td style="text-align:center;white-space:nowrap">
+              <button class="pbtn pbtn-edit" onclick="openProdModal('${p.id}')" style="margin-right:4px">✏️ Modifier</button>
+              <button class="pbtn pbtn-del" onclick="deleteProdCMS('${p.id}')">🗑️</button>
+            </td>
+          </tr>`).join('')}
+      </tbody>
+    </table></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:10px">${list.length} produit(s) affiché(s) sur ${dbProducts.length} total</div>
+  `;
+}
+
+/* ---- Product CRUD ---- */
+let editingProdId = null;
+
+function openProdModal(id) {
+  editingProdId = id;
+  const p = id ? dbProducts.find(x => x.id === id) : null;
+  document.getElementById('prodModalTitle').textContent = p ? 'Modifier le produit' : 'Nouveau produit';
+  document.getElementById('pName').value      = p?.name      || '';
+  document.getElementById('pNameEn').value    = p?.nameEn    || '';
+  document.getElementById('pCat').value       = p?.category  || 'Soutiens-gorge';
+  document.getElementById('pPrice').value     = p?.price     || '';
+  document.getElementById('pOldPrice').value  = p?.oldPrice  || '';
+  document.getElementById('pStock').value     = p?.stock     ?? '';
+  document.getElementById('pColors').value    = Array.isArray(p?.colors) ? p.colors.join(', ') : (p?.colors || '');
+  document.getElementById('pSizes').value     = Array.isArray(p?.sizes)  ? p.sizes.join(', ')  : (p?.sizes  || '');
+  document.getElementById('pBadge').value     = p?.badge     || '';
+  document.getElementById('pImg').value       = p?.img       || '';
+  document.getElementById('pTags').value      = Array.isArray(p?.tags)   ? p.tags.join(', ')   : '';
+  document.getElementById('pDesc').value      = p?.desc      || '';
+  document.getElementById('pDescEn').value    = p?.descEn    || '';
+  openModal('modalProd');
+}
+
+function saveProdCMS() {
+  const name = document.getElementById('pName').value.trim();
+  if (!name) { alert('Le nom du produit est requis.'); return; }
+  const price = +document.getElementById('pPrice').value;
+  if (!price) { alert('Le prix est requis.'); return; }
+
+  const parseTags = v => v.split(',').map(s=>s.trim()).filter(Boolean);
+
+  /* ID stable — un seul appel à Date.now() pour éviter l'incohérence id/url */
+  const newId = editingProdId || String(Date.now());
+  const prod = {
+    id:        newId,
+    name,
+    nameEn:    document.getElementById('pNameEn').value.trim(),
+    category:  document.getElementById('pCat').value,
+    price,
+    oldPrice:  +document.getElementById('pOldPrice').value || undefined,
+    stock:     document.getElementById('pStock').value !== '' ? +document.getElementById('pStock').value : undefined,
+    colors:    parseTags(document.getElementById('pColors').value),
+    sizes:     parseTags(document.getElementById('pSizes').value),
+    badge:     document.getElementById('pBadge').value,
+    img:       document.getElementById('pImg').value.trim() || 'photo-1571513722275-4b41940f54b8',
+    url:       `product?id=${newId}`,
+    tags:      parseTags(document.getElementById('pTags').value),
+    desc:      document.getElementById('pDesc').value.trim(),
+    descEn:    document.getElementById('pDescEn').value.trim(),
+  };
+  // Remove undefined keys
+  Object.keys(prod).forEach(k => prod[k] === undefined && delete prod[k]);
+
+  if (editingProdId) {
+    const idx = dbProducts.findIndex(x => x.id === editingProdId);
+    if (idx >= 0) dbProducts[idx] = prod;
+  } else {
+    dbProducts.push(prod);
+  }
+  saveDbProds();
+  renderProdMgr();
+  closeModal('modalProd');
+}
+
+function deleteProdCMS(id) {
+  if (!confirm('Supprimer ce produit ?')) return;
+  dbProducts = dbProducts.filter(p => p.id !== id);
+  saveDbProds();
+  renderProdMgr();
+}
+
+function resetProducts() {
+  if (!confirm('Réinitialiser le catalogue aux 30 produits de base ? Vos modifications seront perdues.')) return;
+  dbProducts = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+  saveDbProds();
+  renderProdMgr();
+}
+
+/* ---- Config sections save ---- */
+function showGlobalToast(msg, isError, isInfo) {
+  /* Créer le toast s'il n'existe pas encore */
+  let t = document.getElementById('_dashToast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = '_dashToast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.className = isError ? 'err' : (isInfo ? 'info' : 'ok');
+  t.style.display = 'block';
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => {
+    t.style.opacity = '0';
+    setTimeout(() => { t.style.display = 'none'; t.style.opacity = '1'; }, 300);
+  }, 3500);
+}
+
+async function saveCfg(section) {
+  if (!SITE_DATA.config) SITE_DATA.config = {};
+  const cfg = SITE_DATA.config;
+
+  if (section === 'wa') {
+    const wa = document.getElementById('cfgWa')?.value.trim().replace(/\D/g,'');
+    if (wa)    cfg.wa      = wa;
+    const msg = document.getElementById('cfgWaMsg')?.value.trim(); if (msg) cfg.wa_msg = msg;
+    const em  = document.getElementById('cfgEmail')?.value.trim();  if (em)  cfg.email   = em;
+  }
+  if (section === 'payment') {
+    const g = id => document.getElementById(id)?.value.trim();
+    cfg.bank          = g('cfgBank')        || cfg.bank        || '';
+    cfg.bank_name     = g('cfgBankName')    || cfg.bank_name   || '';
+    cfg.rib           = g('cfgRib')         || cfg.rib         || '';
+    cfg.iban          = g('cfgIban')        || cfg.iban        || '';
+    cfg.payment_note  = g('cfgPaymentNote') || cfg.payment_note|| '';
+    cfg.pay_cash      = document.getElementById('cfgPayCash')?.value !== '0';
+    cfg.pay_virement  = document.getElementById('cfgPayVirement')?.value !== '0';
+    /* Stocker aussi en localStorage pour le site */
+    localStorage.setItem('ha_rib', JSON.stringify({
+      bank: cfg.bank, name: cfg.bank_name,
+      rib: cfg.rib, iban: cfg.iban,
+      note: cfg.payment_note,
+      cash: cfg.pay_cash, virement: cfg.pay_virement,
+    }));
+  }
+  if (section === 'announce') {
+    const msgs = [];
+    _annMsgs.forEach((_, i) => {
+      const fr = document.getElementById(`ann_fr_${i}`)?.value.trim();
+      const en = document.getElementById(`ann_en_${i}`)?.value.trim();
+      if (fr) msgs.push({ fr, en: en || fr });
+    });
+    if (msgs.length) {
+      SITE_DATA.announce = msgs;
+      _annMsgs = msgs; /* synchroniser */
+    }
+  }
+  if (section === 'promo') {
+    const code = (document.getElementById('cfgPromoCode')?.value.trim()||'').toUpperCase();
+    if (code) cfg.promo_code   = code;
+    const tfr = document.getElementById('cfgPromoTxtFr')?.value.trim(); if (tfr) cfg.promo_txt_fr = tfr;
+    const ten = document.getElementById('cfgPromoTxtEn')?.value.trim(); if (ten) cfg.promo_txt_en = ten;
+  }
+  if (section === 'hero') {
+    const tfr = document.getElementById('cfgHeroTitleFr')?.value.trim(); if (tfr) cfg.hero_title_fr = tfr;
+    const ten = document.getElementById('cfgHeroTitleEn')?.value.trim(); if (ten) cfg.hero_title_en = ten;
+    const bfr = document.getElementById('cfgHeroBtnFr')?.value.trim();   if (bfr) cfg.hero_btn_fr   = bfr;
+    const ben = document.getElementById('cfgHeroBtnEn')?.value.trim();   if (ben) cfg.hero_btn_en   = ben;
+    const isPhoto = document.getElementById('cfgHeroTypePhoto')?.checked;
+    cfg.hero_media_type = isPhoto ? 'photo' : 'video';
+    if (isPhoto) {
+      const ph = document.getElementById('cfgHeroPhoto')?.value.trim(); if (ph) cfg.hero_photo = ph;
+    } else {
+      const vid = document.getElementById('cfgHeroVideo')?.value.trim(); if (vid) cfg.hero_video = vid;
+    }
+  }
+  if (section === 'images') {
+    const i1 = document.getElementById('cfgImg1')?.value.trim();
+    const i2 = document.getElementById('cfgImg2')?.value.trim();
+    const i3 = document.getElementById('cfgImg3')?.value.trim();
+    if (i1) { cfg.img_editorial = i1; updateImgPreview('img1Preview', i1); }
+    if (i2) { cfg.img_swimwear  = i2; updateImgPreview('img2Preview', i2); }
+    if (i3) { cfg.img_brand     = i3; updateImgPreview('img3Preview', i3); }
+  }
+  if (section === 'chatbot') {
+    cfg.chatbot_on  = document.getElementById('cfgChatbotOn')?.value !== '0';
+    const msg = document.getElementById('cfgChatbotMsg')?.value.trim(); if (msg) cfg.chatbot_msg = msg;
+    const wa  = document.getElementById('cfgChatbotWa')?.value.trim().replace(/\D/g,''); if (wa) cfg.wa = wa;
+  }
+  if (section === 'goals') {
+    cfg.goal_rev   = document.getElementById('cfgGoalRev')?.value   || '20000';
+    cfg.goal_cvr   = document.getElementById('cfgGoalCvr')?.value   || '3';
+    cfg.goal_stock = document.getElementById('cfgGoalStock')?.value || '5';
+    cfg.goal_ads   = document.getElementById('cfgGoalAds')?.value   || '2000';
+  }
+  await apiSave();
+}
+
+function updateImgPreview(id, src) {
+  const el = document.getElementById(id);
+  if (el) el.style.backgroundImage = `url(${src})`;
+}
+
+/* ---- Build announce fields (dynamique) ---- */
+let _annMsgs = [];
+
+function buildAnnounceFields(msgs) {
+  const defaults = [
+    {fr:'🚚 Livraison partout au Maroc', en:'🚚 Delivery across Morocco'},
+    {fr:'Retours acceptés sous 7 jours', en:'Returns accepted within 7 days'},
+    {fr:'Paiement sécurisé', en:'Secure payment'},
+    {fr:'-10% sur votre 1ère commande · code BIENVENUE', en:'-10% on your 1st order · code WELCOME'},
+  ];
+  _annMsgs = msgs && msgs.length ? msgs : defaults;
+  renderAnnounceFields();
+}
+
+function renderAnnounceFields() {
+  const wrap = document.getElementById('announceFields');
+  if (!wrap) return;
+  wrap.innerHTML = _annMsgs.map((d, i) => `
+    <div id="annRow${i}" style="margin-bottom:10px;padding:14px;background:var(--cream);border-radius:8px;border:1px solid var(--border);position:relative">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Message ${i+1}</span>
+        <button onclick="removeAnnounceField(${i})" title="Supprimer"
+          style="background:none;border:none;cursor:pointer;color:var(--err);font-size:16px;line-height:1;padding:0">🗑️</button>
+      </div>
+      <div class="f2">
+        <div class="fg"><label>FR</label><input type="text" id="ann_fr_${i}" value="${(d.fr||'').replace(/"/g,'&quot;')}" placeholder="Texte en français…" /></div>
+        <div class="fg"><label>EN</label><input type="text" id="ann_en_${i}" value="${(d.en||'').replace(/"/g,'&quot;')}" placeholder="Text in English…" /></div>
+      </div>
+    </div>`).join('');
+}
+
+function addAnnounceField() {
+  _annMsgs.push({fr:'', en:''});
+  renderAnnounceFields();
+  /* Scroll vers le nouveau champ */
+  setTimeout(() => document.getElementById('announceFields')?.lastElementChild?.scrollIntoView({behavior:'smooth'}), 100);
+}
+
+function removeAnnounceField(idx) {
+  if (_annMsgs.length <= 1) { showGlobalToast('Gardez au moins un message.'); return; }
+  _annMsgs.splice(idx, 1);
+  renderAnnounceFields();
+}
+
+/* ======================================================
+   STATS RÉELLES — calculées depuis commandes + produits
+   ====================================================== */
+function getAllOrders() {
+  const seen = new Set();
+  return [
+    ...(SITE_DATA.orders || []),
+    ...JSON.parse(localStorage.getItem('ha_orders') || '[]'),
+  ].filter(o => { if (!o?.id || seen.has(o.id)) return false; seen.add(o.id); return true; });
+}
+
+function refreshDashboardStats() {
+  const orders  = getAllOrders();
+  const goal    = +(SITE_DATA.config?.goal_rev || 20000);
+  const total   = orders.reduce((s, o) => s + (o.total || 0), 0);
+  const pct     = Math.min(100, Math.round(total / goal * 100));
+  const remain  = Math.max(0, goal - total);
+  const avg     = orders.length ? Math.round(total / orders.length) : 0;
+
+  /* Clients uniques (par numéro de téléphone) */
+  const phones = new Set(orders.map(o => (o.client?.tel || '').replace(/\D/g,'')).filter(Boolean));
+
+  const fmt = n => n.toLocaleString('fr-MA');
+  const now = new Date();
+  const month = now.toLocaleDateString('fr-FR', { month:'long', year:'numeric' });
+
+  /* ── Bannière ── */
+  const setT = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setT('dashSubtitle',   `Performance réelle · ${month}`);
+  setT('bannerTitle',    `Revenu total · ${month}`);
+  setT('statRevTotal',   fmt(total) + ' MAD');
+  setT('statGoalSub',    `Objectif mensuel : ${fmt(goal)} MAD`);
+  setT('statOrdPill',    orders.length + ' commande' + (orders.length !== 1 ? 's' : ''));
+  setT('statBasketPill', fmt(avg) + ' MAD panier moy.');
+  setT('statRevPct',     pct + '%');
+  setT('statGoalAmt',    fmt(goal) + ' MAD');
+  setT('statGoalRemain', fmt(remain) + ' MAD restants');
+
+  /* ── Cercle SVG de progression ── */
+  const circle = document.getElementById('goalCircle');
+  if (circle) {
+    const offset = Math.round(289 * (1 - pct / 100));
+    circle.setAttribute('stroke-dashoffset', offset);
+  }
+
+  /* ── KPI cards ── */
+  setT('statRevTrend', orders.length + ' commandes enregistrées');
+  setT('statCardRev',  fmt(total) + ' MAD');
+  setT('statCardOrd',  orders.length);
+  setT('statCardCli',  phones.size);
+  setT('statCardAvg',  fmt(avg) + ' MAD');
+
+  /* ── KPIs Produits ── */
+  const prods = dbProducts;
+  setT('statProdTotal',  prods.length);
+  setT('statProdActif',  prods.filter(p => typeof p.stock !== 'number' || p.stock > 5).length);
+  setT('statProdBas',    prods.filter(p => typeof p.stock === 'number' && p.stock > 0 && p.stock <= 5).length);
+  setT('statProdEpuise', prods.filter(p => typeof p.stock === 'number' && p.stock === 0).length);
+
+  /* ── Activité récente (5 dernières commandes) ── */
+  const recent = document.getElementById('recentActivity');
+  if (recent) {
+    if (!orders.length) {
+      recent.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Aucune commande pour l\'instant.</div>';
+    } else {
+      recent.innerHTML = orders.slice(0, 6).map(o => {
+        const cl    = o.client || {};
+        const items = (o.items || []).map(i => i.name).join(', ') || '—';
+        const short = items.length > 35 ? items.slice(0, 33) + '…' : items;
+        const sIcon = o.status === 'Livrée' ? '✅' : o.status === 'Expédiée' ? '🚚' : o.status === 'Annulée' ? '❌' : '📦';
+        return `<div class="ai" style="cursor:pointer" onclick="openRealOrder('${o.id}')">
+          <div class="aico ao">${sIcon}</div>
+          <div class="ab">
+            <strong>${o.id} — ${cl.ville || '—'}</strong>
+            <span>${short} · ${o.total || 0} MAD</span>
+          </div>
+          <div class="at">${o.date || ''}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  /* ── Top Produits commandés ── */
+  const topBody = document.getElementById('topProdsBody');
+  if (topBody) {
+    if (!orders.length) {
+      topBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--muted)">Aucune commande enregistrée.</td></tr>';
+    } else {
+      /* Agréger les quantités et revenus par produit */
+      const prodMap = {};
+      orders.forEach(o => {
+        (o.items || []).forEach(i => {
+          if (!prodMap[i.id]) prodMap[i.id] = { name: i.name, qty: 0, rev: 0 };
+          prodMap[i.id].qty += (i.qty || 0);
+          prodMap[i.id].rev += (i.price || 0) * (i.qty || 0);
+        });
+      });
+      const sorted = Object.values(prodMap).sort((a, b) => b.rev - a.rev).slice(0, 6);
+      topBody.innerHTML = sorted.map(p => {
+        const prod  = dbProducts.find(x => x.name === p.name);
+        const stock = typeof prod?.stock === 'number' ? prod.stock : null;
+        const stockBadge = stock === null ? '—'
+          : stock === 0   ? '<span class="va v-out">Épuisé</span>'
+          : stock <= 5    ? '<span class="va v-low">Bas</span>'
+          : '<span class="va v-ok">OK</span>';
+        return `<tr>
+          <td><div class="pn"><div class="pt">🛍️</div>${p.name}</div></td>
+          <td>${p.qty}</td>
+          <td class="rev">${fmt(p.rev)} MAD</td>
+          <td>${stockBadge}</td>
+        </tr>`;
+      }).join('');
+      const totalSub = document.getElementById('topProdSub');
+      if (totalSub) totalSub.textContent = `${Object.keys(prodMap).length} produits différents commandés`;
+    }
+  }
+}
+
+/* ======================================================
+   ALERTES STOCK FAIBLE
+   ====================================================== */
+function renderStockAlerts() {
+  const el = document.getElementById('stockAlerts');
+  if (!el) return;
+  const low = dbProducts.filter(p => typeof p.stock === 'number' && p.stock <= 5);
+  if (!low.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div style="background:#fff8ed;border:1.5px solid #f59e0b;border-radius:12px;padding:14px 18px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:18px">⚠️</span>
+        <strong style="font-size:13.5px;color:#92400e">Stock faible — ${low.length} article${low.length>1?'s':''} à réapprovisionner</strong>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        ${low.map(p => `
+          <div style="background:#fff;border:1px solid #fbbf24;border-radius:8px;padding:7px 12px;font-size:12.5px">
+            <span style="font-weight:600">${p.name}</span>
+            <span style="margin-left:8px;color:${p.stock===0?'#dc2626':'#d97706'};font-weight:700">${p.stock===0?'❌ Rupture':'⚠️ '+p.stock+' restant'+(p.stock>1?'s':'')}</span>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+/* ======================================================
+   MODÈLES WHATSAPP
+   ====================================================== */
+function renderWaTemplates() {
+  const templates = [
+    { emoji:'✅', title:'Commande confirmée',  msg:'Bonjour {prénom} ! Votre commande H&A a bien été reçue et confirmée. Nous préparons votre colis avec soin. Livraison sous 2-4 jours. Merci de votre confiance ! 🙏' },
+    { emoji:'🚚', title:'Commande expédiée',   msg:'Bonjour {prénom} ! Votre commande H&A est en route 🚚 Elle arrivera dans 1-2 jours. Notre livreur vous contactera avant la livraison. Merci !' },
+    { emoji:'✔️', title:'Livraison confirmée', msg:'Bonjour {prénom} ! Nous espérons que vous avez bien reçu votre commande H&A et qu\'elle vous plaît 😊 N\'hésitez pas à nous donner votre avis. À bientôt !' },
+    { emoji:'⏳', title:'Léger retard',        msg:'Bonjour {prénom} ! Nous vous informons qu\'il y a un léger retard sur votre commande (1-2 jours supplémentaires). Toutes nos excuses pour ce délai. Votre commande est en bonne route ! 🙏' },
+    { emoji:'📦', title:'Rupture — alternative',msg:'Bonjour {prénom} ! L\'article que vous avez commandé est malheureusement en rupture de stock. Pouvons-vous choisir une couleur ou un modèle alternatif ? Nous vous proposons : …' },
+    { emoji:'🎁', title:'Offre fidélité',       msg:'Bonjour {prénom} ! En tant que cliente fidèle H&A, nous vous offrons -15% sur votre prochaine commande avec le code FIDELE15. Valable 7 jours. Profitez-en ! 💛' },
+  ];
+  const half = Math.ceil(templates.length / 2);
+  const makeCard = t => `
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:12.5px;font-weight:600">${t.emoji} ${t.title}</span>
+        <button onclick="copyTemplate(this)" data-msg="${t.msg.replace(/"/g,'&quot;')}"
+          style="font-size:11px;padding:4px 10px;background:var(--gold);color:#fff;border:none;border-radius:6px;cursor:pointer">Copier</button>
+      </div>
+      <p style="font-size:11.5px;color:var(--muted);line-height:1.5">${t.msg.slice(0,80)}…</p>
+    </div>`;
+  const t1 = document.getElementById('waTemplates');
+  const t2 = document.getElementById('waTemplates2');
+  if (t1) t1.innerHTML = templates.slice(0, half).map(makeCard).join('');
+  if (t2) t2.innerHTML = templates.slice(half).map(makeCard).join('');
+}
+
+function copyTemplate(btn) {
+  const msg = btn.dataset.msg;
+  navigator.clipboard.writeText(msg).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    btn.style.background = '#15803d';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = 'var(--gold)'; }, 2000);
+  }).catch(() => {
+    /* fallback pour les navigateurs sans clipboard API */
+    const ta = document.createElement('textarea');
+    ta.value = msg;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => btn.textContent = 'Copier', 2000);
+  });
+}
+
+/* ======================================================
+   EXPORT CSV COMMANDES
+   ====================================================== */
+function exportOrdersCSV() {
+  const all = [
+    ...(SITE_DATA.orders || []),
+    ...JSON.parse(localStorage.getItem('ha_orders') || '[]'),
+  ].reduce((acc, o) => {
+    if (o?.id && !acc.find(x => x.id === o.id)) acc.push(o);
+    return acc;
+  }, []);
+
+  if (!all.length) { showGlobalToast('Aucune commande à exporter.'); return; }
+
+  const rows = [
+    ['Réf','Date','Heure','Statut','Prénom','Nom','Téléphone','Ville','Adresse','Articles','Total MAD','Note'],
+  ];
+  all.forEach(o => {
+    const cl = o.client || {};
+    const items = (o.items || []).map(i => `${i.name} x${i.qty}`).join(' | ');
+    rows.push([
+      o.id, o.date||'', o.time||'', o.status||'',
+      cl.prenom||'', cl.nom||'', cl.tel||'', cl.ville||'', cl.adresse||'',
+      items, o.total||'', cl.note||'',
+    ]);
+  });
+
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `commandes-ha-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showGlobalToast('✅ CSV exporté avec succès !');
+}
+
+/* ======================================================
+   COMMANDES RÉELLES — lit API + localStorage
+   ====================================================== */
+async function loadRealOrders() {
+  /* 0. Alertes stock + templates WA (données déjà dispo) */
+  renderStockAlerts();
+  renderWaTemplates();
+  refreshDashboardStats(); /* rafraîchir les stats avec les données déjà en mémoire */
+
+  /* 1. Charger depuis l'API */
+  await apiLoad();
+  const apiOrders = Array.isArray(SITE_DATA.orders) ? SITE_DATA.orders : [];
+
+  /* 2. Charger depuis localStorage (commandes passées sans PHP disponible) */
+  let localOrders = [];
+  try { localOrders = JSON.parse(localStorage.getItem('ha_orders') || '[]'); } catch(_) {}
+
+  /* 3. Fusionner sans doublons, plus récentes en premier */
+  const seen = new Set();
+  const all  = [...apiOrders, ...localOrders].filter(o => {
+    if (!o?.id || seen.has(o.id)) return false;
+    seen.add(o.id); return true;
+  }).sort((a, b) => (b.id > a.id ? 1 : -1));
+
+  /* Stocker globalement pour les filtres et les stats */
+  _allOrders = all;
+  refreshDashboardStats(); /* mettre à jour les stats dès que les commandes sont chargées */
+
+  /* Notifier pour les nouvelles commandes */
+  const seenOrders = new Set(JSON.parse(sessionStorage.getItem('_seenOrders') || '[]'));
+  all.filter(o => !seenOrders.has(o.id)).forEach(o => {
+    const cl = o.client || {};
+    addNotif('order', `📦 Nouvelle commande ${o.id}`, `${cl.prenom||''} ${cl.nom||''} · ${o.total||0} MAD · ${cl.ville||''}`);
+    seenOrders.add(o.id);
+  });
+  sessionStorage.setItem('_seenOrders', JSON.stringify([...seenOrders]));
+
+  /* 4. KPIs */
+  const counts = { new:0, proc:0, ship:0, done:0 };
+  all.forEach(o => {
+    const s = (o.status||'').toLowerCase();
+    if (s.includes('nouveau') || s.includes('attente')) counts.new++;
+    else if (s.includes('cours'))  counts.proc++;
+    else if (s.includes('expédi')) counts.ship++;
+    else if (s.includes('livr'))   counts.done++;
+  });
+  const totalRev = all.reduce((s,o) => s + (o.total||0), 0);
+
+  const mcs = document.querySelectorAll('#page-commandes .mc .mn');
+  if (mcs[0]) mcs[0].textContent = counts.new;
+  if (mcs[1]) mcs[1].textContent = counts.proc;
+  if (mcs[2]) mcs[2].textContent = counts.ship;
+  if (mcs[3]) mcs[3].textContent = counts.done;
+
+  const sub = document.getElementById('ordersSubtitle');
+  if (sub) sub.textContent = `${all.length} commande${all.length!==1?'s':''} · Revenu : ${totalRev.toLocaleString('fr-MA')} MAD`;
+
+  /* 5. Tableau */
+  const tbody = document.querySelector('#page-commandes table tbody');
+  if (!tbody) return;
+
+  if (!all.length) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--muted)">
+      Aucune commande pour l'instant. Les commandes apparaîtront ici dès qu'un client finalise son achat.
+    </td></tr>`;
+    return;
+  }
+
+  const STATUS_MAP = {
+    'Nouveau':'new','En attente':'new','En cours':'proc','Expédiée':'ship','Livrée':'done',
+    'Annulée':'cancel'
+  };
+  const STATUS_LBL = { new:'En attente',proc:'En cours',ship:'Expédiée',done:'Livrée',cancel:'Annulée' };
+
+  tbody.innerHTML = all.map(o => {
+    const st    = STATUS_MAP[o.status] || 'new';
+    const lbl   = STATUS_LBL[st] || o.status;
+    const items = (o.items||[]).map(i=>`${i.name} ×${i.qty}`).join(', ') || '—';
+    const short = items.length > 35 ? items.slice(0,33)+'…' : items;
+    const cl    = o.client || {};
+    return `<tr style="cursor:pointer" onclick="openRealOrder('${o.id}')">
+      <td style="font-weight:700">${o.id}</td>
+      <td>${cl.prenom||''} ${cl.nom||''}</td>
+      <td>${cl.ville||'—'}</td>
+      <td title="${items}">${short}</td>
+      <td class="rev">${(o.total||0)} MAD</td>
+      <td><span class="tag tw">Site</span></td>
+      <td>${o.date||'—'}</td>
+      <td><span class="va v-${st}">${lbl}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+/* Ouvre le détail d'une commande réelle */
+function openRealOrder(id) {
+  const all = [
+    ...(SITE_DATA.orders||[]),
+    ...JSON.parse(localStorage.getItem('ha_orders')||'[]')
+  ];
+  const o = all.find(x => x.id === id);
+  if (!o) return;
+  const cl    = o.client || {};
+  const items = (o.items||[]).map(i =>
+    `<div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid #f3f0ec">
+      <span>${i.name} ×${i.qty}</span><span>${i.price*i.qty} MAD</span>
+    </div>`
+  ).join('');
+  const STATUS_OPTS = ['Nouveau','En cours','Expédiée','Livrée','Annulée'].map(s =>
+    `<option value="${s}"${o.status===s?' selected':''}>${s}</option>`
+  ).join('');
+  const wa = localStorage.getItem('ha_wa') || '212600000000';
+  const telRaw = (cl.tel||'').replace(/\D/g,'');
+  const clientWa = telRaw.startsWith('0') ? '212'+telRaw.slice(1) : telRaw;
+
+  /* Créer la modale dynamiquement (dashboard n'a pas de mainModal) */
+  let dynOv = document.getElementById('_dynOrderModal');
+  if (dynOv) dynOv.remove();
+  dynOv = document.createElement('div');
+  dynOv.id = '_dynOrderModal';
+  dynOv.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px';
+  dynOv.innerHTML = `
+    <div style="background:#fff;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.2)">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #e6e0d8">
+        <h3 style="font-size:16px;font-weight:600">📦 Commande ${o.id}</h3>
+        <button onclick="closeDynModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#7a7169;line-height:1">✕</button>
+      </div>
+      <div style="padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:#f8f6f3;border-radius:10px;padding:12px">
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Client</div>
+            <div style="font-weight:600;font-size:14px">${cl.prenom} ${cl.nom}</div>
+            <div style="font-size:12.5px;color:var(--muted);margin-top:3px">${cl.tel}</div>
+          </div>
+          <div style="background:#f8f6f3;border-radius:10px;padding:12px">
+            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Livraison</div>
+            <div style="font-size:13px;font-weight:500">${cl.ville}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:3px">${cl.adresse}</div>
+          </div>
+        </div>
+        ${cl.note ? `<div style="background:#fffbf3;border:1px solid #f0e8d5;border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--muted)">📝 ${cl.note}</div>` : ''}
+        <div>${items}
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:14px;padding-top:10px">
+            <span>Total</span><span style="color:var(--gold)">${o.total} MAD</span>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Statut</label>
+          <select id="orderStatus_${o.id}" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff">
+            ${STATUS_OPTS}
+          </select>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="sv" onclick="updateOrderStatus('${o.id}')" style="flex:1">✅ Sauvegarder statut</button>
+          <a href="https://wa.me/${clientWa}" target="_blank" class="sv" style="flex:1;text-align:center;text-decoration:none;background:#25d366">💬 Contacter</a>
+        </div>
+        <div style="font-size:10.5px;color:var(--muted);text-align:center">${o.date} ${o.time||''} · ${o.id}</div>
+      </div>
+    </div>`;
+  document.body.appendChild(dynOv);
+  dynOv.addEventListener('click', e => { if (e.target === dynOv) closeDynModal(); });
+}
+
+/* Met à jour le statut d'une commande */
+async function updateOrderStatus(id) {
+  const sel = document.getElementById('orderStatus_' + id);
+  if (!sel) return;
+  const newStatus = sel.value;
+
+  /* localStorage */
+  const local = JSON.parse(localStorage.getItem('ha_orders') || '[]');
+  const li = local.findIndex(x => x.id === id);
+  if (li >= 0) { local[li].status = newStatus; localStorage.setItem('ha_orders', JSON.stringify(local)); }
+
+  /* API */
+  if (Array.isArray(SITE_DATA.orders)) {
+    const ai = SITE_DATA.orders.findIndex(x => x.id === id);
+    if (ai >= 0) SITE_DATA.orders[ai].status = newStatus;
+    else { if (!Array.isArray(SITE_DATA.orders)) SITE_DATA.orders=[]; }
+    await apiSave('✅ Statut mis à jour !');
+  }
+
+  closeDynModal();
+  loadRealOrders();
+}
+
+/* ── Hero media toggle ── */
+function toggleHeroMedia() {
+  const isPhoto = document.getElementById('cfgHeroTypePhoto')?.checked;
+  document.getElementById('heroVideoSection').style.display = isPhoto ? 'none'  : '';
+  document.getElementById('heroPhotoSection').style.display = isPhoto ? ''      : 'none';
+  document.getElementById('_mLabel_video').style.borderColor = isPhoto ? 'var(--border)' : 'var(--gold)';
+  document.getElementById('_mLabel_photo').style.borderColor = isPhoto ? 'var(--gold)'   : 'var(--border)';
+}
+
+function previewHeroPhoto(val) {
+  const prev = document.getElementById('heroPhotoPreview');
+  const img  = document.getElementById('_heroPreviewImg');
+  if (!val) { prev.style.display = 'none'; return; }
+  img.src = val;
+  img.onerror = () => { prev.style.display = 'none'; };
+  img.onload  = () => { prev.style.display = 'block'; };
+  prev.style.display = 'block';
+}
+
+function closeDynModal() {
+  const el = document.getElementById('_dynOrderModal');
+  if (el) el.remove();
+}
+
+/* ======================================================
+   NOTIFICATIONS
+   ====================================================== */
+let _notifs = JSON.parse(localStorage.getItem('ha_notifs') || '[]');
+
+function addNotif(type, title, body, page) {
+  const n = { id: Date.now(), type, title, body, page: page || null, read: false,
+    ts: new Date().toLocaleTimeString('fr-MA', {hour:'2-digit',minute:'2-digit'}) };
+  _notifs.unshift(n);
+  _notifs = _notifs.slice(0, 50);
+  localStorage.setItem('ha_notifs', JSON.stringify(_notifs));
+  refreshNotifBadge();
+
+  /* ── Notification navigateur (si permission accordée) ── */
+  if (Notification.permission === 'granted') {
+    try {
+      new Notification('H&A Lingerie — ' + title, {
+        body,
+        icon: 'favicon.ico',
+        tag: String(n.id),
+      });
+    } catch(_) {}
+  }
+}
+
+/* Demander la permission de notification au premier login */
+function requestNotifPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+/* ── Polling notifications ──────────────────────────────── */
+let _pollTimer = null;
+
+function startNotifPolling() {
+  if (_pollTimer) return; /* déjà en cours */
+  _poll(); /* première vérification immédiate */
+  _pollTimer = setInterval(_poll, 60000); /* puis toutes les 60s */
+}
+
+function stopNotifPolling() {
+  if (_pollTimer) { clearInterval(_pollTimer); _pollTimer = null; }
+}
+
+async function _poll() {
+  /* Ne pas poller si déconnecté */
+  if (!document.getElementById('app')?.classList.contains('show')) return;
+  try {
+    const res = await fetch('api/index.php?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return;
+    const fresh = await res.json();
+
+    /* ── Nouvelles commandes ── */
+    const seenStr  = sessionStorage.getItem('_seenOrders') || '[]';
+    const seen     = new Set(JSON.parse(seenStr));
+    const orders   = Array.isArray(fresh.orders) ? fresh.orders : [];
+    orders.forEach(o => {
+      if (!o?.id || seen.has(o.id)) return;
+      const cl = o.client || {};
+      addNotif('order',
+        `📦 Nouvelle commande ${o.id}`,
+        `${cl.prenom||''} ${cl.nom||''} · ${o.total||0} MAD · ${cl.ville||''}`,
+        'commandes');
+      seen.add(o.id);
+    });
+    sessionStorage.setItem('_seenOrders', JSON.stringify([...seen]));
+
+    /* ── Mise à jour de SITE_DATA (sans overwrite si on est en train d'éditer) ── */
+    if (fresh.products) {
+      SITE_DATA.orders   = fresh.orders   || SITE_DATA.orders;
+      SITE_DATA.config   = fresh.config   || SITE_DATA.config;
+      SITE_DATA.announce = fresh.announce || SITE_DATA.announce;
+      /* Ne mettre à jour les produits que si dbProducts est vide */
+      if (!dbProducts.length && Array.isArray(fresh.products)) {
+        dbProducts = [...fresh.products];
+        localStorage.setItem('ha_products_db', JSON.stringify(dbProducts));
+      }
+    }
+
+    /* ── Alertes stock + stats ── */
+    scanStockNotifs();
+    refreshDashboardStats();
+
+  } catch(_) { /* API inaccessible — silencieux */ }
+}
+
+function refreshNotifBadge() {
+  const unread = _notifs.filter(n => !n.read).length;
+  const badge  = document.getElementById('notifCount');
+  if (badge) { badge.textContent = unread || ''; badge.style.display = unread ? 'flex' : 'none'; }
+}
+
+function toggleNotifPanel() {
+  const p = document.getElementById('notifPanel');
+  if (!p) return;
+  const open = p.style.display !== 'none';
+  p.style.display = open ? 'none' : 'block';
+  if (!open) {
+    renderNotifList();
+    _notifs.forEach(n => n.read = true);
+    localStorage.setItem('ha_notifs', JSON.stringify(_notifs));
+    refreshNotifBadge();
+  }
+}
+document.addEventListener('click', e => {
+  const p = document.getElementById('notifPanel');
+  if (p && !p.contains(e.target) && !document.getElementById('notifBtn')?.contains(e.target)) p.style.display = 'none';
+});
+
+function renderNotifList() {
+  const list = document.getElementById('notifList');
+  if (!list) return;
+  if (!_notifs.length) { list.innerHTML = '<p style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Aucune notification</p>'; return; }
+  const icons = { order:'📦', stock:'⚠️', info:'ℹ️', promo:'🎁' };
+  /* Mapping type → page du dashboard */
+  const pageMap = { order:'commandes', stock:'parametres', promo:'promotions', info:'dashboard' };
+  list.innerHTML = _notifs.slice(0, 20).map(n => {
+    const page = n.page || pageMap[n.type] || 'dashboard';
+    return `<div onclick="notifNavigate('${page}')" style="display:flex;gap:10px;padding:10px 18px;border-bottom:1px solid #f5f2ee;cursor:pointer;${n.read?'':'background:#fffbf5'}transition:background .15s" onmouseover="this.style.background='#f8f5f0'" onmouseout="this.style.background='${n.read?'#fff':'#fffbf5'}'">
+      <span style="font-size:18px;flex-shrink:0">${icons[n.type]||'🔔'}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:#0d0d0d">${n.title}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">${n.body}</div>
+        <div style="font-size:10.5px;color:#b0a99f;margin-top:4px">${n.ts} · <span style="color:var(--gold)">Voir →</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function notifNavigate(page) {
+  toggleNotifPanel(); /* fermer le panel */
+  const navItem = document.querySelector(`.ni[onclick*="'${page}'"]`);
+  go(page, navItem);
+  if (navItem) navItem.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+/* ── Sidebar mobile ── */
+function toggleMobSidebar() {
+  document.querySelector('.sidebar')?.classList.toggle('mob-open');
+  document.getElementById('sbOverlay')?.classList.toggle('mob-open');
+}
+function closeMobSidebar() {
+  document.querySelector('.sidebar')?.classList.remove('mob-open');
+  document.getElementById('sbOverlay')?.classList.remove('mob-open');
+}
+/* Afficher le bouton hamburger sur mobile */
+(function() {
+  const btn = document.getElementById('_mobMenuBtn');
+  if (btn && window.innerWidth <= 900) btn.style.display = 'flex';
+  window.addEventListener('resize', () => {
+    if (btn) btn.style.display = window.innerWidth <= 900 ? 'flex' : 'none';
+  });
+})();
+
+function clearNotifs() {
+  _notifs = [];
+  localStorage.setItem('ha_notifs', JSON.stringify(_notifs));
+  refreshNotifBadge();
+  renderNotifList();
+}
+
+function scanStockNotifs() {
+  dbProducts.forEach(p => {
+    if (typeof p.stock !== 'number') return;
+    const key = 'notif_stock_' + p.id;
+    if (p.stock === 0 && !sessionStorage.getItem(key + '_0')) {
+      addNotif('stock', `❌ Rupture — ${p.name}`, `Le stock est à 0. Réapprovisionnez dès que possible.`);
+      sessionStorage.setItem(key + '_0', '1');
+    } else if (p.stock > 0 && p.stock <= 5 && !sessionStorage.getItem(key + '_low')) {
+      addNotif('stock', `⚠️ Stock faible — ${p.name}`, `Il ne reste que ${p.stock} unité${p.stock>1?'s':''}. Commandez bientôt.`);
+      sessionStorage.setItem(key + '_low', '1');
+    }
+  });
+}
+
+/* ======================================================
+   TABLE PRODUITS DYNAMIQUE (page-produits)
+   ====================================================== */
+function renderProdPage() {
+  const q   = (document.getElementById('prodPageSearch')?.value || '').toLowerCase();
+  const cat = document.getElementById('prodPageCat')?.value || '';
+  const st  = document.getElementById('prodPageStatus')?.value || '';
+  const tbody = document.getElementById('prodPageBody');
+  const sub   = document.getElementById('prodPageSub');
+  if (!tbody) return;
+
+  let list = dbProducts.filter(p => {
+    const matchQ   = !q  || p.name.toLowerCase().includes(q) || (p.nameEn||'').toLowerCase().includes(q);
+    const matchCat = !cat || p.category === cat;
+    const stock    = typeof p.stock === 'number' ? p.stock : 99;
+    const matchSt  = !st
+      || (st === 'ok'  && stock > 5)
+      || (st === 'low' && stock > 0 && stock <= 5)
+      || (st === 'out' && stock === 0);
+    return matchQ && matchCat && matchSt;
+  });
+
+  if (sub) sub.textContent = `${list.length} produit${list.length!==1?'s':''} · sur ${dbProducts.length} total`;
+
+  const stockBadge = s => {
+    if (typeof s !== 'number') return `<span style="color:var(--muted)">—</span>`;
+    if (s === 0)   return `<span style="background:#fee2e2;color:#dc2626;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700">❌ 0 — Rupture</span>`;
+    if (s <= 5)    return `<span style="background:#fef3c7;color:#d97706;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700">⚠️ ${s} restant${s>1?'s':''}</span>`;
+    if (s <= 15)   return `<span style="background:#fef9e7;color:#b8860b;padding:3px 10px;border-radius:6px;font-size:12px">🟡 ${s}</span>`;
+    return `<span style="background:#dcfce7;color:#16a34a;padding:3px 10px;border-radius:6px;font-size:12px">✅ ${s}</span>`;
+  };
+
+  /* Helper : thumbnail image */
+  const thumb = p => {
+    const s = p.img || '';
+    const src = s.startsWith('photo-')
+      ? `https://images.unsplash.com/${s}?w=80&q=70`
+      : (s || '');
+    return src
+      ? `<img src="${src}" style="width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid var(--border)" onerror="this.style.display='none'" />`
+      : `<div style="width:52px;height:52px;border-radius:8px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px">👗</div>`;
+  };
+
+  /* Helper : pastilles couleurs */
+  const colorDots = p => {
+    const colors = Array.isArray(p.colors) ? p.colors : [];
+    if (!colors.length) return '<span style="color:var(--muted);font-size:12px">—</span>';
+    const palette = {
+      'Noir':'#1a1a1a','Blanc':'#f5f5f5','Ivoire':'#f5f0eb','Nude':'#e8c9a0',
+      'Rose':'#f4a7b9','Rose pâle':'#fce4ec','Beige':'#d4b896','Bordeaux':'#8b1a4a',
+      'Doré':'#c9a068','Champagne':'#f7e7ce','Corail':'#ff7f6e','Sable':'#c4a882',
+      'Bleu':'#4a90d9','Bleu nuit':'#1a237e','Marine':'#2c3e7a','Émeraude':'#2e7d32',
+      'Gris':'#9e9e9e','Crème':'#f9f5ef','Rouge':'#d32f2f','Multicolore':'linear-gradient(135deg,#f4a7b9,#b8935a,#4a90d9)',
+    };
+    return colors.slice(0,5).map(c => {
+      const bg = palette[c] || '#ccc';
+      const isGradient = bg.includes('gradient');
+      const style = isGradient
+        ? `background:${bg};`
+        : `background:${bg};box-shadow:${bg==='#f5f5f5'?'0 0 0 1px #ddd':'none'};`;
+      return `<span title="${c}" style="${style}display:inline-block;width:16px;height:16px;border-radius:50%;margin-right:3px;vertical-align:middle;border:1.5px solid rgba(0,0,0,.1)"></span>`;
+    }).join('') + (colors.length > 5 ? `<span style="font-size:10px;color:var(--muted)">+${colors.length-5}</span>` : '');
+  };
+
+  tbody.innerHTML = list.length ? list.map(p => `
+    <tr style="cursor:pointer" onclick="openProdModal('${p.id}')">
+      <td style="padding:8px">${thumb(p)}</td>
+      <td>
+        <div style="font-weight:600;font-size:13px">${p.name}</div>
+        ${p.nameEn ? `<div style="font-size:11px;color:var(--muted)">${p.nameEn}</div>` : ''}
+        ${p.badge ? `<span style="background:#fef3c7;color:#d97706;font-size:10px;padding:2px 7px;border-radius:5px;margin-top:3px;display:inline-block">${p.badge}</span>` : ''}
+      </td>
+      <td><span style="font-size:12px">${p.category}</span></td>
+      <td>
+        <strong style="font-size:14px">${p.price} MAD</strong>
+        ${p.oldPrice ? `<br><span style="font-size:11px;color:var(--muted);text-decoration:line-through">${p.oldPrice} MAD</span>` : ''}
+      </td>
+      <td>${colorDots(p)}</td>
+      <td>${stockBadge(p.stock)}</td>
+      <td style="text-align:center" onclick="event.stopPropagation()">
+        <button class="sv" onclick="openProdModal('${p.id}')"
+          style="padding:6px 14px;font-size:12px;margin-bottom:4px;width:100%">
+          ✏️ Modifier
+        </button>
+        <button onclick="deleteProdCMS('${p.id}')"
+          style="padding:5px 10px;font-size:11px;background:#fee2e2;color:#dc2626;border:none;border-radius:6px;cursor:pointer;width:100%">
+          🗑️ Supprimer
+        </button>
+      </td>
+    </tr>`).join('')
+  : '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Aucun produit trouvé.</td></tr>';
+}
+
+/* ======================================================
+   FILTRES COMMANDES
+   ====================================================== */
+let _allOrders = [];
+
+function clearOrderFilters() {
+  ['orderSearch','orderStatusFilter','orderCityFilter','orderDateFrom','orderDateTo'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  filterOrders();
+}
+
+function filterOrders() {
+  const q        = (document.getElementById('orderSearch')?.value || '').toLowerCase();
+  const st       = document.getElementById('orderStatusFilter')?.value || '';
+  const city     = document.getElementById('orderCityFilter')?.value || '';
+  const dateFrom = document.getElementById('orderDateFrom')?.value || '';
+  const dateTo   = document.getElementById('orderDateTo')?.value || '';
+  const tbody = document.querySelector('#page-commandes table tbody');
+  if (!tbody || !_allOrders.length) return;
+
+  const STATUS_MAP = { 'Nouveau':'new','En attente':'new','En cours':'proc','Expédiée':'ship','Livrée':'done','Annulée':'cancel' };
+  const STATUS_LBL = { new:'En attente',proc:'En cours',ship:'Expédiée',done:'Livrée',cancel:'Annulée' };
+
+  const filtered = _allOrders.filter(o => {
+    const cl   = o.client || {};
+    const name = `${cl.prenom||''} ${cl.nom||''}`.toLowerCase();
+    const matchQ    = !q    || o.id.toLowerCase().includes(q) || name.includes(q) || (cl.ville||'').toLowerCase().includes(q);
+    const matchSt   = !st   || (o.status||'').includes(st);
+    const matchCity = !city || (cl.ville||'') === city;
+    /* Filtre date — compare les chaînes ISO (dd/mm/yyyy → yyyy-mm-dd) */
+    let matchDate = true;
+    if (dateFrom || dateTo) {
+      const orderDate = (o.date || '').split('/').reverse().join('-'); /* dd/mm/yyyy → yyyy-mm-dd */
+      if (dateFrom && orderDate < dateFrom) matchDate = false;
+      if (dateTo   && orderDate > dateTo)   matchDate = false;
+    }
+    return matchQ && matchSt && matchCity && matchDate;
+  });
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--muted)">Aucune commande trouvée.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = filtered.map(o => {
+    const st2 = STATUS_MAP[o.status] || 'new';
+    const cl  = o.client || {};
+    const items = (o.items||[]).map(i=>`${i.name} ×${i.qty}`).join(', ');
+    const short = items.length > 30 ? items.slice(0,28)+'…' : items;
+    return `<tr style="cursor:pointer" onclick="openRealOrder('${o.id}')">
+      <td style="font-weight:700">${o.id}</td>
+      <td>${cl.prenom||''} ${cl.nom||''}</td>
+      <td>${cl.ville||'—'}</td>
+      <td title="${items}">${short}</td>
+      <td class="rev">${o.total||0} MAD</td>
+      <td><span class="tag tw">Site</span></td>
+      <td>${o.date||'—'}</td>
+      <td><span class="va v-${st2}">${STATUS_LBL[st2]||o.status}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+/* ======================================================
+   SUIVI DE COMMANDE (recherche rapide)
+   ====================================================== */
+function trackOrder() {
+  const q  = (document.getElementById('trackingSearch')?.value || '').trim().toLowerCase();
+  const res = document.getElementById('trackingResult');
+  if (!res) return;
+  if (!q) { res.innerHTML = ''; return; }
+
+  const all = [...(_allOrders)];
+  const found = all.filter(o => {
+    const cl = o.client || {};
+    return o.id.toLowerCase().includes(q)
+      || `${cl.prenom} ${cl.nom}`.toLowerCase().includes(q)
+      || (cl.tel||'').includes(q);
+  });
+
+  if (!found.length) {
+    res.innerHTML = `<div style="background:#fff8ed;border:1px solid #fbbf24;border-radius:10px;padding:12px 16px;font-size:13px;color:#92400e">Aucune commande trouvée pour "${q}". Vérifiez la référence ou le nom.</div>`;
+    return;
+  }
+  const STATUS_ICONS = { Nouveau:'🆕',  'En attente':'🆕', 'En cours':'⚙️', 'Expédiée':'🚚', 'Livrée':'✅', 'Annulée':'❌' };
+  res.innerHTML = found.map(o => {
+    const cl = o.client || {};
+    const icon = STATUS_ICONS[o.status] || '📦';
+    return `<div style="background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:8px">
+      <span style="font-size:28px">${icon}</span>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px">${o.id} — ${cl.prenom||''} ${cl.nom||''}</div>
+        <div style="font-size:12.5px;color:var(--muted);margin-top:3px">${(o.items||[]).map(i=>`${i.name} ×${i.qty}`).join(' · ')} · <strong>${o.total} MAD</strong></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">📍 ${cl.ville||'—'} — ${o.date||'—'}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <span style="font-size:13px;font-weight:600">${o.status||'—'}</span><br>
+        <button onclick="openRealOrder('${o.id}')" class="sv" style="margin-top:6px;font-size:11px;padding:5px 12px">Détails →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ======================================================
+   FILTRES CLIENTS
+   ====================================================== */
+function filterClients(q) {
+  q = q.toLowerCase();
+  document.querySelectorAll('#page-clients .tc table tbody tr').forEach(row => {
+    const txt = row.textContent.toLowerCase();
+    row.style.display = !q || txt.includes(q) ? '' : 'none';
+  });
+}
+
+/* ======================================================
+   DIFFUSION WHATSAPP
+   ====================================================== */
+function prepareBroadcast() {
+  const msg  = document.getElementById('bcMsg')?.value.trim();
+  const cont = document.getElementById('bcLinks');
+  const cnt  = document.getElementById('bcCount');
+  if (!msg) { showGlobalToast('Rédigez un message d\'abord.'); return; }
+
+  /* Récupérer tous les clients depuis les commandes */
+  const all = _allOrders.length ? _allOrders
+    : JSON.parse(localStorage.getItem('ha_orders') || '[]');
+
+  const clients = [];
+  const seen = new Set();
+  all.forEach(o => {
+    const cl = o.client || {};
+    if (!cl.tel) return;
+    const key = cl.tel.replace(/\D/g,'');
+    if (seen.has(key)) return;
+    seen.add(key);
+    clients.push({ prenom: cl.prenom || 'cliente', tel: key });
+  });
+
+  if (!clients.length) {
+    showGlobalToast('Aucun client trouvé. Les clients apparaissent après les premières commandes.');
+    return;
+  }
+
+  if (cnt) cnt.textContent = `${clients.length} client${clients.length>1?'s':''} — cliquez sur chaque lien pour envoyer`;
+
+  const waBase = (tel) => {
+    let t = tel.replace(/\D/g,'');
+    if (t.startsWith('0')) t = '212' + t.slice(1);
+    return t;
+  };
+
+  cont.innerHTML = clients.map(cl => {
+    const text = msg.replace(/\{prénom\}/gi, cl.prenom).replace(/\{prenom\}/gi, cl.prenom);
+    const url  = `https://wa.me/${waBase(cl.tel)}?text=${encodeURIComponent(text)}`;
+    return `<a href="${url}" target="_blank" rel="noopener"
+      style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;text-decoration:none;font-size:13px;color:#15803d">
+      <span style="font-size:16px">💬</span>
+      <span><strong>${cl.prenom}</strong> · ${cl.tel}</span>
+      <span style="margin-left:auto;font-size:11px;opacity:.7">Ouvrir WhatsApp →</span>
+    </a>`;
+  }).join('');
+}
+
+/* ======================================================
+   INIT AU CHARGEMENT DE LA PAGE COMMANDES
+   ====================================================== */
+
+/* ---- Charge les données depuis l'API et remplit les formulaires ---- */
+async function loadCfgForms() {
+  showGlobalToast('⏳ Chargement depuis le serveur…');
+  const ok = await apiLoad();
+
+  const cfg = SITE_DATA.config || {};
+  const s   = (id, v) => { const el = document.getElementById(id); if (el && v !== undefined && v !== null) el.value = v; };
+
+  s('cfgWa',          cfg.wa          || '');
+  s('cfgWaMsg',       cfg.wa_msg      || '');
+  s('cfgEmail',       cfg.email       || '');
+  s('cfgBank',        cfg.bank        || '');
+  s('cfgBankName',    cfg.bank_name   || '');
+  s('cfgRib',         cfg.rib         || '');
+  s('cfgIban',        cfg.iban        || '');
+  s('cfgPaymentNote', cfg.payment_note|| '');
+  if (document.getElementById('cfgPayCash'))     document.getElementById('cfgPayCash').value     = cfg.pay_cash     === false ? '0' : '1';
+  if (document.getElementById('cfgPayVirement')) document.getElementById('cfgPayVirement').value  = cfg.pay_virement === false ? '0' : '1';
+  s('cfgPromoCode',   cfg.promo_code  || 'BIENVENUE');
+  s('cfgPromoTxtFr',  cfg.promo_txt_fr|| '');
+  s('cfgPromoTxtEn',  cfg.promo_txt_en|| '');
+  s('cfgHeroTitleFr', cfg.hero_title_fr || '');
+  s('cfgHeroTitleEn', cfg.hero_title_en || '');
+  s('cfgHeroBtnFr',   cfg.hero_btn_fr   || '');
+  s('cfgHeroBtnEn',   cfg.hero_btn_en   || '');
+  s('cfgHeroVideo',   cfg.hero_video    || 'video.mp4');
+  s('cfgHeroPhoto',   cfg.hero_photo    || '');
+  /* Restaurer le type de média */
+  if (cfg.hero_media_type === 'photo') {
+    const rb = document.getElementById('cfgHeroTypePhoto');
+    if (rb) { rb.checked = true; toggleHeroMedia(); }
+    if (cfg.hero_photo) previewHeroPhoto(cfg.hero_photo);
+  } else {
+    const rb = document.getElementById('cfgHeroTypeVideo');
+    if (rb) { rb.checked = true; toggleHeroMedia(); }
+  }
+  s('cfgImg1',        cfg.img_editorial || '01.jpeg');
+  s('cfgImg2',        cfg.img_swimwear  || 'IMG_5036.JPG');
+  s('cfgImg3',        cfg.img_brand     || '02.jpeg');
+  s('cfgChatbotOn',   cfg.chatbot_on === false ? '0' : '1');
+  s('cfgChatbotWa',   cfg.wa || '');
+  s('cfgChatbotMsg',  cfg.chatbot_msg || '');
+  s('cfgGoalRev',     cfg.goal_rev   || '20000');
+  s('cfgGoalCvr',     cfg.goal_cvr   || '3');
+  s('cfgGoalStock',   cfg.goal_stock || '5');
+  s('cfgGoalAds',     cfg.goal_ads   || '2000');
+
+  /* Aperçus images */
+  [['img_editorial','img1Preview'],['img_swimwear','img2Preview'],['img_brand','img3Preview']]
+    .forEach(([k, id]) => { if (cfg[k]) updateImgPreview(id, cfg[k]); });
+
+  buildAnnounceFields(Array.isArray(SITE_DATA.announce) && SITE_DATA.announce.length ? SITE_DATA.announce : null);
+
+  /* Produits */
+  if (Array.isArray(SITE_DATA.products) && SITE_DATA.products.length) {
+    dbProducts = [...SITE_DATA.products];
+  } else {
+    loadDbProds();
+  }
+  renderProdMgr();
+
+  /* Toast status */
+  const t = document.getElementById('toast');
+  if (t) {
+    t.textContent = ok
+      ? '✅ Données chargées depuis le serveur Hostinger'
+      : '⚠️ API indisponible — données locales (normal en développement local)';
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 3500);
+  }
+}
+
+function initVis(){
+  // Daily visitors bar
+  const days=Array.from({length:30},(_,i)=>(i+3)+'/05');
+  const vd=[78,92,105,88,74,118,142,95,103,87,76,130,144,98,112,88,76,104,122,95,108,87,134,148,102,115,91,106,128,142];
+  new Chart(document.getElementById('cVis'),{
+    type:'bar',
+    data:{labels:days,datasets:[{data:vd,backgroundColor:'rgba(184,147,90,0.65)',hoverBackgroundColor:G,borderRadius:3}]},
+    options:{...base,scales:{
+      x:{grid:{display:false},ticks:{maxTicksLimit:8,font:{size:10},color:MT}},
+      y:{grid:{color:'#f0ece6'},ticks:{font:{size:10},color:MT}}
+    }}
+  });
+  // Device donut
+  new Chart(document.getElementById('cDev'),{
+    type:'doughnut',
+    data:{labels:['Mobile','Desktop','Tablette'],datasets:[{data:[72,20,8],backgroundColor:[G,BK,G2],borderWidth:0}]},
+    options:{...base,cutout:'62%'}
+  });
+  // Geo bar horizontal
+  new Chart(document.getElementById('cGeo'),{
+    type:'bar',
+    data:{labels:['Agadir','Casablanca','Marrakech','Rabat','Fès','Autres'],
+      datasets:[{data:[1458,810,389,259,162,162],backgroundColor:[G,G2,'#c9a97a',MT,'#bdb5ac',BD],borderRadius:5}]},
+    options:{...base,indexAxis:'y',scales:{
+      x:{grid:{color:'#f0ece6'},ticks:{font:{size:11},color:MT}},
+      y:{grid:{display:false},ticks:{font:{size:12,weight:'500'},color:BK}}
+    }}
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soutiens-gorge — H&A Lingerie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <div class="announce-slider">
+      <span data-fr="🚚 Livraison partout au Maroc" data-en="🚚 Delivery across Morocco">🚚 Livraison partout au Maroc</span>
+      <span data-fr="Retours acceptés sous 7 jours" data-en="Returns accepted within 7 days">Retours acceptés sous 7 jours</span>
+      <span data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</span>
+      <span data-fr="-10% sur votre 1ère commande · code BIENVENUE" data-en="-10% on your 1st order · code WELCOME">-10% sur votre 1ère commande · code BIENVENUE</span>
+      <span data-fr="🚚 Livraison partout au Maroc" data-en="🚚 Delivery across Morocco">🚚 Livraison partout au Maroc</span>
+      <span data-fr="Retours acceptés sous 7 jours" data-en="Returns accepted within 7 days">Retours acceptés sous 7 jours</span>
+      <span data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</span>
+      <span data-fr="-10% sur votre 1ère commande · code BIENVENUE" data-en="-10% on your 1st order · code WELCOME">-10% sur votre 1ère commande · code BIENVENUE</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-top">
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><span></span><span></span><span></span></button>
+      <a href="index.html" class="logo logo-center">H<span>&amp;</span>A</a>
+      <div class="header-icons">
+        <div class="lang-toggle">
+          <span id="langFr" class="lang-active">FR</span>
+          <span id="langEn">EN</span>
+        </div>
+        <button class="icon-btn" id="searchToggle">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" id="favToggle">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count" id="wishlistCount" style="display:none">0</span>
+        </button>
+        <button class="icon-btn" id="cartBtn">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;color:#999"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Rechercher un article…" id="searchInput" data-fr-ph="Rechercher un article…" data-en-ph="Search for an item…" />
+      <button class="icon-btn" id="searchClose">✕</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </header>
+
+  <!-- COLLECTIONS NAV -->
+  <nav class="collections-nav" id="collectionsNav">
+    <ul class="collections-list">
+      <li><a href="category?cat=nouveaux-arrivages" class="c-link c-new" data-fr="✦ Nouveautés" data-en="✦ New In">✦ Nouveautés</a></li>
+      <li><a href="category?cat=soutiens-gorge" class="c-link" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a></li>
+      <li><a href="category?cat=sets" class="c-link" data-fr="Sets" data-en="Sets">Sets</a></li>
+      <li><a href="category?cat=culottes" class="c-link" data-fr="Culottes" data-en="Underwear">Culottes</a></li>
+      <li><a href="category?cat=bodies" class="c-link" data-fr="Bodies" data-en="Bodysuits">Bodies</a></li>
+      <li><a href="category?cat=nuit" class="c-link" data-fr="Nuit" data-en="Nightwear">Nuit</a></li>
+      <li><a href="category?cat=bridal" class="c-link" data-fr="Mariée" data-en="Bridal">Mariée</a></li>
+      <li><a href="category?cat=maillots" class="c-link" data-fr="Maillots" data-en="Swimwear">Maillots</a></li>
+      <li><a href="category?cat=robes" class="c-link" data-fr="Robes" data-en="Robes">Robes</a></li>
+      <li><a href="category?cat=menstruelle" class="c-link" data-fr="Menstruelle" data-en="Period Care">Menstruelle</a></li>
+      <li><a href="category?cat=mamans" class="c-link" data-fr="Mamans" data-en="Nursing">Mamans</a></li>
+      <li><a href="category?cat=accessoires" class="c-link" data-fr="Accessoires" data-en="Accessories">Accessoires</a></li>
+      <li><a href="category?cat=soldes" class="c-link c-sale" data-fr="Soldes" data-en="Sale">Soldes</a></li>
+    </ul>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <span class="logo">H<span>&amp;</span>A</span>
+      <button class="icon-btn" id="mobileMenuClose">✕</button>
+    </div>
+    <nav class="mobile-nav">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;font-weight:500" data-fr="🏠 Accueil" data-en="🏠 Home">🏠 Accueil</a>
+      <a href="category?cat=nouveaux-arrivages" class="mn-new" data-fr="✦ Nouveaux Arrivages" data-en="✦ New In">✦ Nouveaux Arrivages</a>
+      <div class="mn-sep" data-fr="Lingerie" data-en="Lingerie">Lingerie</div>
+      <a href="category?cat=sets" data-fr="Sets &amp; Parures" data-en="Sets &amp; Bras">Sets &amp; Parures</a>
+      <a href="category?cat=soutiens-gorge" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a>
+      <a href="category?cat=culottes" data-fr="Culottes &amp; Shorties" data-en="Underwear">Culottes &amp; Shorties</a>
+      <a href="category?cat=bodies" data-fr="Bodies" data-en="Bodysuits">Bodies</a>
+      <a href="category?cat=robes" data-fr="Robes Lingerie" data-en="Robes">Robes Lingerie</a>
+      <div class="mn-sep" data-fr="Collections" data-en="Collections">Collections</div>
+      <a href="category?cat=nuit" data-fr="Nuit &amp; Loungewear" data-en="Nightwear">Nuit &amp; Loungewear</a>
+      <a href="category?cat=bridal" data-fr="Mariée &amp; Bridal" data-en="Bridal">Mariée &amp; Bridal</a>
+      <a href="category?cat=maillots" data-fr="Maillots de Bain" data-en="Swimwear">Maillots de Bain</a>
+      <a href="category?cat=menstruelle" data-fr="Lingerie Menstruelle" data-en="Period Care">Lingerie Menstruelle</a>
+      <a href="category?cat=mamans" data-fr="Espace Mamans" data-en="Nursing &amp; Maternity">Espace Mamans</a>
+      <a href="category?cat=accessoires" data-fr="Accessoires" data-en="Accessories">Accessoires</a>
+      <a href="category?cat=soldes" class="mn-sale" data-fr="Soldes" data-en="Sale">Soldes</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <p data-fr="📦 Livraison partout au Maroc" data-en="📦 Delivery across Morocco">📦 Livraison partout au Maroc</p>
+    </div>
+  </div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- CATEGORY HERO -->
+  <div class="cat-hero" id="catHero">
+    <img id="catHeroImg" src="https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=1400&q=80" alt="Catégorie" />
+    <div class="cat-hero-content">
+      <h1 id="catTitle">Soutiens-gorge</h1>
+      <p id="catDesc">Dentelles, armatures &amp; maintien parfait</p>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a>
+    <span class="breadcrumb-sep">/</span>
+    <span id="breadCurrent">Soutiens-gorge</span>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="cat-layout">
+    <!-- FILTERS -->
+    <aside class="filters-sidebar">
+      <div class="filter-group">
+        <h4 data-fr="Taille" data-en="Size">Taille</h4>
+        <label class="filter-option"><input type="checkbox" /> <label>85A</label> <span>12</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>85B</label> <span>18</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>85C</label> <span>14</span></label>
+        <label class="filter-option"><input type="checkbox" checked /> <label>90B</label> <span>22</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>90C</label> <span>16</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>95B</label> <span>10</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>95C</label> <span>8</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>100B</label> <span>6</span></label>
+      </div>
+      <div class="filter-group">
+        <h4 data-fr="Couleur" data-en="Color">Couleur</h4>
+        <label class="filter-option"><input type="checkbox" checked /> <label data-fr="Noir" data-en="Black">Noir</label> <span>28</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>Nude / Beige</label> <span>20</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Blanc / Ivoire" data-en="White / Ivory">Blanc / Ivoire</label> <span>15</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Rose" data-en="Pink">Rose</label> <span>12</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label>Bordeaux</label> <span>8</span></label>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Or / Doré" data-en="Gold">Or / Doré</label> <span>5</span></label>
+      </div>
+      <div class="filter-group">
+        <h4 data-fr="Prix" data-en="Price">Prix</h4>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Moins de 200 MAD" data-en="Under 200 MAD">Moins de 200 MAD</label></label>
+        <label class="filter-option"><input type="checkbox" checked /> <label>200 – 400 MAD</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label>400 – 600 MAD</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="600 MAD et plus" data-en="600 MAD and above">600 MAD et plus</label></label>
+      </div>
+      <div class="filter-group">
+        <h4 data-fr="Type" data-en="Style">Type</h4>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Armatures" data-en="Underwired">Armatures</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Sans armatures" data-en="Wire-free">Sans armatures</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label>Push-up</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label>Balconnet</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label>Triangle</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label>Bralette</label></label>
+      </div>
+      <div class="filter-group">
+        <h4 data-fr="Matière" data-en="Material">Matière</h4>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Dentelle" data-en="Lace">Dentelle</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Satin / Soie" data-en="Satin / Silk">Satin / Soie</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label>Microfibre</label></label>
+        <label class="filter-option"><input type="checkbox" /> <label data-fr="Coton" data-en="Cotton">Coton</label></label>
+      </div>
+      <button class="btn btn-dark" data-fr="Appliquer (3)" data-en="Apply (3)" style="width:100%;justify-content:center;margin-top:8px">Appliquer (3)</button>
+      <button class="btn btn-outline" data-fr="Réinitialiser" data-en="Reset" style="width:100%;justify-content:center;margin-top:8px">Réinitialiser</button>
+    </aside>
+
+    <!-- PRODUCTS -->
+    <div class="cat-products-area">
+      <!-- Bouton Filtres (visible partout, dans la sort-bar) -->
+
+      <!-- Drawer filtres mobile -->
+      <div id="filterDrawer" style="display:none;position:fixed;inset:0;z-index:500">
+        <div onclick="closeFilterDrawer()" style="position:absolute;inset:0;background:rgba(0,0,0,.45)"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 32px;max-height:85vh;overflow-y:auto">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <strong style="font-size:15px" data-fr="Filtres" data-en="Filters">Filtres</strong>
+            <button onclick="closeFilterDrawer()" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted)">✕</button>
+          </div>
+          <div style="margin-bottom:18px">
+            <h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px" data-fr="Catégorie" data-en="Category">Catégorie</h4>
+            <div id="drawerCatChips" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+          </div>
+          <div style="margin-bottom:18px">
+            <h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px" data-fr="Prix" data-en="Price">Prix</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label style="font-size:11px;color:var(--muted)">Min (MAD)</label><input id="drawerPriceMin" type="number" placeholder="0" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px" oninput="applyDrawerFilters()"/></div>
+              <div><label style="font-size:11px;color:var(--muted)">Max (MAD)</label><input id="drawerPriceMax" type="number" placeholder="2000" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px" oninput="applyDrawerFilters()"/></div>
+            </div>
+          </div>
+          <div style="margin-bottom:18px">
+            <h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px" data-fr="Trier par" data-en="Sort by">Trier par</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="drawerSortBtns">
+              <button class="_dsort active" data-val="default" onclick="setDrawerSort(this,'default')" style="padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;background:#fff" data-fr="Recommandés" data-en="Recommended">Recommandés</button>
+              <button class="_dsort" data-val="asc" onclick="setDrawerSort(this,'asc')" style="padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;background:#fff" data-fr="Prix ↑" data-en="Price ↑">Prix ↑</button>
+              <button class="_dsort" data-val="desc" onclick="setDrawerSort(this,'desc')" style="padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;background:#fff" data-fr="Prix ↓" data-en="Price ↓">Prix ↓</button>
+              <button class="_dsort" data-val="new" onclick="setDrawerSort(this,'new')" style="padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;background:#fff" data-fr="Nouveautés" data-en="New">Nouveautés</button>
+            </div>
+          </div>
+          <button onclick="resetDrawerFilters()" style="width:100%;padding:12px;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:8px" data-fr="Réinitialiser" data-en="Reset">Réinitialiser</button>
+          <button onclick="closeFilterDrawer()" style="width:100%;padding:12px;background:var(--black);color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:500" data-fr="Voir les résultats" data-en="View results">Voir les résultats</button>
+        </div>
+      </div>
+
+      <div class="sort-bar" style="flex-wrap:wrap;gap:8px">
+        <p id="resultCount">Affichage de <strong>12</strong> produits</p>
+        <div style="display:flex;gap:8px;align-items:center;margin-left:auto">
+          <button id="filterToggleBtn" onclick="openFilterDrawer()" style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:#fff;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:500;white-space:nowrap;transition:border-color .18s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+            <span data-fr="Filtres" data-en="Filters">Filtres</span>
+          </button>
+          <select class="sort-select" id="sortSelect">
+          <option value="default"  data-fr="Recommandés"       data-en="Recommended">Recommandés</option>
+          <option value="asc"      data-fr="Prix croissant"    data-en="Price: low to high">Prix croissant</option>
+          <option value="desc"     data-fr="Prix décroissant"  data-en="Price: high to low">Prix décroissant</option>
+          <option value="new"      data-fr="Nouveautés"        data-en="New arrivals">Nouveautés</option>
+          <option value="popular"  data-fr="Meilleures ventes" data-en="Best sellers">Meilleures ventes</option>
+        </select>
+        </div><!-- fin flex bouton+select -->
+      </div>
+
+      <div class="cat-product-grid" id="catGrid">
+
+        <div class="product-card" data-id="1" data-name="Soutien-gorge Dentelle Éclat" data-price="349">
+          <a href="product?id=1" class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=600&q=80" alt="" loading="lazy" />
+            <span class="product-badge">New</span>
+            <button class="fav-btn" data-id="1" data-name="Soutien-gorge Dentelle Éclat" data-price="349"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </a>
+          <div class="product-info">
+            <p class="product-cat">Dentelle · Armatures</p>
+            <h3><a href="product?id=1">Soutien-gorge Dentelle Éclat</a></h3>
+            <div class="stars-small">★★★★★ <span>(63)</span></div>
+            <div class="product-bottom"><p class="product-price">349 MAD</p><button class="quick-add" data-id="1" data-name="Soutien-gorge Dentelle Éclat" data-price="349">+ Panier</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="5" data-name="Soutien-gorge Push-Up Noir" data-price="420">
+          <a href="product?id=5" class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=600&q=80" alt="" loading="lazy" />
+            <button class="fav-btn" data-id="5" data-name="Soutien-gorge Push-Up Noir" data-price="420"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </a>
+          <div class="product-info">
+            <p class="product-cat">Push-Up · Armatures</p>
+            <h3><a href="product?id=5">Soutien-gorge Push-Up Noir</a></h3>
+            <div class="stars-small">★★★★★ <span>(48)</span></div>
+            <div class="product-bottom"><p class="product-price">420 MAD</p><button class="quick-add" data-id="5" data-name="Soutien-gorge Push-Up Noir" data-price="420">+ Panier</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="9" data-name="Bralette Dentelle Ivoire" data-price="289">
+          <a href="product?id=9" class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600&q=80" alt="" loading="lazy" />
+            <span class="product-badge badge-sale">-20%</span>
+            <button class="fav-btn" data-id="9" data-name="Bralette Dentelle Ivoire" data-price="289"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </a>
+          <div class="product-info">
+            <p class="product-cat">Bralette · Sans armatures</p>
+            <h3><a href="product?id=9">Bralette Dentelle Ivoire</a></h3>
+            <div class="stars-small">★★★★☆ <span>(27)</span></div>
+            <div class="product-bottom"><p class="product-price">289 MAD <s style="color:#bbb;font-size:12px">361 MAD</s></p><button class="quick-add" data-id="9" data-name="Bralette Dentelle Ivoire" data-price="289">+ Panier</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="10" data-name="Soutien-gorge Balconnet Rose" data-price="380">
+          <a href="product?id=10" class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=600&q=80" alt="" loading="lazy" />
+            <button class="fav-btn" data-id="10" data-name="Soutien-gorge Balconnet Rose" data-price="380"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </a>
+          <div class="product-info">
+            <p class="product-cat">Balconnet · Armatures</p>
+            <h3><a href="product?id=10">Soutien-gorge Balconnet Rose</a></h3>
+            <div class="stars-small">★★★★★ <span>(19)</span></div>
+            <div class="product-bottom"><p class="product-price">380 MAD</p><button class="quick-add" data-id="10" data-name="Soutien-gorge Balconnet Rose" data-price="380">+ Panier</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="11" data-name="Soutien-gorge Satin Nude" data-price="460">
+          <a href="product?id=11" class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80" alt="" loading="lazy" />
+            <button class="fav-btn" data-id="11" data-name="Soutien-gorge Satin Nude" data-price="460"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </a>
+          <div class="product-info">
+            <p class="product-cat">Satin · Armatures</p>
+            <h3><a href="product?id=11">Soutien-gorge Satin Nude</a></h3>
+            <div class="stars-small">★★★★★ <span>(34)</span></div>
+            <div class="product-bottom"><p class="product-price">460 MAD</p><button class="quick-add" data-id="11" data-name="Soutien-gorge Satin Nude" data-price="460">+ Panier</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="12" data-name="Triangle Dentelle Bordeaux" data-price="310">
+          <a href="product?id=12" class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt="" loading="lazy" />
+            <button class="fav-btn" data-id="12" data-name="Triangle Dentelle Bordeaux" data-price="310"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </a>
+          <div class="product-info">
+            <p class="product-cat">Triangle · Sans armatures</p>
+            <h3><a href="product?id=12">Triangle Dentelle Bordeaux</a></h3>
+            <div class="stars-small">★★★★☆ <span>(11)</span></div>
+            <div class="product-bottom"><p class="product-price">310 MAD</p><button class="quick-add" data-id="12" data-name="Triangle Dentelle Bordeaux" data-price="310">+ Panier</button></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span style="padding:0 4px;color:var(--muted)">…</span>
+        <button class="page-btn">8</button>
+        <button class="page-btn">→</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAV DRAWER -->
+  <div class="fav-drawer" id="favDrawer">
+    <div class="fav-drawer-header">
+      <h3><span data-fr="Mes Favoris" data-en="My Favourites">Mes Favoris</span> (<span id="favItemCount">0</span>)</h3>
+      <button class="icon-btn" id="favClose">✕</button>
+    </div>
+    <div class="fav-items" id="favItems">
+      <div class="fav-empty">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <p data-fr="Aucun favori pour le moment" data-en="No favourites yet">Aucun favori pour le moment</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3><span data-fr="Mon Panier" data-en="My Cart">Mon Panier</span> (<span id="cartItemCount">0</span>)</h3>
+      <button class="icon-btn" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <p data-fr="Votre panier est vide" data-en="Your cart is empty">Votre panier est vide</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span data-fr="Sous-total" data-en="Subtotal">Sous-total</span><span id="cartTotal">0 MAD</span></div>
+      <button class="btn btn-dark" id="checkoutBtn" style="width:100%;justify-content:center">
+        ✅ <span data-fr="Confirmer ma commande" data-en="Confirm my order">Confirmer ma commande</span>
+      </button>
+      <button class="btn btn-outline" id="clearCart" data-fr="Vider le panier" data-en="Clear cart">Vider le panier</button>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER (mini) -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <div class="footer-logo logo">H<span>&amp;</span>A</div>
+        <p data-fr="Lingerie de luxe — Agadir, Maroc." data-en="Luxury lingerie — Agadir, Morocco.">Lingerie de luxe — Agadir, Maroc.</p>
+        <div class="social-links">
+          <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.27 8.27 0 0 0 4.84 1.56V6.78a4.86 4.86 0 0 1-1.07-.09z"/></svg></a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://wa.me/212600000000" target="_blank" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Catégories" data-en="Categories">Catégories</h4>
+        <ul>
+          <li><a href="category?cat=nouveaux-arrivages" data-fr="Nouveaux Arrivages" data-en="New Arrivals">Nouveaux Arrivages</a></li>
+          <li><a href="category?cat=soutiens-gorge" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a></li>
+          <li><a href="category?cat=culottes" data-fr="Culottes &amp; Shorties" data-en="Underwear">Culottes &amp; Shorties</a></li>
+          <li><a href="category?cat=bodies" data-fr="Bodies" data-en="Bodysuits">Bodies</a></li>
+          <li><a href="category?cat=sets" data-fr="Sets &amp; Parures" data-en="Sets &amp; Bras">Sets &amp; Parures</a></li>
+          <li><a href="category?cat=bridal" data-fr="Mariée &amp; Bridal" data-en="Bridal">Mariée &amp; Bridal</a></li>
+          <li><a href="category?cat=maillots" data-fr="Maillots de Bain" data-en="Swimwear">Maillots de Bain</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Service Client" data-en="Customer Service">Service Client</h4>
+        <ul>
+          <li><button data-modal="livraison" data-fr="Livraison &amp; Retour" data-en="Delivery &amp; Return">Livraison &amp; Retour</button></li>
+          <li><button data-modal="politique-retour" data-fr="Politique d'échange" data-en="Exchange Policy">Politique d'échange</button></li>
+          <li><button data-modal="guide-tailles" data-fr="Guide des tailles" data-en="Size Guide">Guide des tailles</button></li>
+          <li><button data-modal="suivi" data-fr="Suivi de commande" data-en="Order Tracking">Suivi de commande</button></li>
+          <li><button data-modal="faq" data-fr="FAQ" data-en="FAQ">FAQ</button></li>
+          <li><button data-modal="contact" data-fr="Nous contacter" data-en="Contact us">Nous contacter</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="tel:+212600000000" data-phone>+212 6 00 00 00 00</a></li>
+          <li><a href="mailto:contact@ha-lingerie.ma" data-email>contact@ha-lingerie.ma</a></li>
+          <li><a href="https://wa.me/212600000000" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-fr="© 2026 H&amp;A Lingerie. Tous droits réservés." data-en="© 2026 H&amp;A Lingerie. All rights reserved.">© 2026 H&amp;A Lingerie. Tous droits réservés.</p>
+      <div class="payment-icons">
+        <span class="payment-icon">💵 CASH</span>
+        <span class="payment-icon fr-only">📦 À LA LIVRAISON</span>
+        <span class="payment-icon en-only">📦 CASH ON DELIVERY</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat') || 'lingerie';
+
+    const CAT_EN = {
+      'Soutiens-gorge': 'Bras', 'Culottes': 'Underwear', 'Bodies': 'Bodysuits',
+      'Mariée': 'Bridal', 'Sets & Parures': 'Sets & Bras', 'Robes': 'Robes',
+      'Nuit': 'Nightwear', 'Maillots de Bain': 'Swimwear',
+      'Lingerie Menstruelle': 'Period Care', 'Mamans': 'Nursing & Maternity', 'Lingerie': 'Lingerie',
+    };
+
+    const catData = {
+      'nouveaux-arrivages': { title:'Nouveaux Arrivages',  titleEn:'New Arrivals',        desc:"Les dernières pièces H&A",                   descEn:"The latest H&A pieces",                      img:'photo-1515886657613-9f3515b0c78f', cats:null },
+      'soutiens-gorge':     { title:'Soutiens-gorge',      titleEn:'Bras',                desc:"Dentelles, armatures & maintien parfait",      descEn:"Lace, underwired & perfect support",         img:'photo-1571513722275-4b41940f54b8', cats:['Soutiens-gorge'] },
+      'culottes':           { title:'Culottes & Shorties',  titleEn:'Underwear',           desc:"Confort et élégance au quotidien",             descEn:"Everyday comfort and elegance",              img:'photo-1554568218-0f1715e72254', cats:['Culottes'] },
+      'bodies':             { title:'Bodies',               titleEn:'Bodysuits',           desc:"Sculptants et sensuels",                       descEn:"Sculpting and sensual",                      img:'photo-1485230895905-ec40ba36b9bc', cats:['Bodies'] },
+      'sets':               { title:'Sets & Parures',       titleEn:'Sets & Matching Bras',desc:"L'alliance parfaite lingerie",                 descEn:"The perfect lingerie pairing",               img:'photo-1585487000160-6ebcfceb0d03', cats:['Sets & Parures'] },
+      'robes':              { title:'Robes Lingerie',       titleEn:'Lingerie Robes',      desc:"Élégance et sensualité",                       descEn:"Elegance and sensuality",                    img:'photo-1469334031218-e382a71b716b', cats:['Robes'] },
+      'nuit':               { title:'Nuit & Loungewear',    titleEn:'Night & Loungewear',  desc:"Douceur absolue pour vos nuits",               descEn:"Absolute softness for your nights",          img:'photo-1512353087810-25dfcd100962', cats:['Nuit'] },
+      'bridal':             { title:'Mariée & Bridal',      titleEn:'Bridal',              desc:"La lingerie du plus beau jour",                descEn:"Lingerie for your most beautiful day",       img:'photo-1469334031218-e382a71b716b', cats:['Mariée'] },
+      'maillots':           { title:'Maillots de Bain',     titleEn:'Swimwear',            desc:"Votre été commence ici",                       descEn:"Your summer starts here",                    localImg:'IMG_5036.JPG', cats:['Maillots de Bain'] },
+      'soldes':             { title:'Soldes',               titleEn:'Sale',                desc:"Jusqu'à -40% sur une sélection",               descEn:"Up to -40% on selected items",               img:'photo-1490481651871-ab68de25d43d', cats:null },
+      'lingerie':           { title:'Lingerie',             titleEn:'Lingerie',            desc:"Notre sélection complète",                     descEn:"Our complete selection",                     localImg:'02.jpeg', cats:null },
+      'menstruelle':        { title:'Lingerie Menstruelle', titleEn:'Period Care',         desc:"Confort & protection naturelle, chaque jour",  descEn:"Natural comfort & protection, every day",   img:'photo-1554568218-0f1715e72254', cats:['Lingerie Menstruelle'] },
+      'mamans':             { title:'Espace Mamans',        titleEn:'For Mothers',         desc:"Soutiens-gorge allaitement & lingerie maternité", descEn:"Nursing bras & maternity lingerie",       img:'photo-1571513722275-4b41940f54b8', cats:['Mamans'] },
+      'collections':        { title:'Collections Spéciales',titleEn:'Special Collections', desc:"Toutes nos collections signature",             descEn:"All our signature collections",              img:'photo-1515886657613-9f3515b0c78f', cats:null },
+      'guides':             { title:'Guides & Conseils',    titleEn:'Guides & Tips',       desc:"Conseils beauté, entretien & style",           descEn:"Beauty, care & style advice",                img:'photo-1596462502278-27bfdc403348', cats:null },
+      'accessoires':        { title:'Accessoires',          titleEn:'Accessories',         desc:"Compléments & accessoires lingerie",            descEn:"Lingerie accessories & complements",         img:'photo-1596462502278-27bfdc403348', cats:['Accessoires'] },
+    };
+
+    const d = catData[cat] || catData['lingerie'];
+
+    function applyLangToCategory(lang) {
+      const title = (lang === 'en' && d.titleEn) ? d.titleEn : d.title;
+      const desc  = (lang === 'en' && d.descEn)  ? d.descEn  : d.desc;
+      document.getElementById('catTitle').textContent = title;
+      document.getElementById('catDesc').textContent  = desc;
+      document.getElementById('breadCurrent').textContent = title;
+      document.title = title + ' — H&A Lingerie';
+      // Update result count text
+      const rc = document.getElementById('resultCount');
+      if (rc) {
+        const n = rc.querySelector('strong')?.textContent || '';
+        rc.innerHTML = lang === 'en'
+          ? `Showing <strong>${n}</strong> products`
+          : `Affichage de <strong>${n}</strong> produits`;
+      }
+      // Update quick-add buttons
+      document.querySelectorAll('.quick-add').forEach(btn => {
+        btn.textContent = lang === 'en' ? '+ Cart' : '+ Panier';
+      });
+      // Update product names and categories (for dynamically rendered cards)
+      document.querySelectorAll('[data-fr][data-en]').forEach(el => {
+        el.textContent = lang === 'en' ? (el.dataset.en || el.dataset.fr) : el.dataset.fr;
+      });
+    }
+
+    // Initial render
+    document.getElementById('catHeroImg').src = d.localImg
+      ? d.localImg
+      : `https://images.unsplash.com/${d.img}?w=1400&q=80`;
+    applyLangToCategory(typeof currentLang !== 'undefined' ? currentLang : 'fr');
+
+    // Highlight active nav link
+    document.querySelectorAll('.collections-nav .c-link').forEach(a => {
+      if (a.href.includes('cat=' + cat)) a.classList.add('active');
+    });
+
+    /* ─── Filtres prix & catégorie ─────────────────────── */
+    let _priceMin = 0, _priceMax = 99999, _catFilter = '', _overrideAll = false;
+
+    /* ─── Drawer mobile ────────────────────────────────── */
+    function openFilterDrawer() {
+      const drawer = document.getElementById('filterDrawer');
+      if (!drawer) return;
+      drawer.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      const cats = [...new Set(PRODUCTS.map(p => p.category))].sort();
+      const chips = document.getElementById('drawerCatChips');
+      if (chips) chips.innerHTML = ['', ...cats].map(c => `
+        <button onclick="setDrawerCat(this,'${c.replace(/'/g,'\\\'')}')" class="_dcat"
+          style="padding:7px 14px;border:1.5px solid ${c===_catFilter?'var(--gold)':'var(--border)'};border-radius:20px;font-size:12px;cursor:pointer;background:${c===_catFilter?'var(--gold)':'#fff'};color:${c===_catFilter?'#fff':'inherit'}">${c||'Toutes'}</button>`).join('');
+    }
+    function closeFilterDrawer() {
+      const drawer = document.getElementById('filterDrawer');
+      if (drawer) drawer.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    function setDrawerCat(btn, cat) {
+      _catFilter    = cat;
+      _overrideAll  = (cat === ''); /* "Toutes" → ignorer d.cats et montrer TOUT */
+      document.querySelectorAll('._dcat').forEach(b => { b.style.borderColor='var(--border)';b.style.background='#fff';b.style.color='inherit'; });
+      btn.style.borderColor='var(--gold)';btn.style.background='var(--gold)';btn.style.color='#fff';
+      currentPage = 1;
+      renderGrid();
+      /* NE PAS fermer le drawer — laisser le client continuer à filtrer */
+    }
+    function applyDrawerFilters() {
+      _priceMin = +document.getElementById('drawerPriceMin')?.value || 0;
+      _priceMax = +document.getElementById('drawerPriceMax')?.value || 99999;
+      currentPage = 1; renderGrid();
+    }
+    function setDrawerSort(btn, val) {
+      document.querySelectorAll('._dsort').forEach(b => { b.style.borderColor='var(--border)';b.style.background='#fff'; });
+      btn.style.borderColor='var(--gold)';btn.style.background='var(--cream)';
+      const sel = document.getElementById('sortSelect');
+      if (sel) sel.value = val;
+      currentPage = 1; renderGrid();
+    }
+    function resetDrawerFilters() {
+      _priceMin = 0; _priceMax = 99999; _catFilter = ''; _overrideAll = false;
+      const sel = document.getElementById('sortSelect');
+      if (sel) sel.value = 'default';
+      ['drawerPriceMin','drawerPriceMax'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+      currentPage = 1; renderGrid();
+    }
+
+    /* ---- Helpers ---- */
+    /* Unsplash IDs begin with "photo-"; local files (jpg/png/webp) are used as-is */
+    function imgSrc(p) {
+      const s = p.img || 'photo-1571513722275-4b41940f54b8';
+      return s.startsWith('photo-')
+        ? `https://images.unsplash.com/${s}?w=600&q=80`
+        : s;
+    }
+
+    /* ---- Grid render (called on load AND when siteconfig.js refreshes products) ---- */
+    function renderGrid() {
+      const grid = document.getElementById('catGrid');
+      if (!grid || typeof PRODUCTS === 'undefined') return;
+
+      /* Si "Toutes" sélectionné dans le drawer → montrer TOUS les produits */
+      let filtered = (_overrideAll || !d.cats)
+        ? [...PRODUCTS]
+        : PRODUCTS.filter(p => d.cats.includes(p.category));
+      if (filtered.length === 0) filtered = [...PRODUCTS];
+
+      /* Filtre catégorie spécifique (drawer mobile) */
+      if (_catFilter) filtered = filtered.filter(p => p.category === _catFilter);
+      /* Filtre prix */
+      if (_priceMin > 0 || _priceMax < 99999) filtered = filtered.filter(p => p.price >= _priceMin && p.price <= _priceMax);
+
+      /* Tri selon le select */
+      const sortVal = document.getElementById('sortSelect')?.value || 'default';
+      if (sortVal === 'asc')  filtered = [...filtered].sort((a,b) => a.price - b.price);
+      if (sortVal === 'desc') filtered = [...filtered].sort((a,b) => b.price - a.price);
+      if (sortVal === 'new')  filtered = [...filtered].filter(p => p.badge && p.badge.includes('Nouveau')).concat(filtered.filter(p => !p.badge || !p.badge.includes('Nouveau')));
+      if (sortVal === 'popular') filtered = [...filtered].filter(p => p.badge && p.badge.includes('Bestseller') || (p.badge||'').includes('Populaire')).concat(filtered.filter(p => !p.badge || (!p.badge.includes('Bestseller') && !(p.badge||'').includes('Populaire'))));
+
+      const lang = typeof currentLang !== 'undefined' ? currentLang : 'fr';
+      const addBtn  = lang === 'en' ? '+ Cart' : '+ Panier';
+      const total = filtered.length;
+      const totalPages = Math.ceil(total / PER_PAGE);
+      if (currentPage > totalPages) currentPage = 1;
+      filtered = filtered.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+
+      const countTxt = lang === 'en'
+        ? `Showing <strong>${total}</strong> products`
+        : `Affichage de <strong>${total}</strong> produits`;
+      document.getElementById('resultCount').innerHTML = countTxt;
+      renderPagination(total);
+
+      /* Mettre à jour les options du select selon la langue */
+      document.querySelectorAll('#sortSelect option[data-fr]').forEach(opt => {
+        opt.textContent = lang === 'en' ? (opt.dataset.en || opt.dataset.fr) : opt.dataset.fr;
+      });
+
+      grid.innerHTML = filtered.map(p => {
+        const catEn      = CAT_EN[p.category] || p.category;
+        const nameEn     = p.nameEn || p.name;
+        const displayName = lang === 'en' ? nameEn     : p.name;
+        const displayCat  = lang === 'en' ? catEn      : p.category;
+        const outOfStock  = p.stock === 0;
+        return `
+        <div class="product-card${outOfStock ? ' out-of-stock' : ''}" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">
+          <a href="product?id=${p.id}" class="product-img-wrap">
+            <img src="${imgSrc(p)}" alt="${displayName}" loading="lazy" />
+            ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+            ${outOfStock ? `<span class="product-badge" style="background:#555;left:auto;right:10px">Rupture</span>` : ''}
+            <button class="fav-btn" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </a>
+          <div class="product-info">
+            <p class="product-cat" data-fr="${p.category}" data-en="${catEn}">${displayCat}</p>
+            <h3><a href="product?id=${p.id}" data-fr="${p.name}" data-en="${nameEn}">${displayName}</a></h3>
+            <div class="product-bottom">
+              <p class="product-price">
+                ${p.oldPrice ? `<span style="text-decoration:line-through;color:var(--muted);font-size:.85em;margin-right:6px">${p.oldPrice} MAD</span>` : ''}
+                ${p.price} MAD
+              </p>
+              <button class="quick-add" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}"
+                data-fr="+ Panier" data-en="+ Cart"
+                ${outOfStock ? 'disabled style="opacity:.45;cursor:not-allowed"' : ''}>${addBtn}</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    /* ─── Pagination ─────────────────────────────────── */
+    const PER_PAGE = 12;
+    let currentPage = 1;
+
+    function goPage(p) {
+      currentPage = p;
+      renderGrid();
+      window.scrollTo({ top: document.getElementById('catGrid')?.offsetTop - 80 || 0, behavior: 'smooth' });
+    }
+
+    function renderPagination(total) {
+      const pag = document.querySelector('.pagination');
+      if (!pag) return;
+      const pages = Math.ceil(total / PER_PAGE);
+      if (pages <= 1) { pag.style.display = 'none'; return; }
+      pag.style.display = 'flex';
+      let html = '';
+      if (currentPage > 1) html += `<button class="page-btn" onclick="goPage(${currentPage-1})">←</button>`;
+      for (let i = 1; i <= pages; i++) {
+        const near = Math.abs(i - currentPage) <= 1 || i === 1 || i === pages;
+        const ellipsis = !near && (i === 2 || i === pages - 1);
+        if (near) html += `<button class="page-btn${i===currentPage?' active':''}" onclick="goPage(${i})">${i}</button>`;
+        else if (ellipsis) html += `<span style="padding:0 4px;color:var(--muted)">…</span>`;
+      }
+      if (currentPage < pages) html += `<button class="page-btn" onclick="goPage(${currentPage+1})">→</button>`;
+      pag.innerHTML = html;
+    }
+
+    /* Tri au changement de select */
+    document.getElementById('sortSelect')?.addEventListener('change', () => { currentPage = 1; renderGrid(); });
+
+    /* Initial render (uses whatever PRODUCTS is at this moment — may be from localStorage) */
+    renderGrid();
+
+    /* Re-render when siteconfig.js finishes its async API fetch and updates PRODUCTS */
+    document.addEventListener('ha:productsReloaded', renderGrid);
+
+    /* Re-apply language on lang change */
+    document.addEventListener('ha:langChanged', ({ detail }) => {
+      applyLangToCategory(detail.lang);
+      renderGrid(); /* product names/buttons need refreshing too */
+    });
+  </script>
+  <script src="js/siteconfig.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

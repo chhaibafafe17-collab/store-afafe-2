@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soutien-gorge Dentelle Éclat — H&A Lingerie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <div class="announce-slider">
+      <span data-fr="🚚 Livraison partout au Maroc" data-en="🚚 Delivery across Morocco">🚚 Livraison partout au Maroc</span>
+      <span data-fr="Retours acceptés sous 7 jours" data-en="Returns accepted within 7 days">Retours acceptés sous 7 jours</span>
+      <span data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</span>
+      <span data-fr="-10% sur votre 1ère commande · code BIENVENUE" data-en="-10% on your 1st order · code WELCOME">-10% sur votre 1ère commande · code BIENVENUE</span>
+      <span data-fr="🚚 Livraison partout au Maroc" data-en="🚚 Delivery across Morocco">🚚 Livraison partout au Maroc</span>
+      <span data-fr="Retours acceptés sous 7 jours" data-en="Returns accepted within 7 days">Retours acceptés sous 7 jours</span>
+      <span data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</span>
+      <span data-fr="-10% sur votre 1ère commande · code BIENVENUE" data-en="-10% on your 1st order · code WELCOME">-10% sur votre 1ère commande · code BIENVENUE</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-top">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="logo logo-center">
+H<span>&amp;</span>A
+      </a>
+      <div class="header-icons">
+        <div class="lang-toggle">
+          <span id="langFr" class="lang-active">FR</span>
+          <span id="langEn">EN</span>
+        </div>
+        <button class="icon-btn" id="searchToggle" aria-label="Rechercher">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" id="favToggle" aria-label="Favoris" style="position:relative">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count" id="wishlistCount" style="display:none">0</span>
+        </button>
+        <button class="icon-btn cart-btn" id="cartBtn" aria-label="Panier">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;color:#999"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Rechercher : soutien-gorge, body, mariée…" id="searchInput" autocomplete="off" data-fr-ph="Rechercher : soutien-gorge, body, mariée…" data-en-ph="Search: bra, bodysuit, bridal…" />
+      <button class="icon-btn" id="searchClose">✕</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </header>
+
+  <!-- COLLECTIONS NAV -->
+  <nav class="collections-nav">
+    <ul class="collections-list">
+      <li><a href="category?cat=nouveaux-arrivages" class="c-link c-new" data-fr="✦ Nouveautés" data-en="✦ New In">✦ Nouveautés</a></li>
+      <li><a href="category?cat=lingerie" class="c-link" data-fr="Lingerie" data-en="Lingerie">Lingerie</a></li>
+      <li><a href="category?cat=sets" class="c-link" data-fr="Sets &amp; Parures" data-en="Sets &amp; Bras">Sets &amp; Parures</a></li>
+      <li><a href="category?cat=soutiens-gorge" class="c-link" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a></li>
+      <li><a href="category?cat=culottes" class="c-link" data-fr="Culottes" data-en="Underwear">Culottes</a></li>
+      <li><a href="category?cat=bodies" class="c-link" data-fr="Bodies" data-en="Bodysuits">Bodies</a></li>
+      <li><a href="category?cat=robes" class="c-link" data-fr="Robes" data-en="Robes">Robes</a></li>
+      <li><a href="category?cat=nuit" class="c-link" data-fr="Nuit &amp; Lounge" data-en="Nightwear">Nuit &amp; Lounge</a></li>
+      <li><a href="category?cat=bridal" class="c-link c-bridal" data-fr="Mariée" data-en="Bridal">Mariée</a></li>
+      <li><a href="category?cat=maillots" class="c-link" data-fr="Maillots" data-en="Swimwear">Maillots</a></li>
+      <li><a href="category?cat=menstruelle" class="c-link" data-fr="Menstruelle" data-en="Period Care">Menstruelle</a></li>
+      <li><a href="category?cat=mamans" class="c-link" data-fr="Mamans" data-en="Nursing">Mamans</a></li>
+      <li><a href="category?cat=collections" class="c-link" data-fr="Collections" data-en="Collections">Collections</a></li>
+      <li><a href="category?cat=guides" class="c-link" data-fr="Guides" data-en="Guides">Guides</a></li>
+      <li><a href="category?cat=soldes" class="c-link c-sale" data-fr="Soldes" data-en="Sale">Soldes</a></li>
+    </ul>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="logo">H<span>&amp;</span>A</a>
+      <button class="icon-btn" id="mobileMenuClose">✕</button>
+    </div>
+    <nav class="mobile-nav">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;font-weight:500" data-fr="🏠 Accueil" data-en="🏠 Home">🏠 Accueil</a>
+      <a href="category?cat=nouveaux-arrivages" class="mn-new" data-fr="✦ Nouveaux Arrivages" data-en="✦ New In">✦ Nouveaux Arrivages</a>
+      <div class="mn-sep" data-fr="Lingerie" data-en="Lingerie">Lingerie</div>
+      <a href="category?cat=lingerie" data-fr="Lingerie" data-en="Lingerie">Lingerie</a>
+      <a href="category?cat=sets" data-fr="Sets &amp; Parures" data-en="Sets &amp; Bras">Sets &amp; Parures</a>
+      <a href="category?cat=soutiens-gorge" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a>
+      <a href="category?cat=culottes" data-fr="Culottes &amp; Shorties" data-en="Underwear">Culottes &amp; Shorties</a>
+      <a href="category?cat=bodies" data-fr="Bodies" data-en="Bodysuits">Bodies</a>
+      <a href="category?cat=robes" data-fr="Robes Lingerie" data-en="Robes">Robes Lingerie</a>
+      <div class="mn-sep" data-fr="Collections" data-en="Collections">Collections</div>
+      <a href="category?cat=nuit" data-fr="Nuit &amp; Loungewear" data-en="Nightwear">Nuit &amp; Loungewear</a>
+      <a href="category?cat=bridal" data-fr="Mariée &amp; Bridal" data-en="Bridal">Mariée &amp; Bridal</a>
+      <a href="category?cat=maillots" data-fr="Maillots de Bain" data-en="Swimwear">Maillots de Bain</a>
+      <a href="category?cat=menstruelle" data-fr="Lingerie Menstruelle" data-en="Period Care">Lingerie Menstruelle</a>
+      <a href="category?cat=mamans" data-fr="Espace Mamans" data-en="Nursing &amp; Maternity">Espace Mamans</a>
+      <a href="category?cat=collections" data-fr="Collections Spéciales" data-en="Special Collections">Collections Spéciales</a>
+      <a href="category?cat=guides" data-fr="Guides &amp; Conseils" data-en="Guides &amp; Tips">Guides &amp; Conseils</a>
+      <a href="category?cat=soldes" class="mn-sale" data-fr="Soldes" data-en="Sale">Soldes</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <p data-fr="📦 Livraison partout au Maroc" data-en="📦 Delivery across Morocco">📦 Livraison partout au Maroc</p>
+      <p>📞 <span data-phone>+212 6 00 00 00 00</span></p>
+    </div>
+  </div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="category?cat=soutiens-gorge" id="breadCat" data-fr="Soutiens-gorge" data-en="Bras">Soutiens-gorge</a>
+    <span class="breadcrumb-sep">/</span>
+    <span id="breadProd">Soutien-gorge Dentelle Éclat</span>
+  </div>
+
+  <!-- PRODUCT LAYOUT -->
+  <div class="product-page">
+    <div class="product-layout">
+
+      <!-- GALLERY -->
+      <div class="product-gallery">
+        <div class="gallery-main" id="galleryMain">
+          <img src="https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=900&q=85" alt="Soutien-gorge Dentelle Éclat" id="mainImg" />
+          <button class="gallery-zoom" id="galleryZoom" aria-label="Agrandir">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </button>
+        </div>
+        <div class="gallery-thumbs">
+          <div class="gallery-thumb active" data-src="https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=900&q=85">
+            <img src="https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=150&q=80" alt="Vue 1" />
+          </div>
+          <div class="gallery-thumb" data-src="https://images.unsplash.com/photo-1554568218-0f1715e72254?w=900&q=85">
+            <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?w=150&q=80" alt="Vue 2" />
+          </div>
+          <div class="gallery-thumb" data-src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=900&q=85">
+            <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=150&q=80" alt="Vue 3" />
+          </div>
+          <div class="gallery-thumb" data-src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=900&q=85">
+            <img src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=150&q=80" alt="Vue 4" />
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT INFO -->
+      <div class="product-detail-info">
+        <p class="product-detail-cat">Soutiens-gorge · Nouveauté</p>
+        <h1 class="product-detail-title">Soutien-gorge Dentelle Éclat</h1>
+
+        <div class="product-detail-rating">
+          <div class="stars">★★★★★</div>
+          <span data-fr="4.9 · 63 avis" data-en="4.9 · 63 reviews">4.9 · 63 avis</span>
+          <a href="#reviews" style="font-size:12px;color:var(--gold);margin-left:8px" data-fr="Voir les avis" data-en="See reviews">Voir les avis</a>
+        </div>
+
+        <div class="product-detail-price">
+          349 MAD
+          <span class="original">490 MAD</span>
+        </div>
+
+        <div id="productTagsRow" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+          <span id="stockTag" data-fr="EN STOCK" data-en="IN STOCK" style="background:#e8f8f0;color:#27ae60;font-size:10px;padding:5px 12px;border-radius:6px;font-weight:600;letter-spacing:.06em">EN STOCK</span>
+          <span id="discountTag" style="background:#fff4e6;color:#e67e22;font-size:10px;padding:5px 12px;border-radius:6px;font-weight:600">-29%</span>
+          <span data-fr="📦 Livraison 2–4j" data-en="📦 Delivery 2–4d" style="background:var(--cream);color:var(--muted);font-size:10px;padding:5px 12px;border-radius:6px;letter-spacing:.04em">📦 Livraison 2–4j</span>
+          <span data-fr="💵 Cash à la livraison" data-en="💵 Cash on delivery" style="background:#f0fdf4;color:#15803d;font-size:10px;padding:5px 12px;border-radius:6px;font-weight:500">💵 Cash à la livraison</span>
+          <span data-fr="🏦 Virement bancaire" data-en="🏦 Bank transfer" style="background:#eff6ff;color:#1d4ed8;font-size:10px;padding:5px 12px;border-radius:6px;font-weight:500">🏦 Virement bancaire</span>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <!-- COLOR -->
+        <div class="option-label">
+          <span><span data-fr="Couleur" data-en="Color">Couleur</span> : <strong id="selectedColor">Noir</strong></span>
+        </div>
+        <div class="color-grid">
+          <div class="color-btn active" style="background:#1a1a1a" data-color="Noir" title="Noir"></div>
+          <div class="color-btn" style="background:#f5e6d3" data-color="Nude" title="Nude"></div>
+          <div class="color-btn" style="background:#c9a0a0" data-color="Rose" title="Rose"></div>
+          <div class="color-btn" style="background:#f5f0eb" data-color="Ivoire" title="Ivoire"></div>
+          <div class="color-btn" style="background:#8b1a4a" data-color="Bordeaux" title="Bordeaux"></div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <!-- SIZE -->
+        <div class="option-label">
+          <span><span data-fr="Taille" data-en="Size">Taille</span> : <strong id="selectedSize" data-fr="Choisir une taille" data-en="Choose a size">Choisir une taille</strong></span>
+          <button id="sizeGuideBtn" style="background:none;border:none;padding:0;color:var(--gold);font-size:12px;cursor:pointer;text-decoration:underline;font-family:var(--sans)" data-fr="Guide des tailles" data-en="Size guide">Guide des tailles</button>
+        </div>
+        <div class="size-grid">
+          <button class="size-btn" data-size="85A">85A</button>
+          <button class="size-btn" data-size="85B">85B</button>
+          <button class="size-btn" data-size="85C">85C</button>
+          <button class="size-btn" data-size="90A">90A</button>
+          <button class="size-btn active" data-size="90B">90B</button>
+          <button class="size-btn" data-size="90C">90C</button>
+          <button class="size-btn" data-size="95A">95A</button>
+          <button class="size-btn sold-out" data-size="95B" title="Épuisé">95B</button>
+          <button class="size-btn" data-size="95C">95C</button>
+          <button class="size-btn" data-size="100B">100B</button>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <!-- ADD ACTIONS -->
+        <div class="add-actions">
+          <button class="btn btn-dark" id="addToCartBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span id="addCartLabel" data-fr="Ajouter au panier — 349 MAD" data-en="Add to cart — 349 MAD">Ajouter au panier — 349 MAD</span>
+          </button>
+          <a href="https://wa.me/212600000000?text=Bonjour+H%26A+!+Je+voudrais+commander+le+Soutien-gorge+Dentelle+%C3%89clat+(349+MAD).+Taille+90B,+couleur+Noir.+Merci+!" class="btn btn-whatsapp" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            <span data-fr="Confirmer ma commande" data-en="Confirm my order">Confirmer ma commande</span>
+          </a>
+          <button class="icon-btn fav-btn" data-id="1" data-name="Soutien-gorge Dentelle Éclat" data-price="349" id="wishlistBtnProduct" title="Ajouter aux favoris" style="width:46px;height:46px;border:1px solid var(--border);border-radius:0;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+
+        <!-- TRUST BADGES -->
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <div>
+              <strong data-fr="Livraison 2-4 jours" data-en="Delivery 2-4 days">Livraison 2-4 jours</strong>
+              <span data-fr="Maroc entier" data-en="All Morocco">Maroc entier</span>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 1 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><polyline points="3.29 7 12 12 20.71 7"/><circle cx="18.5" cy="15.5" r="2.5"/><path d="M20.27 17.27 22 19"/></svg>
+            <div>
+              <strong data-fr="Retours acceptés" data-en="Returns accepted">Retours acceptés</strong>
+              <span data-fr="Sous 7 jours" data-en="Within 7 days">Sous 7 jours</span>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+              <strong data-fr="Paiement sécurisé" data-en="Secure payment">Paiement sécurisé</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCORDION -->
+        <div class="product-accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" id="acc1">
+              <span data-fr="Description &amp; Matières" data-en="Description &amp; Materials">Description &amp; Matières</span>
+              <span>+</span>
+            </div>
+            <div class="accordion-body" id="acc1-body">
+              <div class="fr-only">
+                <p>Le Soutien-gorge Dentelle Éclat est l'alliance parfaite entre élégance et confort. Sa dentelle délicate de Calais, ornée de détails brodés, lui confère un raffinement exceptionnel.</p>
+                <br/>
+                <ul>
+                  <li>Dentelle de Calais : 80% Polyamide, 20% Élasthanne</li>
+                  <li>Armatures douces gainées de tissu satiné</li>
+                  <li>Bretelles réglables et amovibles</li>
+                  <li>Fermeture dos à 3 agrafes</li>
+                  <li>Bonnets préformés pour un maintien optimal</li>
+                </ul>
+              </div>
+              <div class="en-only">
+                <p>The Éclat Lace Bra is the perfect balance between elegance and comfort. Its delicate Calais lace, adorned with embroidered details, gives it exceptional refinement.</p>
+                <br/>
+                <ul>
+                  <li>Calais lace: 80% Polyamide, 20% Elastane</li>
+                  <li>Soft underwires covered with satin fabric</li>
+                  <li>Adjustable and removable straps</li>
+                  <li>3-hook back closure</li>
+                  <li>Pre-formed cups for optimal support</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" id="acc2">
+              <span data-fr="Guide des tailles" data-en="Size Guide">Guide des tailles</span>
+              <span>+</span>
+            </div>
+            <div class="accordion-body" id="acc2-body">
+              <div class="fr-only">
+                <p>Pour trouver votre taille parfaite :</p>
+                <br/>
+                <ul>
+                  <li><strong>Tour de poitrine</strong> : mesurez juste sous la poitrine</li>
+                  <li><strong>Tour de buste</strong> : mesurez à la pointe des seins</li>
+                  <li>La différence détermine le bonnet (A=10cm, B=12cm, C=14cm...)</li>
+                </ul>
+                <br/>
+                <p>En cas de doute, nous recommandons de prendre la taille supérieure. Notre équipe est disponible sur WhatsApp.</p>
+              </div>
+              <div class="en-only">
+                <p>To find your perfect size:</p>
+                <br/>
+                <ul>
+                  <li><strong>Underbust</strong>: measure just below your breasts</li>
+                  <li><strong>Bust</strong>: measure at the fullest point</li>
+                  <li>The difference determines the cup (A=10cm, B=12cm, C=14cm...)</li>
+                </ul>
+                <br/>
+                <p>If in doubt between two sizes, we recommend going up a size. Our team is available on WhatsApp.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" id="acc3">
+              <span data-fr="Entretien" data-en="Care Instructions">Entretien</span>
+              <span>+</span>
+            </div>
+            <div class="accordion-body" id="acc3-body">
+              <div class="fr-only">
+                <ul>
+                  <li>Lavage à la main recommandé à 30°C</li>
+                  <li>Si machine : cycle délicat en filet de lavage, 30°C max</li>
+                  <li>Ne pas utiliser de sèche-linge</li>
+                  <li>Ne pas essorer</li>
+                  <li>Séchage à plat à l'ombre</li>
+                  <li>Ne pas repasser sur la dentelle</li>
+                </ul>
+              </div>
+              <div class="en-only">
+                <ul>
+                  <li>Hand washing recommended at 30°C</li>
+                  <li>If machine: delicate cycle in a mesh bag, 30°C max</li>
+                  <li>Do not tumble dry</li>
+                  <li>Do not wring</li>
+                  <li>Dry flat in the shade</li>
+                  <li>Do not iron over lace</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" id="acc4">
+              <span data-fr="Livraison &amp; Retours" data-en="Delivery &amp; Returns">Livraison &amp; Retours</span>
+              <span>+</span>
+            </div>
+            <div class="accordion-body" id="acc4-body">
+              <div class="fr-only">
+                <ul>
+                  <li><strong>Livraison standard</strong> : 2–4 jours ouvrés · partout au Maroc</li>
+                  <li><strong>Agadir &amp; environs</strong> : livraison le jour même possible</li>
+                  <li><strong>Retours</strong> : sous 7 jours après réception</li>
+                  <li>Article retourné dans son emballage d'origine, non porté, non lavé</li>
+                  <li>Remboursement sous 5-7 jours ouvrés</li>
+                </ul>
+              </div>
+              <div class="en-only">
+                <ul>
+                  <li><strong>Standard delivery</strong>: 2–4 business days · all Morocco</li>
+                  <li><strong>Agadir &amp; surroundings</strong>: same-day delivery possible</li>
+                  <li><strong>Returns</strong>: within 7 days of receipt</li>
+                  <li>Item returned in original packaging, unworn, unwashed</li>
+                  <li>Refund within 5-7 business days</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end product-layout -->
+  </div><!-- end product-page -->
+
+  <!-- REVIEWS SECTION -->
+  <div class="product-reviews" id="reviews">
+    <div class="reviews-header">
+      <h2 data-fr="Avis clients" data-en="Customer reviews">Avis clients</h2>
+      <div class="reviews-overall">
+        <div class="rating-big">4.9</div>
+        <div>
+          <div class="rating-stars-big">★★★★★</div>
+          <p style="font-size:13px;color:var(--muted)" data-fr="63 avis vérifiés" data-en="63 verified reviews">63 avis vérifiés</p>
+        </div>
+        <div class="rating-bars">
+          <div class="rating-bar-row"><span>5★</span><div class="rbar"><div class="rbar-fill" style="width:87%"></div></div><span>55</span></div>
+          <div class="rating-bar-row"><span>4★</span><div class="rbar"><div class="rbar-fill" style="width:10%"></div></div><span>6</span></div>
+          <div class="rating-bar-row"><span>3★</span><div class="rbar"><div class="rbar-fill" style="width:3%"></div></div><span>2</span></div>
+          <div class="rating-bar-row"><span>2★</span><div class="rbar"><div class="rbar-fill" style="width:0%"></div></div><span>0</span></div>
+          <div class="rating-bar-row"><span>1★</span><div class="rbar"><div class="rbar-fill" style="width:0%"></div></div><span>0</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="testimonial-card">
+        <div class="t-header">
+          <div class="t-avatar">NB</div>
+          <div><strong>Nadia B.</strong><span>Casablanca · Taille 90B</span></div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p>"Absolument parfait ! La dentelle est ultra fine et le maintien est incroyable. J'ai enfin trouvé LE soutien-gorge de mes rêves. La livraison était rapide et l'emballage soigné."</p>
+        <span class="t-date">Achat vérifié · Mai 2026</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-header">
+          <div class="t-avatar">SR</div>
+          <div><strong>Salma R.</strong><span>Marrakech · Taille 85C</span></div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p>"Je l'ai acheté en noir et en nude, les deux sont magnifiques. Le confort est au rendez-vous et ça ne se voit pas sous les vêtements. H&A, vous avez gagné une cliente fidèle !"</p>
+        <span class="t-date">Achat vérifié · Avril 2026</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-header">
+          <div class="t-avatar">FZ</div>
+          <div><strong>Fatima Z.</strong><span>Rabat · Taille 90C</span></div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p>"La qualité de la dentelle est exceptionnelle, bien mieux que ce à quoi je m'attendais pour ce prix. Les armatures sont douces, pas de rougeurs après une journée de port."</p>
+        <span class="t-date">Achat vérifié · Avril 2026</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-header">
+          <div class="t-avatar">HA</div>
+          <div><strong>Houria A.</strong><span>Fès · Taille 95A</span></div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p>"Commande reçue en 2 jours seulement ! Emballage luxueux avec du papier de soie et une carte parfumée. Le produit est à la hauteur. Je recommande à 100% !"</p>
+        <span class="t-date">Achat vérifié · Mars 2026</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-header">
+          <div class="t-avatar">LO</div>
+          <div><strong>Loubna O.</strong><span>Tanger · Taille 90B</span></div>
+          <div class="stars">★★★★☆</div>
+        </div>
+        <p>"Très beau produit. La dentelle est délicate et jolie. Je retire une étoile car le rouge n'était pas disponible dans ma taille, mais j'ai pris le bordeaux et c'est magnifique aussi !"</p>
+        <span class="t-date">Achat vérifié · Mars 2026</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-header">
+          <div class="t-avatar">RB</div>
+          <div><strong>Rim B.</strong><span>Agadir · Taille 85B</span></div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p>"Je cherchais depuis longtemps un soutien-gorge confortable et élégant à la fois. H&A l'a fait ! Les bretelles sont solides et la dentelle résiste au lavage. Parfait !"</p>
+        <span class="t-date">Achat vérifié · Février 2026</span>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <button class="btn btn-outline" style="margin:0 auto" onclick="openModal('tous-les-avis')" data-fr="Voir tous les avis (63)" data-en="View all reviews (63)">Voir tous les avis (63)</button>
+    </div>
+  </div>
+
+  <!-- RELATED PRODUCTS -->
+  <section class="related-products">
+    <h2 style="max-width:1300px;margin:0 auto 32px;padding:0 32px;font-family:var(--serif);font-size:28px;font-weight:400" data-fr="Vous aimerez aussi" data-en="You might also like">Vous aimerez aussi</h2>
+    <div class="related-grid">
+      <div class="product-card" data-id="2" data-name="Culotte Soie Noire" data-price="199">
+        <a href="product?id=2" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600&q=80" alt="Culotte" loading="lazy" />
+          <button class="fav-btn" data-id="2" data-name="Culotte Soie Noire" data-price="199"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">Culottes</p>
+          <h3><a href="product?id=2">Culotte Soie Noire</a></h3>
+          <div class="product-bottom"><p class="product-price">199 MAD</p><button class="quick-add" data-id="2" data-name="Culotte Soie Noire" data-price="199"><span class="fr-only">+ Panier</span><span class="en-only">+ Cart</span></button></div>
+        </div>
+      </div>
+      <div class="product-card" data-id="4" data-name="Set Bridal Rose Poudré" data-price="680">
+        <a href="product?id=4" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=600&q=80" alt="Set" loading="lazy" />
+          <span class="product-badge badge-bridal">Bridal</span>
+          <button class="fav-btn" data-id="4" data-name="Set Bridal Rose Poudré" data-price="680"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">Mariée</p>
+          <h3><a href="product?id=4">Set Bridal Rose Poudré</a></h3>
+          <div class="product-bottom"><p class="product-price">680 MAD</p><button class="quick-add" data-id="4" data-name="Set Bridal Rose Poudré" data-price="680"><span class="fr-only">+ Panier</span><span class="en-only">+ Cart</span></button></div>
+        </div>
+      </div>
+      <div class="product-card" data-id="6" data-name="Kimono Satin Doré" data-price="780">
+        <a href="product?id=6" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?w=600&q=80" alt="Kimono" loading="lazy" />
+          <button class="fav-btn" data-id="6" data-name="Kimono Satin Doré" data-price="780"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">Nuit</p>
+          <h3><a href="product?id=6">Kimono Satin Doré</a></h3>
+          <div class="product-bottom"><p class="product-price">780 MAD</p><button class="quick-add" data-id="6" data-name="Kimono Satin Doré" data-price="780"><span class="fr-only">+ Panier</span><span class="en-only">+ Cart</span></button></div>
+        </div>
+      </div>
+      <div class="product-card" data-id="3" data-name="Body Dentelle Ivoire" data-price="520">
+        <a href="product?id=3" class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=600&q=80" alt="Body" loading="lazy" />
+          <button class="fav-btn" data-id="3" data-name="Body Dentelle Ivoire" data-price="520"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">Bodies</p>
+          <h3><a href="product?id=3">Body Dentelle Ivoire</a></h3>
+          <div class="product-bottom"><p class="product-price">520 MAD</p><button class="quick-add" data-id="3" data-name="Body Dentelle Ivoire" data-price="520"><span class="fr-only">+ Panier</span><span class="en-only">+ Cart</span></button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAV DRAWER -->
+  <div class="fav-drawer" id="favDrawer">
+    <div class="fav-drawer-header">
+      <h3><span data-fr="Mes Favoris" data-en="My Favourites">Mes Favoris</span> (<span id="favItemCount">0</span>)</h3>
+      <button class="icon-btn" id="favClose">✕</button>
+    </div>
+    <div class="fav-items" id="favItems">
+      <div class="fav-empty">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <p data-fr="Aucun favori pour le moment" data-en="No favourites yet">Aucun favori pour le moment</p>
+        <a href="category?cat=nouveaux-arrivages" class="btn btn-dark" style="margin-top:12px" data-fr="Découvrir nos pièces" data-en="Discover our pieces">Découvrir nos pièces</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3><span data-fr="Mon Panier" data-en="My Cart">Mon Panier</span> (<span id="cartItemCount">0</span>)</h3>
+      <button class="icon-btn" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <p data-fr="Votre panier est vide" data-en="Your cart is empty">Votre panier est vide</p>
+        <a href="category?cat=nouveaux-arrivages" class="btn btn-dark" style="margin-top:12px" data-fr="Commencer les achats" data-en="Start shopping">Commencer les achats</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span data-fr="Sous-total" data-en="Subtotal">Sous-total</span>
+        <span id="cartTotal">0 MAD</span>
+      </div>
+      <p style="font-size:12px;color:#888;margin-bottom:8px" data-fr="📦 Livraison partout au Maroc · Gratuite dès 500 MAD" data-en="📦 Delivery across Morocco · Free from 500 MAD">📦 Livraison partout au Maroc · Gratuite dès 500 MAD</p>
+      <button class="btn btn-dark" id="checkoutBtn" style="width:100%;justify-content:center">
+        ✅ <span data-fr="Confirmer ma commande" data-en="Confirm my order">Confirmer ma commande</span>
+      </button>
+      <button class="btn btn-outline" id="clearCart" data-fr="Vider le panier" data-en="Clear cart">Vider le panier</button>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/siteconfig.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>
